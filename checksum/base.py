@@ -65,6 +65,7 @@ class ChecksumBase(object):
     _check_result = None
     _check_data = None
     _file_chunksize = 512
+    _width = 0
 
     def __init__(self, initvalue=None):
         self.init(initvalue)
@@ -134,7 +135,23 @@ class ChecksumBase(object):
            The internal state is not modified by this so further data can be processed afterwards.
         """
         return self._value
+        
+    def finalhex(self):
+        """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
+           The internal state is not modified by this so further data can be processed afterwards.
+        """    
+        hexfrm = "{{:0{:d}X}}".format( math.ceil(self._width/8.0) )
+        return hexfrm.format(self.final())
 
+    def finalbytes(bigendian=True):
+        """Return final checksum value as byte array.
+           The internal state is not modified by this so further data can be processed afterwards.
+        """
+        bytes = bytearray.fromhex(self.finalhex())
+        if not bigendian:
+            bytes.reverse()
+        return bytes
+        
     def value(self):
         """Returns current intermediate checksum value.
            Note that in general final() must be used to get the a final checksum.
@@ -147,6 +164,20 @@ class ChecksumBase(object):
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
         return inst.final()
+
+    @classmethod
+    def calchex(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
+        """Fully calculate checksum over given data. Return result as hex string."""
+        inst = cls(initvalue, **kwargs)
+        inst.process(data, startindex, endindex)
+        return inst.finalhex()
+
+    @classmethod
+    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
+        """Fully calculate checksum over given data. Return result as bytearray."""
+        inst = cls(initvalue, **kwargs)
+        inst.process(data, startindex, endindex)
+        return inst.finalbytes()        
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None):
