@@ -2,7 +2,7 @@ from base import ChecksumBase, ChecksumError
 
 
 class Checksum(ChecksumBase):
-    _byte_width = 4
+    _width = 32
     _mask = 0xFFffFFff
     _check_data = (0xDE, 0xAD, 0xBE, 0xEF, 0xAA, 0x55, 0xC2, 0x8C)
     _check_result_littleendian = None
@@ -19,8 +19,8 @@ class Checksum(ChecksumBase):
                 dataword = (dataword << 8) | byte
             else:
                 dataword = dataword | (byte << (n*8))
-            n += 1
-            if n == self._byte_width:
+            n += 8
+            if n == self._width:
                 self._process(dataword)
                 dataword = 0
                 n = 0
@@ -44,20 +44,20 @@ class Checksum(ChecksumBase):
 
         
 class Checksum32(Checksum):
-    _byte_width = 4
+    _width = 32
     _mask = 0xFFffFFff
     _check_result = 0x8903817B
     _check_result_littleendian = 0x7C810388
 
 
 class Checksum16(Checksum):
-    _byte_width = 2
+    _width = 16
     _mask = 0xFFff
     _check_result = 0x0A7D
     _check_result_littleendian = 0x8008
     
 class Checksum8(Checksum):
-    _byte_width = 1
+    _width = 8
     _mask = 0xFF
     _check_result = 0x85
     _check_result_littleendian = _check_result
@@ -69,19 +69,19 @@ class ChecksumXor(Checksum):
 
 
 class ChecksumXor32(ChecksumXor):
-    _byte_width = 4
+    _width = 32
     _mask = 0xFFffFFff
     _check_result = 0x74F87C63
     _check_result_littleendian = 0x637CF874
 
 class ChecksumXor16(ChecksumXor):
-    _byte_width = 2
+    _width = 16
     _mask = 0xFFff
     _check_result = 0x089B
     _check_result_littleendian = 0x9B08
 
 class ChecksumXor8(ChecksumXor):
-    _byte_width = 1
+    _width = 8
     _mask = 0xFF
     _check_result = 0x93
     _check_result_littleendian = _check_result
