@@ -40,7 +40,7 @@ class Crc(ChecksumBase):
                     crc = (crc << 1) ^ poly
                 else:
                     crc = (crc << 1)
-        crc &= mask
+            crc &= mask
         if diff8 > 0:
             crc >>= diff8
         self._value = crc
@@ -114,7 +114,7 @@ class Crc8(Crc):
                     crc = (crc << 1) ^ self._poly
                 else:
                     crc = (crc << 1)
-        crc &= 0xFF
+            crc &= 0xFF
         self._value = crc
         return self._value
 
@@ -146,7 +146,7 @@ class Crc16(Crc):
                     crc = (crc << 1) ^ self._poly
                 else:
                     crc = (crc << 1)
-        crc &= 0xFFFF
+            crc &= 0xFFFF
         self._value = crc
         return self._value        
         
@@ -178,7 +178,7 @@ class Crc32(Crc):
                     crc = (crc << 1) ^ self._poly
                 else:
                     crc = (crc << 1)
-        crc &= 0xFFFFFFFF
+            crc &= 0xFFFFFFFF
         self._value = crc
         return self._value          
         
