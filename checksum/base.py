@@ -85,9 +85,9 @@ class ChecksumBase(object):
     @classmethod
     def _iter(cls, data, startindex=0, endindex=None):
         from mmap import mmap
-        if isinstance(data, (basestring, mmap)):
+        if isinstance(data, (str, bytes, mmap)):
             return cls._iterstring(data, startindex, endindex)
-        elif isinstance(data, file):
+        elif hasattr(data, 'seek') and hasattr(data, 'tell') and hasattr(data, 'read'):
             return cls._iterfile(data, startindex, endindex)
         else:
             if startindex == 0 and endindex is None:
@@ -105,6 +105,7 @@ class ChecksumBase(object):
             endindex = len(data) + endindex
         for n in range(startindex,endindex):
             yield ord(data[n])
+
 
     @classmethod
     def _iterfile(cls, data, startindex=0, endindex=None):

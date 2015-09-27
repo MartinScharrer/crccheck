@@ -97,12 +97,12 @@ if __name__ == "__main__":
         try:
             crcclass.selftest()
         except ChecksumError as e:
-            print "FAILED:    BigEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result)
+            print ("FAILED:    BigEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result))
         else:
-            print "OK:    BigEndian: " + crcclass.__name__
+            print ("OK:    BigEndian: " + crcclass.__name__)
         try:
             crcclass.selftest(bigendian=False)
         except ChecksumError as e:
-            print "FAILED: LittleEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result_littleendian)
+            print ("FAILED: LittleEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result_littleendian))
         else:
-            print "OK: LittleEndian: " + crcclass.__name__
+            print ("OK: LittleEndian: " + crcclass.__name__)

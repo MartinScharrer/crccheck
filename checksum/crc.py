@@ -966,6 +966,6 @@ if __name__ == "__main__":
         try:
             crcclass.selftest()
         except ChecksumError as e:
-            print "FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result)
+            print ("FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result))
         else:
-            print "OK: " + crcclass.__name__
+            print ("OK: " + crcclass.__name__)
