@@ -42,13 +42,14 @@ _REFLECT_TABLE = (
     0x1F, 0x9F, 0x5F, 0xDF, 0x3F, 0xBF, 0x7F, 0xFF,
 )
 
+
 def reflect(width, value):
     """Reflects the bit order of the given value according to the given bit width."""
-    nbytes = int((width+7)/8)
-    bytes = [ _REFLECT_TABLE[ (value >> (8*n)) & 0xFF ] for n in range(0,nbytes) ]
+    nbytes = int((width + 7) / 8)
+    bytes = [_REFLECT_TABLE[(value >> (8 * n)) & 0xFF] for n in range(0, nbytes)]
     result = 0
-    for n in range(0,nbytes):
-        result |= (bytes[n] << ((nbytes-n-1)*8))
+    for n in range(0, nbytes):
+        result |= (bytes[n] << ((nbytes - n - 1) * 8))
     diff = nbytes * 8 - width
     if diff > 0:
         result = result >> diff
@@ -58,6 +59,7 @@ def reflect(width, value):
 class ChecksumError(Exception):
     """General checksum error exception"""
     pass
+
 
 class ChecksumBase(object):
     """Abstract base class for checksumming classes"""
@@ -93,7 +95,7 @@ class ChecksumBase(object):
             if startindex == 0 and endindex is None:
                 return data
             else:
-                return data[startindex:endindex]        
+                return data[startindex:endindex]
 
     @classmethod
     def _iterstring(cls, data, startindex=0, endindex=None):
@@ -103,9 +105,8 @@ class ChecksumBase(object):
             endindex = len(data)
         elif endindex < 0:
             endindex = len(data) + endindex
-        for n in range(startindex,endindex):
+        for n in range(startindex, endindex):
             yield ord(data[n])
-
 
     @classmethod
     def _iterfile(cls, data, startindex=0, endindex=None):
@@ -124,7 +125,7 @@ class ChecksumBase(object):
             data.seek(pos, 0)
         nleft = endindex - startindex + 1
         while nleft > 0:
-            content = data.read( min(nleft, cls._file_chunksize) )
+            content = data.read(min(nleft, cls._file_chunksize))
             if not content:
                 break
             nleft -= len(content)
@@ -136,12 +137,12 @@ class ChecksumBase(object):
            The internal state is not modified by this so further data can be processed afterwards.
         """
         return self._value
-        
+
     def finalhex(self):
         """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
            The internal state is not modified by this so further data can be processed afterwards.
-        """    
-        hexfrm = "{{:0{:d}X}}".format( math.ceil(self._width/8.0) )
+        """
+        hexfrm = "{{:0{:d}X}}".format(math.ceil(self._width / 8.0))
         return hexfrm.format(self.final())
 
     def finalbytes(self, bigendian=True):
@@ -152,7 +153,7 @@ class ChecksumBase(object):
         if not bigendian:
             cbytes.reverse()
         return cbytes
-        
+
     def value(self):
         """Returns current intermediate checksum value.
            Note that in general final() must be used to get the a final checksum.
@@ -178,7 +179,7 @@ class ChecksumBase(object):
         """Fully calculate checksum over given data. Return result as bytearray."""
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
-        return inst.finalbytes(bigendian=bigendian)        
+        return inst.finalbytes(bigendian=bigendian)
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None):
@@ -188,4 +189,3 @@ class ChecksumBase(object):
         result = cls.calc(data)
         if result != expectedresult:
             raise ChecksumError(hex(result))
-

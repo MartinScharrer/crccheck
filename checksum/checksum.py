@@ -18,7 +18,7 @@ class Checksum(ChecksumBase):
             if self._bigendian:
                 dataword = (dataword << 8) | byte
             else:
-                dataword = dataword | (byte << (n*8))
+                dataword = dataword | (byte << (n * 8))
             n += 8
             if n == self._width:
                 self._process(dataword)
@@ -42,7 +42,6 @@ class Checksum(ChecksumBase):
             raise ChecksumError(hex(result))
 
 
-        
 class Checksum32(Checksum):
     _width = 32
     _mask = 0xFFffFFff
@@ -55,14 +54,15 @@ class Checksum16(Checksum):
     _mask = 0xFFff
     _check_result = 0x0A7D
     _check_result_littleendian = 0x8008
-    
+
+
 class Checksum8(Checksum):
     _width = 8
     _mask = 0xFF
     _check_result = 0x85
     _check_result_littleendian = _check_result
 
-    
+
 class ChecksumXor(Checksum):
     def _process(self, dataword):
         self._value = self._mask & (self._value ^ dataword)
@@ -74,11 +74,13 @@ class ChecksumXor32(ChecksumXor):
     _check_result = 0x74F87C63
     _check_result_littleendian = 0x637CF874
 
+
 class ChecksumXor16(ChecksumXor):
     _width = 16
     _mask = 0xFFff
     _check_result = 0x089B
     _check_result_littleendian = 0x9B08
+
 
 class ChecksumXor8(ChecksumXor):
     _width = 8
@@ -87,7 +89,7 @@ class ChecksumXor8(ChecksumXor):
     _check_result_littleendian = _check_result
 
 
-ALLCHECKSUMCLASSES = ( 
+ALLCHECKSUMCLASSES = (
     Checksum8, Checksum16, Checksum32,
     ChecksumXor8, ChecksumXor16, ChecksumXor32,
 )
@@ -97,12 +99,13 @@ if __name__ == "__main__":
         try:
             crcclass.selftest()
         except ChecksumError as e:
-            print ("FAILED:    BigEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result))
+            print("FAILED:    BigEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result))
         else:
-            print ("OK:    BigEndian: " + crcclass.__name__)
+            print("OK:    BigEndian: " + crcclass.__name__)
         try:
             crcclass.selftest(bigendian=False)
         except ChecksumError as e:
-            print ("FAILED: LittleEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result_littleendian))
+            print("FAILED: LittleEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e,
+                                                                      crcclass._check_result_littleendian))
         else:
-            print ("OK: LittleEndian: " + crcclass.__name__)
+            print("OK: LittleEndian: " + crcclass.__name__)

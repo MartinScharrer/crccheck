@@ -1,4 +1,4 @@
-from checksum.base import ChecksumBase,ChecksumError,reflect,_REFLECT_TABLE
+from checksum.base import ChecksumBase, ChecksumError, reflect, _REFLECT_TABLE
 
 
 class Crc(ChecksumBase):
@@ -18,9 +18,9 @@ class Crc(ChecksumBase):
            The data argument must be a list-like object with bytes as elements.
         """
         crc = self._value
-        highbit = 1 << (self._width-1)
-        mask = ((highbit-1) << 1) | 0x1  # done this way to avoid overrun for 64-bit values
-        poly = self._poly        
+        highbit = 1 << (self._width - 1)
+        mask = ((highbit - 1) << 1) | 0x1  # done this way to avoid overrun for 64-bit values
+        poly = self._poly
         shift = self._width - 8
         diff8 = -shift
         if diff8 > 0:
@@ -30,12 +30,12 @@ class Crc(ChecksumBase):
             shift = 0
             highbit = 0x80
             poly = self._poly << diff8
-        
-        for byte in self._iter(data, startindex, endindex): 
+
+        for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = _REFLECT_TABLE[byte]
             crc = crc ^ (byte << shift)
-            for i in range(0,8):
+            for i in range(0, 8):
                 if crc & highbit:
                     crc = (crc << 1) ^ poly
                 else:
@@ -51,11 +51,11 @@ class Crc(ChecksumBase):
         """
         crc = self._value
         if self._reflect_output:
-            crc = reflect(self._width, crc)        
+            crc = reflect(self._width, crc)
         crc = crc ^ self._xor_output
         return crc
 
-    
+
 class GeneralCrc(Crc):
     """General class for user-specified Cyclic Redundancy Checks (CRC) checksums"""
     _width = 0
@@ -65,8 +65,9 @@ class GeneralCrc(Crc):
     _reflect_output = False
     _xor_output = 0x00
     _check_result = None
-    
-    def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00, check_result=0x00):
+
+    def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
+                 check_result=0x00):
         """ Creates a new general (user-defined) CRC calculator instance.
         
             width: bit width of CRC
@@ -85,8 +86,8 @@ class GeneralCrc(Crc):
         self._reflect_output = reflect_output
         self._xor_output = xor_output
         self._check_result = check_result
-    
-            
+
+
 class Crc8(Crc):
     """CRC-8.
        Has optimised code for 8-bit CRCs and is used as base class for all other CRC with this width.
@@ -104,12 +105,12 @@ class Crc8(Crc):
            The data argument must be a list-like object with bytes as elements.
         """
         crc = self._value
-        
+
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = _REFLECT_TABLE[byte]
             crc = crc ^ byte
-            for i in range(0,8):
+            for i in range(0, 8):
                 if crc & 0x80:
                     crc = (crc << 1) ^ self._poly
                 else:
@@ -129,28 +130,28 @@ class Crc16(Crc):
     _reflect_input = False
     _reflect_output = False
     _xor_output = 0x0000
-    _check_result = 0x31C3        
-        
+    _check_result = 0x31C3
+
     def process(self, data, startindex=0, endindex=None):
         """Processes given data, from [startindex:endindex] if given.
            The data argument must be a list-like object with bytes as elements.
         """
         crc = self._value
-        
+
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = _REFLECT_TABLE[byte]
             crc = crc ^ (byte << 8)
-            for i in range(0,8):
+            for i in range(0, 8):
                 if crc & 0x8000:
                     crc = (crc << 1) ^ self._poly
                 else:
                     crc = (crc << 1)
             crc &= 0xFFFF
         self._value = crc
-        return self._value        
-        
-        
+        return self._value
+
+
 class Crc32(Crc):
     """CRC-32.
        Has optimised code for 32-bit CRCs and is used as base class for all other CRC with this width.
@@ -161,27 +162,28 @@ class Crc32(Crc):
     _reflect_input = True
     _reflect_output = True
     _xor_output = 0xFFFFFFFF
-    _check_result = 0xCBF43926   
-        
+    _check_result = 0xCBF43926
+
     def process(self, data, startindex=0, endindex=None):
         """Processes given data, from [startindex:endindex] if given.
            The data argument must be a list-like object with bytes as elements.
         """
         crc = self._value
-        
+
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = _REFLECT_TABLE[byte]
             crc = crc ^ (byte << 24)
-            for i in range(0,8):
+            for i in range(0, 8):
                 if crc & 0x80000000:
                     crc = (crc << 1) ^ self._poly
                 else:
                     crc = (crc << 1)
             crc &= 0xFFFFFFFF
         self._value = crc
-        return self._value          
-        
+        return self._value
+
+
 class Crc3Rohc(Crc):
     """CRC-3/ROHC"""
     _width = 3
@@ -511,7 +513,7 @@ class Crc15Mpt1327(Crc):
     _xor_output = 0x0001
     _check_result = 0x2566
 
-    
+
 class CrcArc(Crc16):
     """ARC"""
     _width = 16
@@ -731,7 +733,9 @@ class Crc16Ccitt(Crc16):
     _xor_output = 0x0000
     _check_result = 0x2189
 
+
 CrcKermit = Crc16Ccitt
+
 
 class CrcModbus(Crc):
     """MODBUS"""
@@ -764,6 +768,7 @@ class CrcXmodem(Crc):
     _reflect_output = False
     _xor_output = 0x0000
     _check_result = 0x31C3
+
 
 class Crc24(Crc):
     """CRC-24"""
@@ -951,12 +956,17 @@ class Crc82Darc(Crc):
     _xor_output = 0x000000000000000000000
     _check_result = 0x09EA83F625023801FD612
 
-ALLCRCCLASSES = ( 
-    Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc, Crc8, Crc8Cdma2000,
-    Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10, Crc10Cdma2000, Crc11, Crc12_3GPP, Crc12Cdma2000,
-    Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, 
-    Crc16, CrcArc, Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp, Crc16En13757,
-    Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, 
+
+ALLCRCCLASSES = (
+    Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc, Crc8,
+    Crc8Cdma2000,
+    Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10, Crc10Cdma2000, Crc11,
+    Crc12_3GPP, Crc12Cdma2000,
+    Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327,
+    Crc16, CrcArc, Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX,
+    Crc16Dnp, Crc16En13757,
+    Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Usb, CrcA,
+    Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem,
     Crc24, Crc24FlexrayA, Crc24FlexrayB, Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix,
     Crc32q, CrcJamcrc, CrcXfer, Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
@@ -966,6 +976,6 @@ if __name__ == "__main__":
         try:
             crcclass.selftest()
         except ChecksumError as e:
-            print ("FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result))
+            print("FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result))
         else:
-            print ("OK: " + crcclass.__name__)
+            print("OK: " + crcclass.__name__)
