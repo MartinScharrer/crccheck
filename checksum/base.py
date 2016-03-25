@@ -7,7 +7,7 @@
 """
 import math
 
-_REFLECT_TABLE = (
+REFLECT_BIT_ORDER_TABLE = (
     0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0,
     0x10, 0x90, 0x50, 0xD0, 0x30, 0xB0, 0x70, 0xF0,
     0x08, 0x88, 0x48, 0xC8, 0x28, 0xA8, 0x68, 0xE8,
@@ -43,16 +43,16 @@ _REFLECT_TABLE = (
 )
 
 
-def reflect(width, value):
+def reflectbitorder(width, value):
     """Reflects the bit order of the given value according to the given bit width."""
     nbytes = int((width + 7) / 8)
-    bytes = [_REFLECT_TABLE[(value >> (8 * n)) & 0xFF] for n in range(0, nbytes)]
+    databytes = [REFLECT_BIT_ORDER_TABLE[(value >> (8 * n)) & 0xFF] for n in range(0, nbytes)]
     result = 0
     for n in range(0, nbytes):
-        result |= (bytes[n] << ((nbytes - n - 1) * 8))
+        result |= (databytes[n] << ((nbytes - n - 1) * 8))
     diff = nbytes * 8 - width
     if diff > 0:
-        result = result >> diff
+        result >>= diff
     return result
 
 
@@ -70,14 +70,13 @@ class ChecksumBase(object):
     _width = 0
 
     def __init__(self, initvalue=None):
-        self.init(initvalue)
-
-    def init(self, initvalue=None):
-        """(Re-)Inits checksum"""
         if initvalue is None:
             self._value = self._initvalue
         else:
             self._value = initvalue
+
+    def init(self, initvalue=None):
+        self.__init__(initvalue)
 
     def process(self, data, startindex=0, endindex=None):
         """Processes given data, from [startindex:endindex] if given.
@@ -100,17 +99,16 @@ class ChecksumBase(object):
     @classmethod
     def _iterstring(cls, data, startindex=0, endindex=None):
         if startindex < 0:
-            startindex = len(data) + startindex
+            startindex += len(data)
         if endindex is None:
             endindex = len(data)
         elif endindex < 0:
-            endindex = len(data) + endindex
+            endindex += len(data)
         for n in range(startindex, endindex):
             yield ord(data[n])
 
     @classmethod
     def _iterfile(cls, data, startindex=0, endindex=None):
-        nleft = 0
         if startindex < 0:
             data.seek(startindex, 2)
             startindex = data.tell()

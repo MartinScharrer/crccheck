@@ -1,4 +1,4 @@
-from checksum.base import ChecksumBase, ChecksumError, reflect, _REFLECT_TABLE
+from checksum.base import ChecksumBase, ChecksumError, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 
 class Crc(ChecksumBase):
@@ -33,7 +33,7 @@ class Crc(ChecksumBase):
 
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
-                byte = _REFLECT_TABLE[byte]
+                byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ (byte << shift)
             for i in range(0, 8):
                 if crc & highbit:
@@ -51,7 +51,7 @@ class Crc(ChecksumBase):
         """
         crc = self._value
         if self._reflect_output:
-            crc = reflect(self._width, crc)
+            crc = reflectbitorder(self._width, crc)
         crc = crc ^ self._xor_output
         return crc
 
@@ -108,7 +108,7 @@ class Crc8(Crc):
 
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
-                byte = _REFLECT_TABLE[byte]
+                byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ byte
             for i in range(0, 8):
                 if crc & 0x80:
@@ -140,7 +140,7 @@ class Crc16(Crc):
 
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
-                byte = _REFLECT_TABLE[byte]
+                byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ (byte << 8)
             for i in range(0, 8):
                 if crc & 0x8000:
@@ -172,7 +172,7 @@ class Crc32(Crc):
 
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
-                byte = _REFLECT_TABLE[byte]
+                byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ (byte << 24)
             for i in range(0, 8):
                 if crc & 0x80000000:
