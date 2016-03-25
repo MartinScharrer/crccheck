@@ -1,4 +1,4 @@
-from base import ChecksumBase, ChecksumError
+from .base import ChecksumBase, ChecksumError
 
 
 class Checksum(ChecksumBase):

@@ -1,4 +1,4 @@
-from base import ChecksumBase,ChecksumError,reflect,_REFLECT_TABLE
+from checksum.base import ChecksumBase,ChecksumError,reflect,_REFLECT_TABLE
 
 
 class Crc(ChecksumBase):
@@ -10,7 +10,7 @@ class Crc(ChecksumBase):
     _reflect_output = False
     _xor_output = 0x00
     _check_result = None
-    _check_data = bytearray("123456789")
+    _check_data = bytearray(b"123456789")
     _table = None
 
     def process(self, data, startindex=0, endindex=None):

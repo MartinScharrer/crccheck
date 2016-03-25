@@ -5,7 +5,7 @@
 
     Written by Martin Scharrer, Ph.D., April 2015.
 """
-
+import math
 
 _REFLECT_TABLE = (
     0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0,
@@ -144,14 +144,14 @@ class ChecksumBase(object):
         hexfrm = "{{:0{:d}X}}".format( math.ceil(self._width/8.0) )
         return hexfrm.format(self.final())
 
-    def finalbytes(bigendian=True):
+    def finalbytes(self, bigendian=True):
         """Return final checksum value as byte array.
            The internal state is not modified by this so further data can be processed afterwards.
         """
-        bytes = bytearray.fromhex(self.finalhex())
+        cbytes = bytearray.fromhex(self.finalhex())
         if not bigendian:
-            bytes.reverse()
-        return bytes
+            cbytes.reverse()
+        return cbytes
         
     def value(self):
         """Returns current intermediate checksum value.
@@ -174,11 +174,11 @@ class ChecksumBase(object):
         return inst.finalhex()
 
     @classmethod
-    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
+    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, bigendian=True, **kwargs):
         """Fully calculate checksum over given data. Return result as bytearray."""
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
-        return inst.finalbytes()        
+        return inst.finalbytes(bigendian=bigendian)        
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None):
