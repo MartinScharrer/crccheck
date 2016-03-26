@@ -1,4 +1,4 @@
-from .base import ChecksumBase, ChecksumError
+from checksum.base import ChecksumBase, ChecksumError
 
 
 class Checksum(ChecksumBase):
@@ -18,7 +18,7 @@ class Checksum(ChecksumBase):
             if self._bigendian:
                 dataword = (dataword << 8) | byte
             else:
-                dataword |= (byte << (n * 8))
+                dataword |= (byte << n)
             n += 8
             if n == self._width:
                 self._process(dataword)
