@@ -1,4 +1,4 @@
-from checksum.base import ChecksumBase, ChecksumError, reflectbitorder, REFLECT_BIT_ORDER_TABLE
+from checksum.base import ChecksumBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 
 class Crc(ChecksumBase):
@@ -34,7 +34,7 @@ class Crc(ChecksumBase):
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
-            crc = crc ^ (byte << shift)
+            crc ^= (byte << shift)
             for i in range(0, 8):
                 if crc & highbit:
                     crc = (crc << 1) ^ poly
@@ -52,7 +52,7 @@ class Crc(ChecksumBase):
         crc = self._value
         if self._reflect_output:
             crc = reflectbitorder(self._width, crc)
-        crc = crc ^ self._xor_output
+        crc ^= self._xor_output
         return crc
 
 
@@ -117,7 +117,7 @@ class Crc8(Crc):
                     crc = (crc << 1)
             crc &= 0xFF
         self._value = crc
-        return self._value
+        return crc
 
 
 class Crc16(Crc):
@@ -141,7 +141,7 @@ class Crc16(Crc):
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
-            crc = crc ^ (byte << 8)
+            crc ^= (byte << 8)
             for i in range(0, 8):
                 if crc & 0x8000:
                     crc = (crc << 1) ^ self._poly
@@ -149,7 +149,7 @@ class Crc16(Crc):
                     crc = (crc << 1)
             crc &= 0xFFFF
         self._value = crc
-        return self._value
+        return crc
 
 
 class Crc32(Crc):
@@ -173,7 +173,7 @@ class Crc32(Crc):
         for byte in self._iter(data, startindex, endindex):
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
-            crc = crc ^ (byte << 24)
+            crc ^= (byte << 24)
             for i in range(0, 8):
                 if crc & 0x80000000:
                     crc = (crc << 1) ^ self._poly
@@ -181,7 +181,7 @@ class Crc32(Crc):
                     crc = (crc << 1)
             crc &= 0xFFFFFFFF
         self._value = crc
-        return self._value
+        return crc
 
 
 class Crc3Rohc(Crc):
@@ -958,24 +958,13 @@ class Crc82Darc(Crc):
 
 
 ALLCRCCLASSES = (
-    Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc, Crc8,
-    Crc8Cdma2000,
-    Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10, Crc10Cdma2000, Crc11,
-    Crc12_3GPP, Crc12Cdma2000,
-    Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327,
-    Crc16, CrcArc, Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX,
-    Crc16Dnp, Crc16En13757,
-    Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Usb, CrcA,
-    Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem,
-    Crc24, Crc24FlexrayA, Crc24FlexrayB, Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix,
-    Crc32q, CrcJamcrc, CrcXfer, Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
+    Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc,
+    Crc8, Crc8Cdma2000, Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10,
+    Crc10Cdma2000, Crc11, Crc12_3GPP, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
+    Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
+    Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
+    Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc24, Crc24FlexrayA, Crc24FlexrayB,
+    Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer, Crc40Gsm,
+    Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
 
-if __name__ == "__main__":
-    for crcclass in ALLCRCCLASSES:
-        try:
-            crcclass.selftest()
-        except ChecksumError as e:
-            print("FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result))
-        else:
-            print("OK: " + crcclass.__name__)

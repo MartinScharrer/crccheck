@@ -18,9 +18,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
+from checksum.base import ChecksumError
 from checksum.crc import ALLCRCCLASSES
 
-def test_all():
-    for cls in ALLCRCCLASSES:
-        yield (cls.selftest,)
+for crcclass in ALLCRCCLASSES:
+    try:
+        crcclass.selftest()
+    except ChecksumError as e:
+        print("FAILED: {}: {!s:s} != 0x{:X}".format(crcclass.__name__, e, crcclass._check_result))
+    else:
+        print("OK: " + crcclass.__name__)
