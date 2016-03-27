@@ -18,19 +18,21 @@ class Checksum(ChecksumBase):
             databytes = data
         else:
             databytes = data[startindex:endindex]
+        bigendian = self._bigendian
+        width = self._width
+        mask = self._mask
+        value = self._value
         for byte in databytes:
-            if self._bigendian:
+            if bigendian:
                 dataword = (dataword << 8) | byte
             else:
                 dataword |= (byte << n)
             n += 8
-            if n == self._width:
-                self._process(dataword)
+            if n == width:
+                value = mask & (value + dataword)
                 dataword = 0
                 n = 0
-
-    def _process(self, dataword):
-        self._value = self._mask & (self._value + dataword)
+        self._value = value
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None, bigendian=True):
@@ -68,8 +70,28 @@ class Checksum8(Checksum):
 
 
 class ChecksumXor(Checksum):
-    def _process(self, dataword):
-        self._value = self._mask & (self._value ^ dataword)
+    def process(self, data, startindex=0, endindex=None):
+        dataword = 0
+        n = 0
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        bigendian = self._bigendian
+        width = self._width
+        mask = self._mask
+        value = self._value
+        for byte in databytes:
+            if bigendian:
+                dataword = (dataword << 8) | byte
+            else:
+                dataword |= (byte << n)
+            n += 8
+            if n == width:
+                value = mask & (value ^ dataword)
+                dataword = 0
+                n = 0
+        self._value = value
 
 
 class ChecksumXor32(ChecksumXor):
