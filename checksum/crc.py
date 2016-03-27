@@ -31,8 +31,9 @@ class Crc(ChecksumBase):
             highbit = 0x80
             poly = self._poly << diff8
 
+        reflect = self._reflect_input
         for byte in data[startindex:endindex]:
-            if self._reflect_input:
+            if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << shift)
             for i in range(0, 8):
@@ -106,13 +107,15 @@ class Crc8(Crc):
         """
         crc = self._value
 
+        reflect = self._reflect_input
+        poly = self._poly
         for byte in data[startindex:endindex]:
-            if self._reflect_input:
+            if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ byte
             for i in range(0, 8):
                 if crc & 0x80:
-                    crc = (crc << 1) ^ self._poly
+                    crc = (crc << 1) ^ poly
                 else:
                     crc = (crc << 1)
             crc &= 0xFF
@@ -138,13 +141,15 @@ class Crc16(Crc):
         """
         crc = self._value
 
+        reflect = self._reflect_input
+        poly = self._poly
         for byte in data[startindex:endindex]:
-            if self._reflect_input:
+            if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 8)
             for i in range(0, 8):
                 if crc & 0x8000:
-                    crc = (crc << 1) ^ self._poly
+                    crc = (crc << 1) ^ poly
                 else:
                     crc = (crc << 1)
             crc &= 0xFFFF
@@ -170,13 +175,15 @@ class Crc32(Crc):
         """
         crc = self._value
 
+        reflect = self._reflect_input
+        poly = self._poly
         for byte in data[startindex:endindex]:
-            if self._reflect_input:
+            if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 24)
             for i in range(0, 8):
                 if crc & 0x80000000:
-                    crc = (crc << 1) ^ self._poly
+                    crc = (crc << 1) ^ poly
                 else:
                     crc = (crc << 1)
             crc &= 0xFFFFFFFF
