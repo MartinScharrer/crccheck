@@ -18,20 +18,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from checksum.base import ChecksumError
 from checksum.checksum import ALLCHECKSUMCLASSES
 
-for crcclass in ALLCHECKSUMCLASSES:
-    try:
-        crcclass.selftest()
-    except ChecksumError as e:
-        print("FAILED:    BigEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e, crcclass._check_result))
-    else:
-        print("OK:    BigEndian: " + crcclass.__name__)
-    try:
-        crcclass.selftest(bigendian=False)
-    except ChecksumError as e:
-        print("FAILED: LittleEndian: {}: {!s:s} != 0x{:x}".format(crcclass.__name__, e,
-                                                                  crcclass._check_result_littleendian))
-    else:
-        print("OK: LittleEndian: " + crcclass.__name__)
+
+def test_allchecksums():
+    for checksumclass in ALLCHECKSUMCLASSES:
+        checksumclass.selftest.__dict__['description'] = checksumclass.__name__ + " [bigendian]"
+        yield checksumclass.selftest, None, None, True
+        checksumclass.selftest.__dict__['description'] = checksumclass.__name__ + " [littleendian]"
+        yield checksumclass.selftest, None, None, False
