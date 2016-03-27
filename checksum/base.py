@@ -136,4 +136,4 @@ class ChecksumBase(object):
             expectedresult = cls._check_result
         result = cls.calc(data)
         if result != expectedresult:
-            raise ChecksumError(hex(result))
+            raise ChecksumError("{:s}: expected {:s}, got {:s}".format(cls.__name__, hex(expectedresult), hex(result)))

@@ -23,7 +23,14 @@ from checksum.checksum import ALLCHECKSUMCLASSES
 
 def test_allchecksums():
     for checksumclass in ALLCHECKSUMCLASSES:
-        checksumclass.selftest.__dict__['description'] = checksumclass.__name__ + " [bigendian]"
-        yield checksumclass.selftest, None, None, True
-        checksumclass.selftest.__dict__['description'] = checksumclass.__name__ + " [littleendian]"
-        yield checksumclass.selftest, None, None, False
+        def selftest_bigendian():
+            return checksumclass.selftest(bigendian=True)
+
+        selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
+        yield selftest_bigendian
+
+        def selftest_littleendian():
+            return checksumclass.selftest(bigendian=True)
+
+        selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
+        yield selftest_bigendian

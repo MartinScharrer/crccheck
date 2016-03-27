@@ -162,7 +162,7 @@ class Crc32(Crc):
     _reflect_input = True
     _reflect_output = True
     _xor_output = 0xFFFFFFFF
-    _check_result = 0xCBF43926a
+    _check_result = 0xCBF43926
 
     def process(self, data, startindex=0, endindex=None):
         """Processes given data, from [startindex:endindex] if given.

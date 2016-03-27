@@ -23,6 +23,8 @@ from checksum.crc import ALLCRCCLASSES
 
 def test_allcrc():
     for crcclass in ALLCRCCLASSES:
-        crcclass.selftest.__dict__['description'] = crcclass.__name__
-        yield crcclass.selftest
+        def selftest():
+            return crcclass.selftest()
 
+        selftest.description = crcclass.__name__
+        yield selftest
