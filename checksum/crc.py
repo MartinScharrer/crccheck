@@ -31,7 +31,7 @@ class Crc(ChecksumBase):
             highbit = 0x80
             poly = self._poly << diff8
 
-        for byte in self._iter(data, startindex, endindex):
+        for byte in data[startindex:endindex]:
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << shift)
@@ -106,7 +106,7 @@ class Crc8(Crc):
         """
         crc = self._value
 
-        for byte in self._iter(data, startindex, endindex):
+        for byte in data[startindex:endindex]:
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ byte
@@ -138,7 +138,7 @@ class Crc16(Crc):
         """
         crc = self._value
 
-        for byte in self._iter(data, startindex, endindex):
+        for byte in data[startindex:endindex]:
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 8)
@@ -162,7 +162,7 @@ class Crc32(Crc):
     _reflect_input = True
     _reflect_output = True
     _xor_output = 0xFFFFFFFF
-    _check_result = 0xCBF43926
+    _check_result = 0xCBF43926a
 
     def process(self, data, startindex=0, endindex=None):
         """Processes given data, from [startindex:endindex] if given.
@@ -170,7 +170,7 @@ class Crc32(Crc):
         """
         crc = self._value
 
-        for byte in self._iter(data, startindex, endindex):
+        for byte in data[startindex:endindex]:
             if self._reflect_input:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 24)

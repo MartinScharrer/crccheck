@@ -83,73 +83,24 @@ class ChecksumBase(object):
         """
         pass
 
-    @classmethod
-    def _iter(cls, data, startindex=0, endindex=None):
-        if isinstance(data, str):
-            return cls._iterstring(data, startindex, endindex)
-        elif hasattr(data, 'seek') and hasattr(data, 'tell') and hasattr(data, 'read'):
-            return cls._iterfile(data, startindex, endindex)
-        else:
-            if startindex == 0 and endindex is None:
-                return data
-            else:
-                return data[startindex:endindex]
-
-    @classmethod
-    def _iterstring(cls, data, startindex=0, endindex=None):
-        if startindex < 0:
-            startindex += len(data)
-        if endindex is None:
-            endindex = len(data)
-        elif endindex < 0:
-            endindex += len(data)
-        for n in range(startindex, endindex):
-            yield ord(data[n])
-
-    @classmethod
-    def _iterfile(cls, data, startindex=0, endindex=None):
-        if startindex < 0:
-            data.seek(startindex, 2)
-            startindex = data.tell()
-        elif startindex > 0:
-            data.seek(startindex, 1)
-        if endindex is None:
-            endindex = float('inf')
-        elif endindex < -1:
-            pos = data.tell()
-            data.seek(endindex, 2)
-            endindex = data.tell() - pos
-            data.seek(pos, 0)
-        nleft = endindex - startindex + 1
-        while nleft > 0:
-            content = data.read(min(nleft, cls._file_chunksize))
-            if not content:
-                break
-            nleft -= len(content)
-            for byte in content:
-                yield ord(byte)
-
     def final(self):
         """Return final checksum value.
            The internal state is not modified by this so further data can be processed afterwards.
         """
         return self._value
 
-    def finalhex(self):
+    def finalhex(self, bigendian=True):
         """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
            The internal state is not modified by this so further data can be processed afterwards.
         """
-        hexfrm = "{{:0{:d}X}}".format(math.ceil(self._width / 8.0))
-        return hexfrm.format(self.final())
+        return self.finalbytes(bigendian).hex()
 
     def finalbytes(self, bigendian=True):
-        """Return final checksum value as byte array.
+        """Return final checksum value as bytes.
            The internal state is not modified by this so further data can be processed afterwards.
         """
-        cbytes = bytearray.fromhex(self.finalhex())
-        if not bigendian:
-            cbytes.reverse()
-        return cbytes
+        bytelength = math.ceil(self._width / 8.0)
+        return self.final().to_bytes(bytelength, bigendian and 'big' or 'little')
 
     def value(self):
         """Returns current intermediate checksum value.
