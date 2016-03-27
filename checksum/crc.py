@@ -32,7 +32,11 @@ class Crc(ChecksumBase):
             poly = self._poly << diff8
 
         reflect = self._reflect_input
-        for byte in data[startindex:endindex]:
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        for byte in databytes:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << shift)
@@ -109,7 +113,11 @@ class Crc8(Crc):
 
         reflect = self._reflect_input
         poly = self._poly
-        for byte in data[startindex:endindex]:
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        for byte in databytes:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ byte
@@ -143,7 +151,11 @@ class Crc16(Crc):
 
         reflect = self._reflect_input
         poly = self._poly
-        for byte in data[startindex:endindex]:
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        for byte in databytes:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 8)
@@ -177,7 +189,11 @@ class Crc32(Crc):
 
         reflect = self._reflect_input
         poly = self._poly
-        for byte in data[startindex:endindex]:
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        for byte in databytes:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 24)

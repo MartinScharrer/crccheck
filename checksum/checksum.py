@@ -14,7 +14,11 @@ class Checksum(ChecksumBase):
     def process(self, data, startindex=0, endindex=None):
         dataword = 0
         n = 0
-        for byte in data[startindex:endindex]:
+        if startindex == 0 and endindex is None:
+            databytes = data
+        else:
+            databytes = data[startindex:endindex]
+        for byte in databytes:
             if self._bigendian:
                 dataword = (dataword << 8) | byte
             else:

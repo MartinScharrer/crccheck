@@ -1,3 +1,7 @@
-from .base import ChecksumError
-from .checksum import *
-from .crc import *
+""" Checksum and crc classes.
+
+  License::
+
+    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
+
+"""
