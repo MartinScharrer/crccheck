@@ -26,22 +26,3 @@ def test_allcrc():
         crcclass.selftest.__dict__['description'] = crcclass.__name__
         yield crcclass.selftest
 
-
-def res(crcclass):
-    import random
-    random.seed()
-    length = 1020
-    databytes = bytearray((random.randint(0, 255) for n in range(0, length)))
-    crc = crcclass()
-    crc.process(databytes)
-    crcbytes = crc.finalbytes(bigendian=False)
-    crc.process(crcbytes)
-    residue = crc.final()
-    if residue != crcclass._residue:
-        raise Exception("Expected residue==0, got {0:d} (0x{0:08X})".format(residue))
-
-
-def test_check():
-    for crcclass in ALLCRCCLASSES:
-        res.__dict__['description'] = "Residue of " + crcclass.__name__
-        yield res, crcclass
