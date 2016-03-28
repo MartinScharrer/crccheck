@@ -28,22 +28,6 @@ checksum.crc module
     :undoc-members:
     :show-inheritance:
 
-checksum.generate module
-------------------------
-
-.. automodule:: checksum.generate
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-checksum.table module
----------------------
-
-.. automodule:: checksum.table
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
