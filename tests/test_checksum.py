@@ -18,7 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from checksum.checksum import ALLCHECKSUMCLASSES, Checksum32
+from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32
 
 
 def test_allchecksums():

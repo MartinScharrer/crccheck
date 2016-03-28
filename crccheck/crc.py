@@ -1,4 +1,4 @@
-from checksum.base import ChecksumBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
+from crccheck.base import ChecksumBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 
 class Crc(ChecksumBase):

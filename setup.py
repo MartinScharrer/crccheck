@@ -4,16 +4,16 @@ except ImportError:
     from distutils.core import setup
 
 config = {
-    'description': 'Calculation library for checksums and CRCs',
+    'description': 'Calculation library for CRCs and checksums',
     'author': 'Martin Scharrer',
-    'url': 'https://bitbucket.org/martin_scharrer/checksum',
-    'download_url': 'https://bitbucket.org/martin_scharrer/checksum/downloads/checksum.zip',
+    'url': 'https://bitbucket.org/martin_scharrer/crccheck',
+    'download_url': 'https://bitbucket.org/martin_scharrer/checksum/downloads/crccheck.zip',
     'author_email': 'martin@scharrer-online.de',
-    'version': '0.2',
+    'version': '0.3',
     'install_requires': [],
-    'packages': ['checksum'],
+    'packages': ['crccheck'],
     'scripts': [],
-    'name': 'checksum'
+    'name': 'crccheck'
 }
 
 setup(**config)

@@ -18,8 +18,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from checksum.crc import ALLCRCCLASSES
-from checksum.crc import Crc32
+from crccheck.crc import ALLCRCCLASSES
+from crccheck.crc import Crc32
 
 
 def test_allcrc():
