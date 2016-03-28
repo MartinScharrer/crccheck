@@ -22,7 +22,7 @@
 from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32
 
 
-def test_allchecksums():
+def test_allchecksums_bigendian():
     for checksumclass in ALLCHECKSUMCLASSES:
         def selftest_bigendian():
             return checksumclass.selftest(byteorder='big')
@@ -30,6 +30,9 @@ def test_allchecksums():
         selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
         yield selftest_bigendian
 
+
+def test_allchecksums_littleendian():
+    for checksumclass in ALLCHECKSUMCLASSES:
         def selftest_littleendian():
             return checksumclass.selftest(byteorder='little')
 
