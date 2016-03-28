@@ -89,18 +89,18 @@ class ChecksumBase(object):
         """
         return self._value
 
-    def finalhex(self, bigendian=True):
+    def finalhex(self, byteorder='big'):
         """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
            The internal state is not modified by this so further data can be processed afterwards.
         """
-        return self.finalbytes(bigendian).hex()
+        return self.finalbytes(byteorder).hex()
 
-    def finalbytes(self, bigendian=True):
+    def finalbytes(self, byteorder='big'):
         """Return final checksum value as bytes.
            The internal state is not modified by this so further data can be processed afterwards.
         """
         bytelength = math.ceil(self._width / 8.0)
-        return self.final().to_bytes(bytelength, bigendian and 'big' or 'little')
+        return self.final().to_bytes(bytelength, byteorder)
 
     def value(self):
         """Returns current intermediate checksum value.
@@ -123,11 +123,11 @@ class ChecksumBase(object):
         return inst.finalhex()
 
     @classmethod
-    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, bigendian=True, **kwargs):
+    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, byteorder='big', **kwargs):
         """Fully calculate checksum over given data. Return result as bytearray."""
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
-        return inst.finalbytes(bigendian=bigendian)
+        return inst.finalbytes(byteorder)
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None):

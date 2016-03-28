@@ -24,16 +24,16 @@ from checksum.checksum import ALLCHECKSUMCLASSES, Checksum32
 def test_allchecksums():
     for checksumclass in ALLCHECKSUMCLASSES:
         def selftest_bigendian():
-            return checksumclass.selftest(bigendian=True)
+            return checksumclass.selftest(byteorder='big')
 
         selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
         yield selftest_bigendian
 
         def selftest_littleendian():
-            return checksumclass.selftest(bigendian=True)
+            return checksumclass.selftest(byteorder='little')
 
-        selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
-        yield selftest_bigendian
+        selftest_littleendian.description = checksumclass.__name__ + " [littleendian]"
+        yield selftest_littleendian
 
 
 def test_generator():

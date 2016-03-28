@@ -7,9 +7,9 @@ class Checksum(ChecksumBase):
     _check_data = (0xDE, 0xAD, 0xBE, 0xEF, 0xAA, 0x55, 0xC2, 0x8C)
     _check_result_littleendian = None
 
-    def __init__(self, initvalue=0, bigendian=True):
+    def __init__(self, initvalue=0, byteorder='big'):
         super(Checksum, self).__init__(initvalue)
-        self._bigendian = bigendian
+        self._byteorder = byteorder
 
     def process(self, data, startindex=0, endindex=None):
         dataword = 0
@@ -18,7 +18,7 @@ class Checksum(ChecksumBase):
             databytes = data
         else:
             databytes = data[startindex:endindex]
-        bigendian = self._bigendian
+        bigendian = (self._byteorder == 'big')
         width = self._width
         mask = self._mask
         value = self._value
@@ -35,15 +35,15 @@ class Checksum(ChecksumBase):
         self._value = value
 
     @classmethod
-    def selftest(cls, data=None, expectedresult=None, bigendian=True):
+    def selftest(cls, data=None, expectedresult=None, byteorder='big'):
         if data is None:
             data = cls._check_data
         if expectedresult is None:
-            if bigendian:
+            if byteorder == 'big':
                 expectedresult = cls._check_result
             else:
                 expectedresult = cls._check_result_littleendian
-        result = cls.calc(data, bigendian=bigendian)
+        result = cls.calc(data, byteorder=byteorder)
         if result != expectedresult:
             raise ChecksumError(hex(result))
 
@@ -77,7 +77,7 @@ class ChecksumXor(Checksum):
             databytes = data
         else:
             databytes = data[startindex:endindex]
-        bigendian = self._bigendian
+        bigendian = (self._byteorder == 'big')
         width = self._width
         mask = self._mask
         value = self._value
