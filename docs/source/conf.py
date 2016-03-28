@@ -295,3 +295,18 @@ texinfo_documents = [
 intersphinx_mapping = {'https://docs.python.org/': None}
 
 autodoc_member_order='bysource'
+
+autodoc_default_flags = ['members', 'undoc-members', 'show-inheritance']
+# [ 'members', 'undoc-members', 'private-members', 'special-members', 'inherited-members', 'show-inheritance']
+
+# Napoleon settings
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = False
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = False
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True

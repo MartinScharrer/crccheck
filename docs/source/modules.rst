@@ -1,7 +1,7 @@
-checksum
+crccheck
 ========
 
 .. toctree::
    :maxdepth: 4
 
-   checksum
+         crccheck
