@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# checksum documentation build configuration file, created by
+# crccheck documentation build configuration file, created by
 # sphinx-quickstart on Thu Apr 09 22:32:46 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -259,7 +259,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'checksum', u'checksum Documentation',
+    (master_doc, 'crccheck', u'crccheck Documentation',
      [author], 1)
 ]
 

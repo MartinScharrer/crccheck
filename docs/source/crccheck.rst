@@ -1,29 +1,29 @@
-checksum package
+crccheck package
 ================
 
 Submodules
 ----------
 
-checksum.base module
+crccheck.base module
 --------------------
 
-.. automodule:: checksum.base
+.. automodule:: crccheck.base
     :members:
     :undoc-members:
     :show-inheritance:
 
-checksum.checksum module
+crccheck.checksum module
 ------------------------
 
-.. automodule:: checksum.checksum
+.. automodule:: crccheck.checksum
     :members:
     :undoc-members:
     :show-inheritance:
 
-checksum.crc module
+crccheck.crc module
 -------------------
 
-.. automodule:: checksum.crc
+.. automodule:: crccheck.crc
     :members:
     :undoc-members:
     :show-inheritance:
@@ -32,7 +32,7 @@ checksum.crc module
 Module contents
 ---------------
 
-.. automodule:: checksum
+.. automodule:: crccheck
     :members:
     :undoc-members:
     :show-inheritance:
