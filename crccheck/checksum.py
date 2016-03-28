@@ -1,7 +1,33 @@
+""" Classes to calculated additive and XOR checksums.
+
+  License::
+
+    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
 from crccheck.base import CrccheckBase, CrccheckError
 
 
 class ChecksumBase(CrccheckBase):
+    """ Base class for all checksum classes.
+
+        Args:
+            initvalue (int): Initial value. If None then the default value for the class is used.
+            byteorder ('big' or 'little'): byte order (endianness) used when reading the input bytes.
+    """
     _width = 0
     _mask = 0
     _check_data = (0xDE, 0xAD, 0xBE, 0xEF, 0xAA, 0x55, 0xC2, 0x8C)
@@ -12,6 +38,13 @@ class ChecksumBase(CrccheckBase):
         self._byteorder = byteorder
 
     def process(self, data, startindex=0, endindex=None):
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
+        """
         dataword = 0
         n = 0
         if startindex == 0 and endindex is None:
@@ -49,6 +82,11 @@ class ChecksumBase(CrccheckBase):
 
 
 class Checksum32(ChecksumBase):
+    """ 32-bit checksum.
+
+        Calculates 32-bit checksum by adding the input bytes in groups of four.
+        Input data length must be a multiple of four, otherwise the last bytes are not used.
+    """
     _width = 32
     _mask = 0xFFffFFff
     _check_result = 0x8903817B
@@ -56,6 +94,11 @@ class Checksum32(ChecksumBase):
 
 
 class Checksum16(ChecksumBase):
+    """ 16-bit checksum.
+
+        Calculates 16-bit checksum by adding the input bytes in groups of two.
+        Input data length must be a multiple of two, otherwise the last byte is not used.
+    """
     _width = 16
     _mask = 0xFFff
     _check_result = 0x0A7D
@@ -63,6 +106,10 @@ class Checksum16(ChecksumBase):
 
 
 class Checksum8(ChecksumBase):
+    """ 8-bit checksum.
+
+        Calculates 8-bit checksum by adding the input bytes.
+    """
     _width = 8
     _mask = 0xFF
     _check_result = 0x85
@@ -71,6 +118,13 @@ class Checksum8(ChecksumBase):
 
 class ChecksumXorBase(ChecksumBase):
     def process(self, data, startindex=0, endindex=None):
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
+        """
         dataword = 0
         n = 0
         if startindex == 0 and endindex is None:
@@ -95,6 +149,11 @@ class ChecksumXorBase(ChecksumBase):
 
 
 class ChecksumXor32(ChecksumXorBase):
+    """ 32-bit XOR checksum.
+
+        Calculates 32-bit checksum by XOR-ing the input bytes in groups of four.
+        Input data length must be a multiple of four, otherwise the last bytes are not used.
+    """
     _width = 32
     _mask = 0xFFffFFff
     _check_result = 0x74F87C63
@@ -102,6 +161,11 @@ class ChecksumXor32(ChecksumXorBase):
 
 
 class ChecksumXor16(ChecksumXorBase):
+    """ 16-bit XOR checksum.
+
+        Calculates 16-bit checksum by XOR-ing the input bytes in groups of two.
+        Input data length must be a multiple of two, otherwise the last byte is not used.
+    """
     _width = 16
     _mask = 0xFFff
     _check_result = 0x089B
@@ -109,6 +173,10 @@ class ChecksumXor16(ChecksumXorBase):
 
 
 class ChecksumXor8(ChecksumXorBase):
+    """ 8-bit XOR checksum.
+
+        Calculates 8-bit checksum by XOR-ing the input bytes.
+    """
     _width = 8
     _mask = 0xFF
     _check_result = 0x93

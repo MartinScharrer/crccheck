@@ -1,4 +1,4 @@
-""" Base class for CRC a d checksum classes.
+""" Base class for CRC and checksum classes.
 
   License::
 
@@ -57,7 +57,12 @@ REFLECT_BIT_ORDER_TABLE = (
 
 
 def reflectbitorder(width, value):
-    """Reflects the bit order of the given value according to the given bit width."""
+    """ Reflects the bit order of the given value according to the given bit width.
+
+        Args:
+            width (int): bitwidth
+            value (int): value to reflect
+    """
     nbytes = int((width + 7) / 8)
     databytes = [REFLECT_BIT_ORDER_TABLE[(value >> (8 * n)) & 0xFF] for n in range(0, nbytes)]
     result = 0
@@ -75,7 +80,11 @@ class CrccheckError(Exception):
 
 
 class CrccheckBase(object):
-    """Abstract base class for checksumming classes"""
+    """ Abstract base class for checksumming classes.
+
+        Args:
+            initvalue (int): Initial value. If None then the default value for the class is used.
+    """
     _initvalue = 0x00
     _check_result = None
     _check_data = None
@@ -89,61 +98,126 @@ class CrccheckBase(object):
             self._value = initvalue
 
     def init(self, initvalue=None):
+        """ Re-init instance.
+
+            Resets the instance state to the initial value.
+            This is not required for a just created instance.
+
+            Args:
+                initvalue (int): Initial value. If None then the default value for the class is used.
+        """
         self.__init__(initvalue)
 
     def process(self, data, startindex=0, endindex=None):
-        """Processes given data, from [startindex:endindex] if given.
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
         """
         pass
 
     def final(self):
-        """Return final checksum value.
+        """Return final check value.
            The internal state is not modified by this so further data can be processed afterwards.
+
+           Return:
+               int: final value
         """
         return self._value
 
     def finalhex(self, byteorder='big'):
         """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
            The internal state is not modified by this so further data can be processed afterwards.
+
+           Return:
+               str: final value as hex string without leading '0x'.
         """
         return self.finalbytes(byteorder).hex()
 
     def finalbytes(self, byteorder='big'):
         """Return final checksum value as bytes.
            The internal state is not modified by this so further data can be processed afterwards.
+
+           Return:
+               bytes: final value as bytes
         """
         bytelength = math.ceil(self._width / 8.0)
         return self.final().to_bytes(bytelength, byteorder)
 
     def value(self):
-        """Returns current intermediate checksum value.
-           Note that in general final() must be used to get the a final checksum.
+        """Returns current intermediate value.
+           Note that in general final() must be used to get the a final value.
+
+           Return:
+               int: current value
         """
         return self._value
 
     @classmethod
     def calc(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
-        """Fully calculate checksum over given data."""
+        """ Fully calculate CRC/checksum over given data.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+
+            Return:
+                int: final value
+        """
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
         return inst.final()
 
     @classmethod
     def calchex(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
-        """Fully calculate checksum over given data. Return result as hex string."""
+        """Fully calculate checksum over given data. Return result as hex string.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+
+            Return:
+                str: final value as hex string without leading '0x'.
+        """
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
         return inst.finalhex()
 
     @classmethod
     def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, byteorder='big', **kwargs):
-        """Fully calculate checksum over given data. Return result as bytearray."""
+        """Fully calculate checksum over given data. Return result as bytearray.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+                byteorder ('big' or 'little'): order (endianness) of returned bytes.
+
+            Return:
+                bytes: final value as bytes
+        """
         inst = cls(initvalue, **kwargs)
         inst.process(data, startindex, endindex)
         return inst.finalbytes(byteorder)
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None):
+        """ Selftest method for automated tests.
+
+            Args:
+                data (bytes, bytearray or list of int [0-255]): data to process
+                expectedresult (int): expected result
+
+            Raises:
+                CrccheckError: if result is not as expected
+        """
         if data is None:
             data = cls._check_data
             expectedresult = cls._check_result

@@ -1,3 +1,23 @@
+""" Classes to calculate CRCs (Cyclic Redundancy Check).
+
+  License::
+
+    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
 from crccheck.base import CrccheckBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 
@@ -14,8 +34,12 @@ class CrcBase(CrccheckBase):
     _table = None
 
     def process(self, data, startindex=0, endindex=None):
-        """Processes given data, from [startindex:endindex] if given.
-           The data argument must be a list-like object with bytes as elements.
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
         """
         crc = self._value
         highbit = 1 << (self._width - 1)
@@ -51,8 +75,10 @@ class CrcBase(CrccheckBase):
         self._value = crc
 
     def final(self):
-        """Return final checksum value.
-           The internal state is not modified by this so further data can be processed afterwards.
+        """ Return final CRC value.
+
+            Return:
+                int: final CRC value
         """
         crc = self._value
         if self._reflect_output:
@@ -62,7 +88,23 @@ class CrcBase(CrccheckBase):
 
 
 class Crc(CrcBase):
-    """General class for user-specified Cyclic Redundancy Checks (CRC) checksums"""
+    """ Creates a new general (user-defined) CRC calculator instance.
+
+        Arguments:
+            width (int): bit width of CRC.
+            poly (int): polynomial of CRC with the top bit omitted.
+            initvalue (int): initial value of internal running CRC value. Usually either 0 or (1<<width)-1,
+                i.e. "all-1s".
+            reflect_input (bool): If true the bit order of the input bytes are reflected first.
+                This is to calculate the CRC like least-significant bit first systems will do it.
+            reflect_output (bool): If true the bit order of the calculation result will be reflected before
+                the XOR output stage.
+            xor_output (int): The result is bit-wise XOR-ed with this value. Usually 0 (value stays the same) or
+                (1<<width)-1, i.e. "all-1s" (invert value).
+            check_result (int): The expected result for the check input "123456789" (= [0x31, 0x32, 0x33, 0x34,
+                0x35, 0x36, 0x37, 0x38, 0x39]). This value is used for the selftest() method to verify proper
+                operation.
+    """
     _width = 0
     _poly = 0x00
     _initvalue = 0x00
@@ -73,18 +115,7 @@ class Crc(CrcBase):
 
     def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
                  check_result=0x00):
-        """ Creates a new general (user-defined) CRC calculator instance.
-        
-            width: bit width of CRC
-            poly : polynomial of CRC with the top bit omitted.
-            initvalue : initial value of internal running CRC value. Usually either 0 or (1<<width)-1, i.e. "all-1s"
-            reflect_input: If true the bit order of the input bytes are reflected first. This is to calculate the CRC like least-significant bit first systems will do it.
-            reflect_output: If true the bit order of the calculation result will be reflected before the XOR output stage.
-            xor_output: The result is bit-wise XOR-ed with this value. Usually 0 (value stays the same) or  (1<<width)-1, i.e. "all-1s" (invert value).
-            check_result: The expected result for the check input "123456789" (= [0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39]).
-                          This value is used for the selftest() method to verify proper operation.
-        """
-        super(GeneralCrc, self).__init__(initvalue)
+        super(Crc, self).__init__(initvalue)
         self._width = width
         self._poly = poly
         self._reflect_input = reflect_input
@@ -106,8 +137,12 @@ class Crc8(CrcBase):
     _check_result = 0xF4
 
     def process(self, data, startindex=0, endindex=None):
-        """Processes given data, from [startindex:endindex] if given.
-           The data argument must be a list-like object with bytes as elements.
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
         """
         crc = self._value
 
@@ -144,8 +179,12 @@ class Crc16(CrcBase):
     _check_result = 0x31C3
 
     def process(self, data, startindex=0, endindex=None):
-        """Processes given data, from [startindex:endindex] if given.
-           The data argument must be a list-like object with bytes as elements.
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
         """
         crc = self._value
 
@@ -182,8 +221,12 @@ class Crc32(CrcBase):
     _check_result = 0xCBF43926
 
     def process(self, data, startindex=0, endindex=None):
-        """Processes given data, from [startindex:endindex] if given.
-           The data argument must be a list-like object with bytes as elements.
+        """ Processes given data, from [startindex:endindex] if given.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                startindex (int): start index of data.
+                endindex (int): end index of data.
         """
         crc = self._value
 
