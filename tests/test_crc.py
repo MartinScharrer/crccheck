@@ -2,7 +2,7 @@
 
   License::
   
-    Copyright (C) 2015  Martin Scharrer <martin@scharrer-online.de>
+    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,16 +18,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from crccheck.crc import ALLCRCCLASSES
-from crccheck.crc import Crc32
+from crccheck.base import CrccheckError
+from crccheck.crc import ALLCRCCLASSES, Crc32
 
 
 def test_allcrc():
+    """Test if expected 'check' result is calulated with standard test vector."""
     for crcclass in ALLCRCCLASSES:
         def selftest():
             return crcclass.selftest()
 
         selftest.description = crcclass.__name__
+        yield selftest
+
+
+def test_allcrcfail():
+    """Test if 'check' result is not reached with different input."""
+    for crcclass in ALLCRCCLASSES:
+        def selftest():
+            try:
+                crcclass.selftest(b"wrongtestinput", crcclass._check_result)
+            except CrccheckError:
+                # This is the correct response
+                pass
+            else:
+                raise Exception("Selftest passed with incorrect input!")
+
+        selftest.description = crcclass.__name__ + " (incorrect input)"
         yield selftest
 
 

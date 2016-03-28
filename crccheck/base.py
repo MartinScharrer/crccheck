@@ -1,9 +1,22 @@
-"""
-    Copyright (c) 2015 by Martin Scharrer <martin@scharrer-online.de>
+""" Base class for CRC a d checksum classes.
 
-    Base class for checksum classes like CRC.
+  License::
 
-    Written by Martin Scharrer, Ph.D., April 2015.
+    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 """
 import math
 
@@ -56,12 +69,12 @@ def reflectbitorder(width, value):
     return result
 
 
-class ChecksumError(Exception):
+class CrccheckError(Exception):
     """General checksum error exception"""
     pass
 
 
-class ChecksumBase(object):
+class CrccheckBase(object):
     """Abstract base class for checksumming classes"""
     _initvalue = 0x00
     _check_result = None
@@ -136,4 +149,4 @@ class ChecksumBase(object):
             expectedresult = cls._check_result
         result = cls.calc(data)
         if result != expectedresult:
-            raise ChecksumError("{:s}: expected {:s}, got {:s}".format(cls.__name__, hex(expectedresult), hex(result)))
+            raise CrccheckError("{:s}: expected {:s}, got {:s}".format(cls.__name__, hex(expectedresult), hex(result)))

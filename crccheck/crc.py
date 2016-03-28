@@ -1,7 +1,7 @@
-from crccheck.base import ChecksumBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
+from crccheck.base import CrccheckBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 
-class Crc(ChecksumBase):
+class CrcBase(CrccheckBase):
     """Abstract base class for all Cyclic Redundancy Checks (CRC) checksums"""
     _width = 0
     _poly = 0x00
@@ -61,7 +61,7 @@ class Crc(ChecksumBase):
         return crc
 
 
-class GeneralCrc(Crc):
+class Crc(CrcBase):
     """General class for user-specified Cyclic Redundancy Checks (CRC) checksums"""
     _width = 0
     _poly = 0x00
@@ -93,7 +93,7 @@ class GeneralCrc(Crc):
         self._check_result = check_result
 
 
-class Crc8(Crc):
+class Crc8(CrcBase):
     """CRC-8.
        Has optimised code for 8-bit CRCs and is used as base class for all other CRC with this width.
     """
@@ -131,7 +131,7 @@ class Crc8(Crc):
         return crc
 
 
-class Crc16(Crc):
+class Crc16(CrcBase):
     """CRC-16.
        Has optimised code for 16-bit CRCs and is used as base class for all other CRC with this width.
     """
@@ -169,7 +169,7 @@ class Crc16(Crc):
         return crc
 
 
-class Crc32(Crc):
+class Crc32(CrcBase):
     """CRC-32.
        Has optimised code for 32-bit CRCs and is used as base class for all other CRC with this width.
     """
@@ -207,7 +207,7 @@ class Crc32(Crc):
         return crc
 
 
-class Crc3Rohc(Crc):
+class Crc3Rohc(CrcBase):
     """CRC-3/ROHC"""
     _width = 3
     _poly = 0x3
@@ -218,7 +218,7 @@ class Crc3Rohc(Crc):
     _check_result = 0x6
 
 
-class Crc4Itu(Crc):
+class Crc4Itu(CrcBase):
     """CRC-4/ITU"""
     _width = 4
     _poly = 0x3
@@ -229,7 +229,7 @@ class Crc4Itu(Crc):
     _check_result = 0x7
 
 
-class Crc5Epc(Crc):
+class Crc5Epc(CrcBase):
     """CRC-5/EPC"""
     _width = 5
     _poly = 0x09
@@ -240,7 +240,7 @@ class Crc5Epc(Crc):
     _check_result = 0x00
 
 
-class Crc5Itu(Crc):
+class Crc5Itu(CrcBase):
     """CRC-5/ITU"""
     _width = 5
     _poly = 0x15
@@ -251,7 +251,7 @@ class Crc5Itu(Crc):
     _check_result = 0x07
 
 
-class Crc5Usb(Crc):
+class Crc5Usb(CrcBase):
     """CRC-5/USB"""
     _width = 5
     _poly = 0x05
@@ -262,7 +262,7 @@ class Crc5Usb(Crc):
     _check_result = 0x19
 
 
-class Crc6Cdma2000A(Crc):
+class Crc6Cdma2000A(CrcBase):
     """CRC-6/CDMA2000-A"""
     _width = 6
     _poly = 0x27
@@ -273,7 +273,7 @@ class Crc6Cdma2000A(Crc):
     _check_result = 0x0D
 
 
-class Crc6Cdma2000B(Crc):
+class Crc6Cdma2000B(CrcBase):
     """CRC-6/CDMA2000-B"""
     _width = 6
     _poly = 0x07
@@ -284,7 +284,7 @@ class Crc6Cdma2000B(Crc):
     _check_result = 0x3B
 
 
-class Crc6Darc(Crc):
+class Crc6Darc(CrcBase):
     """CRC-6/DARC"""
     _width = 6
     _poly = 0x19
@@ -295,7 +295,7 @@ class Crc6Darc(Crc):
     _check_result = 0x26
 
 
-class Crc6Itu(Crc):
+class Crc6Itu(CrcBase):
     """CRC-6/ITU"""
     _width = 6
     _poly = 0x03
@@ -306,7 +306,7 @@ class Crc6Itu(Crc):
     _check_result = 0x06
 
 
-class Crc7(Crc):
+class Crc7(CrcBase):
     """CRC-7"""
     _width = 7
     _poly = 0x09
@@ -317,7 +317,7 @@ class Crc7(Crc):
     _check_result = 0x75
 
 
-class Crc7Rohc(Crc):
+class Crc7Rohc(CrcBase):
     """CRC-7/ROHC"""
     _width = 7
     _poly = 0x4F
@@ -427,7 +427,7 @@ class Crc8Wcdma(Crc8):
     _check_result = 0x25
 
 
-class Crc10(Crc):
+class Crc10(CrcBase):
     """CRC-10"""
     _width = 10
     _poly = 0x233
@@ -438,7 +438,7 @@ class Crc10(Crc):
     _check_result = 0x199
 
 
-class Crc10Cdma2000(Crc):
+class Crc10Cdma2000(CrcBase):
     """CRC-10/CDMA2000"""
     _width = 10
     _poly = 0x3D9
@@ -449,7 +449,7 @@ class Crc10Cdma2000(Crc):
     _check_result = 0x233
 
 
-class Crc11(Crc):
+class Crc11(CrcBase):
     """CRC-11"""
     _width = 11
     _poly = 0x385
@@ -460,7 +460,7 @@ class Crc11(Crc):
     _check_result = 0x5A3
 
 
-class Crc12_3GPP(Crc):
+class Crc12_3GPP(CrcBase):
     """CRC-12/3GPP"""
     _width = 12
     _poly = 0x80F
@@ -471,7 +471,7 @@ class Crc12_3GPP(Crc):
     _check_result = 0xDAF
 
 
-class Crc12Cdma2000(Crc):
+class Crc12Cdma2000(CrcBase):
     """CRC-12/CDMA2000"""
     _width = 12
     _poly = 0xF13
@@ -482,7 +482,7 @@ class Crc12Cdma2000(Crc):
     _check_result = 0xD4D
 
 
-class Crc12Dect(Crc):
+class Crc12Dect(CrcBase):
     """CRC-12/DECT"""
     _width = 12
     _poly = 0x80F
@@ -493,7 +493,7 @@ class Crc12Dect(Crc):
     _check_result = 0xF5B
 
 
-class Crc13Bbc(Crc):
+class Crc13Bbc(CrcBase):
     """CRC-13/BBC"""
     _width = 13
     _poly = 0x1CF5
@@ -504,7 +504,7 @@ class Crc13Bbc(Crc):
     _check_result = 0x04FA
 
 
-class Crc14Darc(Crc):
+class Crc14Darc(CrcBase):
     """CRC-14/DARC"""
     _width = 14
     _poly = 0x0805
@@ -515,7 +515,7 @@ class Crc14Darc(Crc):
     _check_result = 0x082D
 
 
-class Crc15(Crc):
+class Crc15(CrcBase):
     """CRC-15"""
     _width = 15
     _poly = 0x4599
@@ -526,7 +526,7 @@ class Crc15(Crc):
     _check_result = 0x059E
 
 
-class Crc15Mpt1327(Crc):
+class Crc15Mpt1327(CrcBase):
     """CRC-15/MPT1327"""
     _width = 15
     _poly = 0x6815
@@ -760,7 +760,7 @@ class Crc16Ccitt(Crc16):
 CrcKermit = Crc16Ccitt
 
 
-class CrcModbus(Crc):
+class CrcModbus(CrcBase):
     """MODBUS"""
     _width = 16
     _poly = 0x8005
@@ -771,7 +771,7 @@ class CrcModbus(Crc):
     _check_result = 0x4B37
 
 
-class CrcX25(Crc):
+class CrcX25(CrcBase):
     """X-25"""
     _width = 16
     _poly = 0x1021
@@ -782,7 +782,7 @@ class CrcX25(Crc):
     _check_result = 0x906E
 
 
-class CrcXmodem(Crc):
+class CrcXmodem(CrcBase):
     """XMODEM"""
     _width = 16
     _poly = 0x1021
@@ -793,7 +793,7 @@ class CrcXmodem(Crc):
     _check_result = 0x31C3
 
 
-class Crc24(Crc):
+class Crc24(CrcBase):
     """CRC-24"""
     _width = 24
     _poly = 0x864CFB
@@ -804,7 +804,7 @@ class Crc24(Crc):
     _check_result = 0x21CF02
 
 
-class Crc24FlexrayA(Crc):
+class Crc24FlexrayA(CrcBase):
     """CRC-24/FLEXRAY-A"""
     _width = 24
     _poly = 0x5D6DCB
@@ -815,7 +815,7 @@ class Crc24FlexrayA(Crc):
     _check_result = 0x7979BD
 
 
-class Crc24FlexrayB(Crc):
+class Crc24FlexrayB(CrcBase):
     """CRC-24/FLEXRAY-B"""
     _width = 24
     _poly = 0x5D6DCB
@@ -826,7 +826,7 @@ class Crc24FlexrayB(Crc):
     _check_result = 0x1F23B8
 
 
-class Crc31Philips(Crc):
+class Crc31Philips(CrcBase):
     """CRC-31/PHILIPS"""
     _width = 31
     _poly = 0x04C11DB7
@@ -925,7 +925,7 @@ class CrcXfer(Crc32):
     _check_result = 0xBD0BE338
 
 
-class Crc40Gsm(Crc):
+class Crc40Gsm(CrcBase):
     """CRC-40/GSM"""
     _width = 40
     _poly = 0x0004820009
@@ -936,7 +936,7 @@ class Crc40Gsm(Crc):
     _check_result = 0xD4164FC646
 
 
-class Crc64(Crc):
+class Crc64(CrcBase):
     """CRC-64"""
     _width = 64
     _poly = 0x42F0E1EBA9EA3693
@@ -947,7 +947,7 @@ class Crc64(Crc):
     _check_result = 0x6C40DF5F0B497347
 
 
-class Crc64We(Crc):
+class Crc64We(CrcBase):
     """CRC-64/WE"""
     _width = 64
     _poly = 0x42F0E1EBA9EA3693
@@ -958,7 +958,7 @@ class Crc64We(Crc):
     _check_result = 0x62EC59E3F1A4F00A
 
 
-class Crc64Xz(Crc):
+class Crc64Xz(CrcBase):
     """CRC-64/XZ"""
     _width = 64
     _poly = 0x42F0E1EBA9EA3693
@@ -969,7 +969,7 @@ class Crc64Xz(Crc):
     _check_result = 0x995DC9BBDF1939FA
 
 
-class Crc82Darc(Crc):
+class Crc82Darc(CrcBase):
     """CRC-82/DARC"""
     _width = 82
     _poly = 0x0308C0111011401440411
