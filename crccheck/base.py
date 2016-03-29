@@ -63,15 +63,8 @@ def reflectbitorder(width, value):
             width (int): bitwidth
             value (int): value to reflect
     """
-    nbytes = int((width + 7) / 8)
-    databytes = [REFLECT_BIT_ORDER_TABLE[(value >> (8 * n)) & 0xFF] for n in range(0, nbytes)]
-    result = 0
-    for n in range(0, nbytes):
-        result |= (databytes[n] << ((nbytes - n - 1) * 8))
-    diff = nbytes * 8 - width
-    if diff > 0:
-        result >>= diff
-    return result
+    binstr = ("0"*width + bin(value)[2:])[-width:]
+    return int(binstr[::-1], 2)
 
 
 class CrccheckError(Exception):
