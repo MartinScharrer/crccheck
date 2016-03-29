@@ -10,7 +10,7 @@
     CRC-14/DARC, CRC-15, CRC-15/MPT1327, CRC-16, ARC, CRC-16/AUG-CCITT, CRC-16/BUYPASS, CRC-16/CCITT-FALSE,
     CRC-16/CDMA2000, CRC-16/DDS-110, CRC-16/DECT-R, CRC-16/DECT-X, CRC-16/DNP, CRC-16/EN-13757, CRC-16/GENIBUS,
     CRC-16/MAXIM, CRC-16/MCRF4XX, CRC-16/RIELLO, CRC-16/T10-DIF, CRC-16/TELEDISK, CRC-16/TMS37157, CRC-16/USB, CRC-A,
-    CRC16 CCITT, KERMIT, MODBUS, X-25, XMODEM, CRC-24, CRC-24/FLEXRAY-A, CRC-24/FLEXRAY-B, CRC-31/PHILIPS, CRC-32,
+    CRC-16 CCITT, KERMIT, MODBUS, X-25, XMODEM, CRC-24, CRC-24/FLEXRAY-A, CRC-24/FLEXRAY-B, CRC-31/PHILIPS, CRC-32,
     CRC-32/BZIP2, CRC-32C, CRC-32D, CRC-32/MPEG-2, CRC-32/POSIX, CRC-32Q, JAMCRC, XFER, CRC-40/GSM, CRC-64, CRC-64/WE,
     CRC-64/XZ, CRC-82/DARC.
 
@@ -39,7 +39,7 @@
         crcinst = CrcXmodem()
         crcinst.process(data1)
         crcinst.process(data2)
-        crcinst.process(data3, 1, -1)
+        crcinst.process(data3[1:-1])
         crcbytes = crcinst.finalbytes()
         crchex = crcinst.finalhex()
         crcint = crcinst.final()

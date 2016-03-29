@@ -32,13 +32,11 @@ class CrcBase(CrccheckBase):
     _check_result = None
     _check_data = bytearray(b"123456789")
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         crc = self._value
         highbit = 1 << (self._width - 1)
@@ -55,11 +53,7 @@ class CrcBase(CrccheckBase):
             poly = self._poly << diff8
 
         reflect = self._reflect_input
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
-        for byte in databytes:
+        for byte in data:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << shift)
@@ -135,23 +129,17 @@ class Crc8(CrcBase):
     _xor_output = 0x00
     _check_result = 0xF4
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         crc = self._value
 
         reflect = self._reflect_input
         poly = self._poly
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
-        for byte in databytes:
+        for byte in data:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc = crc ^ byte
@@ -177,23 +165,17 @@ class Crc16(CrcBase):
     _xor_output = 0x0000
     _check_result = 0x31C3
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         crc = self._value
 
         reflect = self._reflect_input
         poly = self._poly
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
-        for byte in databytes:
+        for byte in data:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 8)
@@ -219,23 +201,17 @@ class Crc32(CrcBase):
     _xor_output = 0xFFFFFFFF
     _check_result = 0xCBF43926
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         crc = self._value
 
         reflect = self._reflect_input
         poly = self._poly
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
-        for byte in databytes:
+        for byte in data:
             if reflect:
                 byte = REFLECT_BIT_ORDER_TABLE[byte]
             crc ^= (byte << 24)

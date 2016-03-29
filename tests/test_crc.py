@@ -57,31 +57,15 @@ def test_list1():
 
 
 def test_list2():
-    Crc32.calc([n for n in range(0, 255)], 100)
+    Crc32.calc([n for n in range(0, 255)], 123)
 
 
-def test_list3():
-    Crc32.calc([n for n in range(0, 255)], 100, 200)
-
-
-def test_list4():
-    Crc32.calc([n for n in range(0, 255)], 100, 200, 0)
-
-
-def test_bytearray1():
+def test_bytearray():
     Crc32.calc(bytearray.fromhex("12345678909876543210"))
-
-
-def test_bytearray2():
-    Crc32.calc(bytearray.fromhex("12345678909876543210"), 5, -1)
 
 
 def test_bytes():
     Crc32.calc(bytes.fromhex("12345678909876543210"))
-
-
-def test_bytes():
-    Crc32.calc(bytes.fromhex("12345678909876543210"), 5, -1)
 
 
 def test_string1():
@@ -89,8 +73,4 @@ def test_string1():
 
 
 def test_string2():
-    Crc32.calc(b"Teststring", 5, -1)
-
-
-def test_string3():
     Crc32.calc("Teststring".encode(), )

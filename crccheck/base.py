@@ -101,13 +101,11 @@ class CrccheckBase(object):
         """
         self.__init__(initvalue)
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         pass
 
@@ -149,30 +147,26 @@ class CrccheckBase(object):
         return self._value
 
     @classmethod
-    def calc(cls, data, startindex=0, endindex=None, initvalue=None, **kwargs):
+    def calc(cls, data, initvalue=None, **kwargs):
         """ Fully calculate CRC/checksum over given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
                 initvalue (int): Initial value. If None then the default value for the class is used.
 
             Return:
                 int: final value
         """
         inst = cls(initvalue, **kwargs)
-        inst.process(data, startindex, endindex)
+        inst.process(data)
         return inst.final()
 
     @classmethod
-    def calchex(cls, data, startindex=0, endindex=None, initvalue=None, byteorder='big', **kwargs):
+    def calchex(cls, data, initvalue=None, byteorder='big', **kwargs):
         """Fully calculate checksum over given data. Return result as hex string.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
                 initvalue (int): Initial value. If None then the default value for the class is used.
                 byteorder ('big' or 'little'): order (endianness) of returned bytes.
 
@@ -180,17 +174,15 @@ class CrccheckBase(object):
                 str: final value as hex string without leading '0x'.
         """
         inst = cls(initvalue, **kwargs)
-        inst.process(data, startindex, endindex)
+        inst.process(data)
         return inst.finalhex(byteorder)
 
     @classmethod
-    def calcbytes(cls, data, startindex=0, endindex=None, initvalue=None, byteorder='big', **kwargs):
+    def calcbytes(cls, data, initvalue=None, byteorder='big', **kwargs):
         """Fully calculate checksum over given data. Return result as bytearray.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
                 initvalue (int): Initial value. If None then the default value for the class is used.
                 byteorder ('big' or 'little'): order (endianness) of returned bytes.
 
@@ -198,7 +190,7 @@ class CrccheckBase(object):
                 bytes: final value as bytes
         """
         inst = cls(initvalue, **kwargs)
-        inst.process(data, startindex, endindex)
+        inst.process(data)
         return inst.finalbytes(byteorder)
 
     @classmethod

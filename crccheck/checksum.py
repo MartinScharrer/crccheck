@@ -37,25 +37,19 @@ class ChecksumBase(CrccheckBase):
         super(ChecksumBase, self).__init__(initvalue)
         self._byteorder = byteorder
 
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         dataword = 0
         n = 0
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
         bigendian = (self._byteorder == 'big')
         width = self._width
         mask = self._mask
         value = self._value
-        for byte in databytes:
+        for byte in data:
             if bigendian:
                 dataword = (dataword << 8) | byte
             else:
@@ -117,25 +111,19 @@ class Checksum8(ChecksumBase):
 
 
 class ChecksumXorBase(ChecksumBase):
-    def process(self, data, startindex=0, endindex=None):
-        """ Processes given data, from [startindex:endindex] if given.
+    def process(self, data):
+        """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
-                startindex (int): start index of data.
-                endindex (int): end index of data.
         """
         dataword = 0
         n = 0
-        if startindex == 0 and endindex is None:
-            databytes = data
-        else:
-            databytes = data[startindex:endindex]
         bigendian = (self._byteorder == 'big')
         width = self._width
         mask = self._mask
         value = self._value
-        for byte in databytes:
+        for byte in data:
             if bigendian:
                 dataword = (dataword << 8) | byte
             else:
