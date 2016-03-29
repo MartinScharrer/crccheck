@@ -194,7 +194,7 @@ class CrccheckBase(object):
         return inst.finalbytes(byteorder)
 
     @classmethod
-    def selftest(cls, data=None, expectedresult=None):
+    def selftest(cls, data=None, expectedresult=None, **kwargs):
         """ Selftest method for automated tests.
 
             Args:
@@ -207,6 +207,6 @@ class CrccheckBase(object):
         if data is None:
             data = cls._check_data
             expectedresult = cls._check_result
-        result = cls.calc(data)
+        result = cls.calc(data, **kwargs)
         if result != expectedresult:
             raise CrccheckError("{:s}: expected {:s}, got {:s}".format(cls.__name__, hex(expectedresult), hex(result)))

@@ -63,6 +63,15 @@ class ChecksumBase(CrccheckBase):
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None, byteorder='big'):
+        """ Selftest method for automated tests.
+
+            Args:
+                data (bytes, bytearray or list of int [0-255]): data to process
+                expectedresult (int): expected result
+
+            Raises:
+                CrccheckError: if result is not as expected
+        """
         if data is None:
             data = cls._check_data
         if expectedresult is None:
@@ -111,6 +120,8 @@ class Checksum8(ChecksumBase):
 
 
 class ChecksumXorBase(ChecksumBase):
+    """ Base class for all XOR checksum classes. """
+
     def process(self, data):
         """ Process given data.
 
