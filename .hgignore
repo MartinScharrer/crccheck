@@ -2,6 +2,7 @@ syntax: glob
 */*.pyc
 *.pyc
 docs/build/
+docs/source/modules.rst
 temp/
 build/
 dist/
