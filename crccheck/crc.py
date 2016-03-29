@@ -31,7 +31,6 @@ class CrcBase(CrccheckBase):
     _xor_output = 0x00
     _check_result = None
     _check_data = bytearray(b"123456789")
-    _table = None
 
     def process(self, data, startindex=0, endindex=None):
         """ Processes given data, from [startindex:endindex] if given.
