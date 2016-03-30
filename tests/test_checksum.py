@@ -78,7 +78,7 @@ def test_general_checksum_valid_width():
         Should allow for any positive width
         which is a multiple of 8.
     """
-    for n in range(8, 128, 8):
+    for n in range(8, 129, 8):
         Checksum(n)
 
 
@@ -105,7 +105,7 @@ def test_general_checksumxor_valid_width():
         Should allow for any positive width
         which is a multiple of 8.
     """
-    for n in range(8, 128, 8):
+    for n in range(8, 129, 8):
         ChecksumXor(n)
 
 
