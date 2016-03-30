@@ -9,7 +9,7 @@ config = {
     'url': 'https://bitbucket.org/martin_scharrer/crccheck',
     'download_url': 'https://bitbucket.org/martin_scharrer/checksum/downloads/',
     'author_email': 'martin@scharrer-online.de',
-    'version': '0.4',
+    'version': '0.5',
     'install_requires': [],
     'packages': ['crccheck'],
     'scripts': [],
