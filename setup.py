@@ -13,7 +13,9 @@ config = {
     'install_requires': [],
     'packages': ['crccheck'],
     'scripts': [],
-    'name': 'crccheck'
+    'name': 'crccheck',
+    'license': 'GPL v3+',
+    'platforms': 'any',
 }
 
 setup(**config)
