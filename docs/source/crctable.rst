@@ -1,5 +1,5 @@
-Supported CRCs and their parameters
-===================================
+Supported CRCs
+==============
 
 +-------------------------+-----------------+-----------+------------------------+--------------------+---------------+----------------+--------------------+------------------------+
 |  CRC Name               | Class           | Bit width | Poly                   | Initvalue          | Reflect input | Reflect output | XOR output         | Check                  |
