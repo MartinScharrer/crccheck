@@ -12,6 +12,7 @@ Contents:
    crccheck
    crctable
    howto
+   changelog
 
 Indices and tables
 ==================
