@@ -68,6 +68,7 @@ class ChecksumBase(CrccheckBase):
             Args:
                 data (bytes, bytearray or list of int [0-255]): data to process
                 expectedresult (int): expected result
+                byteorder ('big' or 'little'): byte order (endianness) used when reading the input bytes.
 
             Raises:
                 CrccheckError: if result is not as expected
