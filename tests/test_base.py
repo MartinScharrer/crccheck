@@ -6,19 +6,19 @@ def randombytes(length):
     return [random.randint(0,255) for n in range(0, length)]
 
 
-def test_init1():
+def test_init():
     for CrcClass in ALLCRCCLASSES:
         for n in range(0, 16):
             value = random.randint(0, 4294967295)
             assert CrcClass(value).value() == value
 
 
-def test_init2():
+def test_reset():
     for CrcClass in ALLCRCCLASSES:
         for n in range(0, 16):
             value = random.randint(0, 4294967295)
             c = CrcClass()
-            c.init(value)
+            c.reset(value)
             assert c.value() == value
 
 

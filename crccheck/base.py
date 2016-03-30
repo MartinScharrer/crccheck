@@ -90,19 +90,22 @@ class CrccheckBase(object):
         else:
             self._value = initvalue
 
-    def init(self, initvalue=None):
-        """ Re-init instance.
+    def reset(self, value=None):
+        """ Reset instance.
 
             Resets the instance state to the initial value.
             This is not required for a just created instance.
 
             Args:
-                initvalue (int): Initial value. If None then the default value for the class is used.
+                value (int): Set internal value. If None then the default initial value for the class is used.
 
             Returns:
                 self
         """
-        self.__init__(initvalue)
+        if value is None:
+            self._value = self._initvalue
+        else:
+            self._value = value
         return self
 
     def process(self, data):
