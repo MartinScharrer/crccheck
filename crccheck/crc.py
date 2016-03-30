@@ -37,6 +37,9 @@ class CrcBase(CrccheckBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         crc = self._value
         highbit = 1 << (self._width - 1)
@@ -66,6 +69,7 @@ class CrcBase(CrccheckBase):
         if diff8 > 0:
             crc >>= diff8
         self._value = crc
+        return self
 
     def final(self):
         """ Return final CRC value.
@@ -134,6 +138,9 @@ class Crc8(CrcBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         crc = self._value
 
@@ -150,7 +157,7 @@ class Crc8(CrcBase):
                     crc = (crc << 1)
             crc &= 0xFF
         self._value = crc
-        return crc
+        return self
 
 
 class Crc16(CrcBase):
@@ -170,6 +177,9 @@ class Crc16(CrcBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         crc = self._value
 
@@ -186,7 +196,7 @@ class Crc16(CrcBase):
                     crc = (crc << 1)
             crc &= 0xFFFF
         self._value = crc
-        return crc
+        return self
 
 
 class Crc32(CrcBase):
@@ -206,6 +216,9 @@ class Crc32(CrcBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         crc = self._value
 
@@ -222,7 +235,7 @@ class Crc32(CrcBase):
                     crc = (crc << 1)
             crc &= 0xFFFFFFFF
         self._value = crc
-        return crc
+        return self
 
 
 class Crc3Rohc(CrcBase):

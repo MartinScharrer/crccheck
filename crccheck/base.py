@@ -98,16 +98,23 @@ class CrccheckBase(object):
 
             Args:
                 initvalue (int): Initial value. If None then the default value for the class is used.
+
+            Returns:
+                self
         """
         self.__init__(initvalue)
+        return self
 
     def process(self, data):
         """ Process given data.
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
-        pass
+        return self
 
     def final(self):
         """Return final check value.

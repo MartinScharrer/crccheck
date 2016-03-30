@@ -42,6 +42,9 @@ class ChecksumBase(CrccheckBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         dataword = 0
         n = 0
@@ -60,6 +63,7 @@ class ChecksumBase(CrccheckBase):
                 dataword = 0
                 n = 0
         self._value = value
+        return self
 
     @classmethod
     def selftest(cls, data=None, expectedresult=None, byteorder='big'):
@@ -128,6 +132,9 @@ class ChecksumXorBase(ChecksumBase):
 
             Args:
                 data (bytes, bytearray or list of ints [0-255]): input data to process.
+
+            Returns:
+                self
         """
         dataword = 0
         n = 0
@@ -146,6 +153,7 @@ class ChecksumXorBase(ChecksumBase):
                 dataword = 0
                 n = 0
         self._value = value
+        return self
 
 
 class ChecksumXor32(ChecksumXorBase):
