@@ -2,10 +2,12 @@
 Changelog
 =========
 
-v0.5 - pending
-==============
+v0.5 - 30.03.2016
+=================
+ * Added general checksum classes Checksum and ChecksumXor.
  * changed ``process()`` to return ``self`` so that calls can be chained
  * changed ``init()`` to return ``self`` so that calls can be chained
+ * renamed ``init()`` to ``reset()``
  * Updated documentation.
 
 v0.4 - 29.03.2016
