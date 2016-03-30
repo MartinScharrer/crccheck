@@ -191,6 +191,46 @@ class ChecksumXor8(ChecksumXorBase):
     _check_result_littleendian = _check_result
 
 
+class Checksum(ChecksumBase):
+    """ General additive checksum.
+
+        Args:
+            width (int): bit width of checksum. Must be positive and a multiple of 8.
+            initvalue (int): Initial value. If None then the default value for the class is used.
+            byteorder ('big' or 'little'): byte order (endianness) used when reading the input bytes.
+    """
+    _check_result = None
+    _check_result_littleendian = None
+
+    def __init__(self, width, initvalue=0, byteorder='big'):
+        super(Checksum, self).__init__(initvalue, byteorder)
+        width = int(width)
+        if width <= 0 or width % 8 != 0:
+            raise ValueError("width must be postive and a multiple of 8")
+        self._width = width
+        self._mask = (1 << width) - 1
+
+
+class ChecksumXor(ChecksumXorBase):
+    """ General XOR checksum.
+
+        Args:
+            width (int): bit width of checksum. Must be positive and a multiple of 8.
+            initvalue (int): Initial value. If None then the default value for the class is used.
+            byteorder ('big' or 'little'): byte order (endianness) used when reading the input bytes.
+    """
+    _check_result = None
+    _check_result_littleendian = None
+
+    def __init__(self, width, initvalue=0, byteorder='big'):
+        super(ChecksumXor, self).__init__(initvalue, byteorder)
+        width = int(width)
+        if width <= 0 or width % 8 != 0:
+            raise ValueError("width must be postive and a multiple of 8")
+        self._width = width
+        self._mask = (1 << width) - 1
+
+
 ALLCHECKSUMCLASSES = (
     Checksum8, Checksum16, Checksum32,
     ChecksumXor8, ChecksumXor16, ChecksumXor32,
