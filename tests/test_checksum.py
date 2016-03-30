@@ -19,25 +19,29 @@
 
 """
 
-from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32
+import random
+from crccheck import checksum
+from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32, Checksum, ChecksumXor
+
+
+def randombytes(length):
+    return [random.randint(0, 255) for n in range(0, length)]
 
 
 def test_allchecksums_bigendian():
-    for checksumclass in ALLCHECKSUMCLASSES:
-        def selftest_bigendian():
-            return checksumclass.selftest(byteorder='big')
+    def selftest_bigendian(cls):
+        return cls.selftest(byteorder='big')
 
-        selftest_bigendian.description = checksumclass.__name__ + " [bigendian]"
-        yield selftest_bigendian
+    for checksumclass in ALLCHECKSUMCLASSES:
+        yield selftest_bigendian, checksumclass
 
 
 def test_allchecksums_littleendian():
-    for checksumclass in ALLCHECKSUMCLASSES:
-        def selftest_littleendian():
-            return checksumclass.selftest(byteorder='little')
+    def selftest_littleendian(cls):
+        return cls.selftest(byteorder='little')
 
-        selftest_littleendian.description = checksumclass.__name__ + " [littleendian]"
-        yield selftest_littleendian
+    for checksumclass in ALLCHECKSUMCLASSES:
+        yield selftest_littleendian, checksumclass
 
 
 def test_generator():
@@ -66,3 +70,57 @@ def test_string1():
 
 def test_string3():
     Checksum32.calc("Teststring".encode(), )
+
+
+def test_general_checksum_valid_width():
+    """ Checksum()
+
+        Should allow for any positive width
+        which is a multiple of 8.
+    """
+    for n in range(8, 128, 8):
+        Checksum(n)
+
+
+def test_general_checksum_invalid_width():
+    for n in (0, 1, 7, 9, 33):
+        try:
+            Checksum(n)
+        except ValueError:
+            pass
+        else:
+            raise Exception
+
+
+def test_general_checksum_ident():
+    data = randombytes(1024)
+    assert checksum.Checksum32.calc(data) == checksum.Checksum(32).process(data).final()
+    assert checksum.Checksum16.calc(data) == checksum.Checksum(16).process(data).final()
+    assert checksum.Checksum8.calc(data) == checksum.Checksum(8).process(data).final()
+
+
+def test_general_checksumxor_valid_width():
+    """ Checksum()
+
+        Should allow for any positive width
+        which is a multiple of 8.
+    """
+    for n in range(8, 128, 8):
+        ChecksumXor(n)
+
+
+def test_general_checksumxor_invalid_width():
+    for n in (0, 1, 7, 9, 33):
+        try:
+            ChecksumXor(n)
+        except ValueError:
+            pass
+        else:
+            raise Exception
+
+
+def test_general_checksumxor_ident():
+    data = randombytes(1024)
+    assert checksum.ChecksumXor32.calc(data) == checksum.ChecksumXor(32).process(data).final()
+    assert checksum.ChecksumXor16.calc(data) == checksum.ChecksumXor(16).process(data).final()
+    assert checksum.ChecksumXor8.calc(data) == checksum.ChecksumXor(8).process(data).final()

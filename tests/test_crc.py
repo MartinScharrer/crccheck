@@ -25,27 +25,21 @@ from crccheck.crc import ALLCRCCLASSES, Crc32
 def test_allcrc():
     """Test if expected 'check' result is calulated with standard test vector."""
     for crcclass in ALLCRCCLASSES:
-        def selftest():
-            return crcclass.selftest()
-
-        selftest.description = crcclass.__name__
-        yield selftest
+        yield lambda x: x.selftest(), crcclass
 
 
 def test_allcrcfail():
     """Test if 'check' result is not reached with different input."""
+    def fail(cls):
+        try:
+            cls.selftest(b"wrongtestinput", cls._check_result)
+        except CrccheckError:
+            # This is the correct response
+            pass
+        else:
+            raise Exception("Selftest passed with incorrect input!")
     for crcclass in ALLCRCCLASSES:
-        def selftest():
-            try:
-                crcclass.selftest(b"wrongtestinput", crcclass._check_result)
-            except CrccheckError:
-                # This is the correct response
-                pass
-            else:
-                raise Exception("Selftest passed with incorrect input!")
-
-        selftest.description = crcclass.__name__ + " (incorrect input)"
-        yield selftest
+        yield fail, crcclass
 
 
 def test_generator():

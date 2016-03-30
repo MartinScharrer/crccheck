@@ -3,7 +3,7 @@ import random
 
 
 def randombytes(length):
-    return [random.randint(0,255) for n in range(0, length)]
+    return [random.randint(0, 255) for n in range(0, length)]
 
 
 def test_init():
