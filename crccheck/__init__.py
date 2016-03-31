@@ -33,8 +33,8 @@
         checksum = Checksum32.calc(data)
 
         # Procsss multiple data buffers
-        data1 = b"Binary string"  # or use .encode(..) on normal sring
-        data2 = bytes.fromhex("1234567890")
+        data1 = b"Binary string"  # or use .encode(..) on normal sring - Python 3 only
+        data2 = bytes.fromhex("1234567890")  # Python 3 only, use bytearray for older versions
         data3 = (0x0, 255, 12, 99)  # Iterable which returns ints in byte range (0..255)
         crcinst = CrcXmodem()
         crcinst.process(data1)

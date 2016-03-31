@@ -15,12 +15,11 @@ The ``crccheck.crc`` module implements all CRCs listed in the
     CRC-64/XZ, CRC-82/DARC.
 
 For the class names simply remove all dashes and slashes from the above names and apply CamelCase, e.g.
-"CRC-32/MPEG-2" is implemented by ``Crc32Mpeg2`` Other CRC can be calculated by using the general class
+"CRC-32/MPEG-2" is implemented by ``Crc32Mpeg2``. Other CRC can be calculated by using the general class
 ``crccheck.crc.Crc`` by providing all required CRC parameters.
 
 The ``crccheck.checksum`` module implements additive and XOR checksums with 8, 16 and 32 bit:
-``Checksum8``, ``Checksum16``, ``Checksum32`` and
-``ChecksumXor8``, ``ChecksumXor16``, ``ChecksumXor32``
+``Checksum8``, ``Checksum16``, ``Checksum32`` and ``ChecksumXor8``, ``ChecksumXor16``, ``ChecksumXor32``
 
 Usage example::
 
@@ -33,8 +32,8 @@ Usage example::
     checksum = Checksum32.calc(data)
 
     # Procsss multiple data buffers
-    data1 = b"Binary string"  # or use .encode(..) on normal sring
-    data2 = bytes.fromhex("1234567890")
+    data1 = b"Binary string"  # or use .encode(..) on normal sring - Python 3 only
+    data2 = bytes.fromhex("1234567890")  # Python 3 only, use bytearray for older versions
     data3 = (0x0, 255, 12, 99)  # Iterable which returns ints in byte range (0..255)
     crcinst = CrcXmodem()
     crcinst.process(data1)
@@ -44,20 +43,3 @@ Usage example::
     crchex = crcinst.finalhex()
     crcint = crcinst.final()
 
-
-License::
-
-    Copyright (C) 2015-2016 by Martin Scharrer <martin@scharrer-online.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
