@@ -1,8 +1,8 @@
 crccheck - Classes to calculate CRCs and checksums from binary data
 ===================================================================
 
-The ````crccheck.crc```` module implements all CRCs listed in the
-``Catalogue of parametrised CRC algorithms <http://reveng.sourceforge.net/crc-catalogue/>``_:
+The ``crccheck.crc`` module implements all CRCs listed in the
+`Catalogue of parametrised CRC algorithms <http://reveng.sourceforge.net/crc-catalogue/>`_:
 
     CRC-3/ROHC, CRC-4/ITU, CRC-5/EPC, CRC-5/ITU, CRC-5/USB, CRC-6/CDMA2000-A, CRC-6/CDMA2000-B, CRC-6/DARC, CRC-6/ITU,
     CRC-7, CRC-7/ROHC, CRC-8, CRC-8/CDMA2000, CRC-8/DARC, CRC-8/DVB-S2, CRC-8/EBU, CRC-8/I-CODE, CRC-8/ITU, CRC-8/MAXIM,
