@@ -18,6 +18,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
+import sys
+from nose.plugins.skip import SkipTest
 
 import random
 from crccheck import checksum
@@ -61,14 +63,20 @@ def test_bytearray1():
 
 
 def test_bytes():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Checksum32.calc(bytes.fromhex("12345678909876543210"))
 
 
 def test_string1():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Checksum32.calc(b"Teststring")
 
 
 def test_string3():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Checksum32.calc("Teststring".encode(), )
 
 

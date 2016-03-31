@@ -17,6 +17,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import sys
+from nose.plugins.skip import SkipTest
 
 from crccheck.base import CrccheckError
 from crccheck.crc import ALLCRCCLASSES, Crc32
@@ -32,7 +34,7 @@ def test_allcrcfail():
     """Test if 'check' result is not reached with different input."""
     def fail(cls):
         try:
-            cls.selftest(b"wrongtestinput", cls._check_result)
+            cls.selftest(bytearray(b"wrongtestinput"), cls._check_result)
         except CrccheckError:
             # This is the correct response
             pass
@@ -59,12 +61,18 @@ def test_bytearray():
 
 
 def test_bytes():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Crc32.calc(bytes.fromhex("12345678909876543210"))
 
 
 def test_string1():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Crc32.calc(b"Teststring")
 
 
 def test_string2():
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     Crc32.calc("Teststring".encode(), )

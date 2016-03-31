@@ -1,3 +1,7 @@
+import sys
+from nose.plugins.skip import SkipTest
+
+
 from crccheck.crc import ALLCRCCLASSES
 import random
 
@@ -44,6 +48,8 @@ def test_finalhex():
 
 def test_finalbytes_big():
     """.finalbytes() should match .final()"""
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     for CrcClass in ALLCRCCLASSES:
         for n in range(0, 16):
             data = randombytes(16)
@@ -54,6 +60,8 @@ def test_finalbytes_big():
 
 def test_finalbytes_little():
     """.finalbytes() should match .final()"""
+    if sys.version_info < (3, 3, 0):
+        raise SkipTest
     for CrcClass in ALLCRCCLASSES:
         for n in range(0, 16):
             data = randombytes(16)
