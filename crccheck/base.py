@@ -135,7 +135,11 @@ class CrccheckBase(object):
            Return:
                str: final value as hex string without leading '0x'.
         """
-        return self.finalbytes(byteorder).hex()
+        asbytes = self.finalbytes(byteorder)
+        try:
+            return asbytes.hex()
+        except AttributeError:
+            return "".join(["{:02x}".format(b) for b in asbytes])
 
     def finalbytes(self, byteorder='big'):
         """Return final checksum value as bytes.
@@ -144,8 +148,18 @@ class CrccheckBase(object):
            Return:
                bytes: final value as bytes
         """
-        bytelength = math.ceil(self._width / 8.0)
-        return self.final().to_bytes(bytelength, byteorder)
+        bytelength = int(math.ceil(self._width / 8.0))
+        asint = self.final()
+        try:
+            return asint.to_bytes(bytelength, byteorder)
+        except AttributeError:
+            asbytes = bytearray(bytelength)
+            for i in range(0, bytelength):
+                asbytes[i] = asint % 256
+                asint /= 256
+            if byteorder == 'big':
+                asbytes.reverse()
+            return asbytes
 
     def value(self):
         """Returns current intermediate value.
