@@ -1,13 +1,21 @@
 import sys
 from nose.plugins.skip import SkipTest
+from nose.tools import raises
 
-
+from crccheck.base import CrccheckBase
 from crccheck.crc import ALLCRCCLASSES
 import random
 
 
 def randombytes(length):
     return [random.randint(0, 255) for n in range(0, length)]
+
+
+@raises(NotImplementedError)
+def test_abstract_method():
+    """ For coverage """
+    ab = CrccheckBase()
+    ab.process(bytearray(10))
 
 
 def test_init():

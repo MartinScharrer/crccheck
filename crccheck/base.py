@@ -117,7 +117,7 @@ class CrccheckBase(object):
             Returns:
                 self
         """
-        return self
+        raise NotImplementedError
 
     def final(self):
         """Return final check value.

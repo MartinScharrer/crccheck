@@ -20,10 +20,11 @@
 """
 import sys
 from nose.plugins.skip import SkipTest
-
+from nose.tools import raises
 import random
 from crccheck import checksum
 from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32, Checksum, ChecksumXor
+from crccheck.base import CrccheckError
 
 
 def randombytes(length):
@@ -44,6 +45,13 @@ def test_allchecksums_littleendian():
 
     for checksumclass in ALLCHECKSUMCLASSES:
         yield selftest_littleendian, checksumclass
+
+
+# noinspection PyProtectedMember
+@raises(CrccheckError)
+def test_allchecksums_fail():
+    checksumclass = ALLCHECKSUMCLASSES[0]
+    checksumclass.selftest(checksumclass._check_data, ~checksumclass._check_result)
 
 
 def test_generator():

@@ -19,9 +19,9 @@
 """
 import sys
 from nose.plugins.skip import SkipTest
-
+from nose.tools import raises
 from crccheck.base import CrccheckError
-from crccheck.crc import ALLCRCCLASSES, Crc32
+from crccheck.crc import ALLCRCCLASSES, Crc32, Crc
 
 
 def test_allcrc():
@@ -76,3 +76,14 @@ def test_string2():
     if sys.version_info < (3, 3, 0):
         raise SkipTest
     Crc32.calc("Teststring".encode(), )
+
+
+def test_general_crc():
+    crc = Crc(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, 0x340BC6D9)
+    crc.selftest()
+
+
+@raises(CrccheckError)
+def test_general_crc_fail():
+    crc = Crc(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, ~0x340BC6D9)
+    crc.selftest()
