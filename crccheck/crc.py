@@ -18,7 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-from crccheck.base import CrccheckBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
+from crccheck.base import CrccheckBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE, CrccheckError
 
 
 class CrcBase(CrccheckBase):
@@ -113,12 +113,24 @@ class Crc(CrcBase):
     def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
                  check_result=0x00):
         super(Crc, self).__init__(initvalue)
-        self._width = width
-        self._poly = poly
-        self._reflect_input = reflect_input
-        self._reflect_output = reflect_output
-        self._xor_output = xor_output
-        self._check_result = check_result
+        self._initvalue = int(initvalue)
+        self._width = int(width)
+        self._poly = int(poly)
+        self._reflect_input = bool(reflect_input)
+        self._reflect_output = bool(reflect_output)
+        self._xor_output = int(xor_output)
+        self._check_result = int(check_result)
+
+    def selftest(self, data=None, expectedresult=None, **kwargs):
+        if data is None:
+            data = self._check_data
+            expectedresult = self._check_result
+        self.reset()
+        self.process(data, **kwargs)
+        result = self.final()
+        if result != expectedresult:
+            raise CrccheckError("{:s}: expected {:s}, got {:s}".format(
+                self.__class__.__name__, hex(expectedresult), hex(result)))
 
 
 class Crc8(CrcBase):
