@@ -491,7 +491,7 @@ class Crc11(CrcBase):
     _check_result = 0x5A3
 
 
-class Crc12_3GPP(CrcBase):
+class Crc123Gpp(CrcBase):
     """CRC-12/3GPP"""
     _width = 12
     _poly = 0x80F
@@ -1014,7 +1014,7 @@ class Crc82Darc(CrcBase):
 ALLCRCCLASSES = (
     Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc,
     Crc8, Crc8Cdma2000, Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10,
-    Crc10Cdma2000, Crc11, Crc12_3GPP, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
+    Crc10Cdma2000, Crc11, Crc123Gpp, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
     Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc24, Crc24FlexrayA, Crc24FlexrayB,
