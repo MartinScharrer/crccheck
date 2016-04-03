@@ -155,8 +155,8 @@ class CrccheckBase(object):
         except AttributeError:
             asbytes = bytearray(bytelength)
             for i in range(0, bytelength):
-                asbytes[i] = asint % 256
-                asint /= 256
+                asbytes[i] = asint & 0xFF
+                asint >>= 8
             if byteorder == 'big':
                 asbytes.reverse()
             return asbytes
