@@ -2,6 +2,11 @@
 Changelog
 =========
 
+v1.0 - pending
+==============
+ * Fixed missing storage of initial value for general ``Crc`` class. Before ``reset()`` did not work correctly.
+ * Updated tests to achieve 100% code coverage.
+
 v0.6 - 03.04.2016
 =================
  * Added compatibility with Python 2.7 and 3.3.
