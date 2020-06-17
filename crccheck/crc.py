@@ -836,6 +836,17 @@ class CrcXmodem(CrcBase):
     _check_result = 0x31C3
 
 
+class Crc17CanFd(CrcBase):
+    """CRC-17/CAN-FD"""
+    _width = 17
+    _poly = 0x1685b
+    _initvalue = 0x00000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x04f03
+
+
 class Crc24(CrcBase):
     """CRC-24"""
     _width = 24
@@ -1029,7 +1040,7 @@ ALLCRCCLASSES = (
     Crc10Cdma2000, Crc11, Crc123Gpp, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
-    Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc24, Crc24FlexrayA, Crc24FlexrayB,
+    Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc17CanFd, Crc24, Crc24FlexrayA, Crc24FlexrayB,
     Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer, Crc40Gsm,
     Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
