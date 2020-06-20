@@ -891,6 +891,17 @@ class Crc24FlexrayB(CrcBase):
     _check_result = 0x1F23B8
 
 
+class Crc24Ble(CrcBase):
+    """CRC-24/BLE"""
+    _width = 24
+    _poly = 0x00065b
+    _initvalue = 0x555555
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x000000
+    _check_result = 0xc25a56
+
+
 class Crc31Philips(CrcBase):
     """CRC-31/PHILIPS"""
     _width = 31
@@ -1052,7 +1063,7 @@ ALLCRCCLASSES = (
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
     Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc17CanFd, Crc21CanFd, Crc24, Crc24FlexrayA,
-    Crc24FlexrayB, Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
-    Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
+    Crc24FlexrayB, Crc24Ble, Crc31Philips, Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc,
+    CrcXfer, Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
 
