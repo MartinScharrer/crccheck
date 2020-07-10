@@ -960,6 +960,18 @@ class Crc24Os9(CrcBase):
     _residue = 0x800fe3
 
 
+class Crc30Cdma(CrcBase):
+    """CRC-30/CDMA"""
+    _width = 30
+    _poly = 0x2030b9c7
+    _initvalue = 0x3fffffff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x3fffffff
+    _check_result = 0x04c34abf
+    _residue = 0x34efa55a
+
+
 class Crc31Philips(CrcBase):
     """CRC-31/PHILIPS"""
     _width = 31
@@ -1059,6 +1071,42 @@ class CrcXfer(Crc32):
     _check_result = 0xBD0BE338
 
 
+class Crc32Aixm(Crc32):
+    """CRC-32/AIXM"""
+    _width = 32
+    _poly = 0x814141ab
+    _initvalue = 0x00000000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00000000
+    _check_result = 0x3010bf7f
+    _residue = 0x00000000
+
+
+class Crc32Autosar(Crc32):
+    """CRC-32/AUTOSAR"""
+    _width = 32
+    _poly = 0xf4acfb13
+    _initvalue = 0xffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffff
+    _check_result = 0x1697d06a
+    _residue = 0x904cddbf
+
+
+class Crc32Base91D(Crc32):
+    """CRC-32/BASE91-D"""
+    _width = 32
+    _poly = 0xa833982b
+    _initvalue = 0xffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffff
+    _check_result = 0x87315576
+    _residue = 0x45270551
+
+
 class Crc40Gsm(CrcBase):
     """CRC-40/GSM"""
     _width = 40
@@ -1121,8 +1169,7 @@ ALLCRCCLASSES = (
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
     Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc17CanFd, Crc21CanFd, Crc24, Crc24FlexrayA,
-    Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc31Philips, Crc32,
-    Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer, Crc40Gsm, Crc64, Crc64We, Crc64Xz,
-    Crc82Darc
+    Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips,
+    Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
+    Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
-
