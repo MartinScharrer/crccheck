@@ -1107,6 +1107,54 @@ class Crc32Base91D(Crc32):
     _residue = 0x45270551
 
 
+class Crc32CdRomEdc(Crc32):
+    """CRC-32/CD-ROM-EDC"""
+    _width = 32
+    _poly = 0x8001801b
+    _initvalue = 0x00000000
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00000000
+    _check_result = 0x6ec2edc4
+    _residue = 0x00000000
+
+
+class Crc32Cksum(Crc32):
+    """CRC-32/CKSUM"""
+    _width = 32
+    _poly = 0x04c11db7
+    _initvalue = 0x00000000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xffffffff
+    _check_result = 0x765e7680
+    _residue = 0xc704dd7b
+
+
+class Crc32Iscsi(Crc32):
+    """CRC-32/ISCSI"""
+    _width = 32
+    _poly = 0x1edc6f41
+    _initvalue = 0xffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffff
+    _check_result = 0xe3069283
+    _residue = 0xb798b438
+
+
+class Crc32IsoHdlc(Crc32):
+    """CRC-32/ISO-HDLC"""
+    _width = 32
+    _poly = 0x04c11db7
+    _initvalue = 0xffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffff
+    _check_result = 0xcbf43926
+    _residue = 0xdebb20e3
+
+
 class Crc40Gsm(CrcBase):
     """CRC-40/GSM"""
     _width = 40
@@ -1171,5 +1219,6 @@ ALLCRCCLASSES = (
     Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc17CanFd, Crc21CanFd, Crc24, Crc24FlexrayA,
     Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips,
     Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
-    Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm, Crc64, Crc64We, Crc64Xz, Crc82Darc
+    Crc32CdRomEdc, Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm,
+    Crc64, Crc64We, Crc64Xz, Crc82Darc
 )
