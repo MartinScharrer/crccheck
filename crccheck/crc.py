@@ -1199,6 +1199,30 @@ class Crc64Xz(CrcBase):
     _check_result = 0x995DC9BBDF1939FA
 
 
+class Crc64Ecma182(CrcBase):
+    """CRC-64/ECMA-182"""
+    _width = 64
+    _poly = 0x42f0e1eba9ea3693
+    _initvalue = 0x0000000000000000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000000000000000
+    _check_result = 0x6c40df5f0b497347
+    _residue = 0x0000000000000000
+
+
+class Crc64GoIso(CrcBase):
+    """CRC-64/GO-ISO"""
+    _width = 64
+    _poly = 0x000000000000001b
+    _initvalue = 0xffffffffffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffffffffffff
+    _check_result = 0xb90956c775a41001
+    _residue = 0x5300000000000000
+
+
 class Crc82Darc(CrcBase):
     """CRC-82/DARC"""
     _width = 82
@@ -1220,5 +1244,5 @@ ALLCRCCLASSES = (
     Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips,
     Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
     Crc32CdRomEdc, Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm,
-    Crc64, Crc64We, Crc64Xz, Crc82Darc
+    Crc64, Crc64We, Crc64Xz, Crc64Ecma182, Crc64GoIso, Crc82Darc
 )
