@@ -31,6 +31,7 @@ class CrcBase(CrccheckBase):
     _xor_output = 0x00
     _check_result = None
     _check_data = bytearray(b"123456789")
+    _residue = 0
 
     def process(self, data):
         """ Process given data.
