@@ -837,6 +837,162 @@ class CrcXmodem(CrcBase):
     _check_result = 0x31C3
 
 
+class Crc16Cms(Crc16):
+    """CRC-16/CMS"""
+    _width = 16
+    _poly = 0x8005
+    _initvalue = 0xffff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0xaee7
+    _residue = 0x0000
+
+
+class Crc16Gsm(Crc16):
+    """CRC-16/GSM"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xffff
+    _check_result = 0xce3c
+    _residue = 0x1d0f
+
+
+class Crc16Ibm3740(Crc16):
+    """CRC-16/IBM-3740"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0xffff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x29b1
+    _residue = 0x0000
+
+
+class Crc16IbmSdlc(Crc16):
+    """CRC-16/IBM-SDLC"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0xffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffff
+    _check_result = 0x906e
+    _residue = 0xf0b8
+
+
+class Crc16IsoIec144433A(Crc16):
+    """CRC-16/ISO-IEC-14443-3-A"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0xc6c6
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0000
+    _check_result = 0xbf05
+    _residue = 0x0000
+
+
+class Crc16Lj1200(Crc16):
+    """CRC-16/LJ1200"""
+    _width = 16
+    _poly = 0x6f63
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0xbdf4
+    _residue = 0x0000
+
+
+class Crc16Mcrf4Xx(Crc16):
+    """CRC-16/MCRF4XX"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0xffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0000
+    _check_result = 0x6f91
+    _residue = 0x0000
+
+
+class Crc16Nrsc5(Crc16):
+    """CRC-16/NRSC-5"""
+    _width = 16
+    _poly = 0x080b
+    _initvalue = 0xffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0000
+    _check_result = 0xa066
+    _residue = 0x0000
+
+
+class Crc16OpensafetyA(Crc16):
+    """CRC-16/OPENSAFETY-A"""
+    _width = 16
+    _poly = 0x5935
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x5d38
+    _residue = 0x0000
+
+
+class Crc16OpensafetyB(Crc16):
+    """CRC-16/OPENSAFETY-B"""
+    _width = 16
+    _poly = 0x755b
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x20fe
+    _residue = 0x0000
+
+
+class Crc16Profibus(Crc16):
+    """CRC-16/PROFIBUS"""
+    _width = 16
+    _poly = 0x1dcf
+    _initvalue = 0xffff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xffff
+    _check_result = 0xa819
+    _residue = 0xe394
+
+
+class Crc16SpiFujitsu(Crc16):
+    """CRC-16/SPI-FUJITSU"""
+    _width = 16
+    _poly = 0x1021
+    _initvalue = 0x1d0f
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0xe5cc
+    _residue = 0x0000
+
+
+class Crc16Umts(Crc16):
+    """CRC-16/UMTS"""
+    _width = 16
+    _poly = 0x8005
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0xfee8
+    _residue = 0x0000
+
+
 class Crc17CanFd(CrcBase):
     """CRC-17/CAN-FD"""
     _width = 17
@@ -1241,7 +1397,10 @@ ALLCRCCLASSES = (
     Crc10Cdma2000, Crc11, Crc123Gpp, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
-    Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem, Crc17CanFd, Crc21CanFd, Crc24, Crc24FlexrayA,
+    Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem,
+    Crc16Cms, Crc16Gsm, Crc16Ibm3740, Crc16IbmSdlc, Crc16IsoIec144433A, Crc16Lj1200,
+    Crc16Mcrf4Xx, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus,
+    Crc16SpiFujitsu, Crc16Umts, Crc17CanFd, Crc21CanFd, Crc24, Crc24FlexrayA,
     Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips,
     Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
     Crc32CdRomEdc, Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm,
