@@ -84,6 +84,17 @@ class CrcBase(CrccheckBase):
         crc ^= self._xor_output
         return crc
 
+    def __eq__(self, other):
+        return self._width == other._width and \
+               self._poly == other._poly and \
+               self._initvalue == other._initvalue and \
+               self._reflect_input == other._reflect_input and \
+               self._reflect_output == other._reflect_output and \
+               self._xor_output == other._xor_output and \
+               self._check_result == other._check_result and \
+               self._check_data == other._check_data and \
+               self._residue == other._residue
+
 
 class Crc(CrcBase):
     """ Creates a new general (user-defined) CRC calculator instance.
