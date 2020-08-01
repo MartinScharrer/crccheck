@@ -592,6 +592,367 @@ class Crc15Mpt1327(CrcBase):
     _check_result = 0x2566
 
 
+class Crc3Gsm(CrcBase):
+    """CRC-3/GSM"""
+    _width = 3
+    _poly = 0x3
+    _initvalue = 0x0
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x7
+    _check_result = 0x4
+    _residue = 0x2
+
+
+class Crc4G704(CrcBase):
+    """CRC-4/G-704"""
+    _width = 4
+    _poly = 0x3
+    _initvalue = 0x0
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0
+    _check_result = 0x7
+    _residue = 0x0
+
+
+class Crc4Interlaken(CrcBase):
+    """CRC-4/INTERLAKEN"""
+    _width = 4
+    _poly = 0x3
+    _initvalue = 0xf
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xf
+    _check_result = 0xb
+    _residue = 0x2
+
+
+class Crc5EpcC1G2(CrcBase):
+    """CRC-5/EPC-C1G2"""
+    _width = 5
+    _poly = 0x09
+    _initvalue = 0x09
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x00
+    _residue = 0x00
+
+
+class Crc5G704(CrcBase):
+    """CRC-5/G-704"""
+    _width = 5
+    _poly = 0x15
+    _initvalue = 0x00
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00
+    _check_result = 0x07
+    _residue = 0x00
+
+
+
+class Crc6G704(CrcBase):
+    """CRC-6/G-704"""
+    _width = 6
+    _poly = 0x03
+    _initvalue = 0x00
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00
+    _check_result = 0x06
+    _residue = 0x00
+
+
+class Crc6Gsm(CrcBase):
+    """CRC-6/GSM"""
+    _width = 6
+    _poly = 0x2f
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x3f
+    _check_result = 0x13
+    _residue = 0x3a
+
+
+class Crc7Mmc(CrcBase):
+    """CRC-7/MMC"""
+    _width = 7
+    _poly = 0x09
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x75
+    _residue = 0x00
+
+
+class Crc7Umts(CrcBase):
+    """CRC-7/UMTS"""
+    _width = 7
+    _poly = 0x45
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x61
+    _residue = 0x00
+
+
+class Crc8Autosar(CrcBase):
+    """CRC-8/AUTOSAR"""
+    _width = 8
+    _poly = 0x2f
+    _initvalue = 0xff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xff
+    _check_result = 0xdf
+    _residue = 0x42
+
+
+class Crc8Bluetooth(CrcBase):
+    """CRC-8/BLUETOOTH"""
+    _width = 8
+    _poly = 0xa7
+    _initvalue = 0x00
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00
+    _check_result = 0x26
+    _residue = 0x00
+
+
+class Crc8GsmA(CrcBase):
+    """CRC-8/GSM-A"""
+    _width = 8
+    _poly = 0x1d
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x37
+    _residue = 0x00
+
+
+class Crc8GsmB(CrcBase):
+    """CRC-8/GSM-B"""
+    _width = 8
+    _poly = 0x49
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xff
+    _check_result = 0x94
+    _residue = 0x53
+
+
+class Crc8I4321(CrcBase):
+    """CRC-8/I-432-1"""
+    _width = 8
+    _poly = 0x07
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x55
+    _check_result = 0xa1
+    _residue = 0xac
+
+
+class Crc8Lte(CrcBase):
+    """CRC-8/LTE"""
+    _width = 8
+    _poly = 0x9b
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0xea
+    _residue = 0x00
+
+
+class Crc8MaximDow(CrcBase):
+    """CRC-8/MAXIM-DOW"""
+    _width = 8
+    _poly = 0x31
+    _initvalue = 0x00
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00
+    _check_result = 0xa1
+    _residue = 0x00
+
+
+class Crc8MifareMad(CrcBase):
+    """CRC-8/MIFARE-MAD"""
+    _width = 8
+    _poly = 0x1d
+    _initvalue = 0xc7
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x99
+    _residue = 0x00
+
+
+class Crc8Nrsc5(CrcBase):
+    """CRC-8/NRSC-5"""
+    _width = 8
+    _poly = 0x31
+    _initvalue = 0xff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0xf7
+    _residue = 0x00
+
+
+class Crc8Opensafety(CrcBase):
+    """CRC-8/OPENSAFETY"""
+    _width = 8
+    _poly = 0x2f
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0x3e
+    _residue = 0x00
+
+
+class Crc8SaeJ1850(CrcBase):
+    """CRC-8/SAE-J1850"""
+    _width = 8
+    _poly = 0x1d
+    _initvalue = 0xff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xff
+    _check_result = 0x4b
+    _residue = 0xc4
+
+
+class Crc8Smbus(CrcBase):
+    """CRC-8/SMBUS"""
+    _width = 8
+    _poly = 0x07
+    _initvalue = 0x00
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0xf4
+    _residue = 0x00
+
+
+class Crc8Tech3250(CrcBase):
+    """CRC-8/TECH-3250"""
+    _width = 8
+    _poly = 0x1d
+    _initvalue = 0xff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00
+    _check_result = 0x97
+    _residue = 0x00
+
+
+class Crc10Atm(CrcBase):
+    """CRC-10/ATM"""
+    _width = 10
+    _poly = 0x233
+    _initvalue = 0x000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x000
+    _check_result = 0x199
+    _residue = 0x000
+
+
+class Crc10Gsm(CrcBase):
+    """CRC-10/GSM"""
+    _width = 10
+    _poly = 0x175
+    _initvalue = 0x000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x3ff
+    _check_result = 0x12a
+    _residue = 0x0c6
+
+
+class Crc11Flexray(CrcBase):
+    """CRC-11/FLEXRAY"""
+    _width = 11
+    _poly = 0x385
+    _initvalue = 0x01a
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x000
+    _check_result = 0x5a3
+    _residue = 0x000
+
+
+class Crc11Umts(CrcBase):
+    """CRC-11/UMTS"""
+    _width = 11
+    _poly = 0x307
+    _initvalue = 0x000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x000
+    _check_result = 0x061
+    _residue = 0x000
+
+
+class Crc12Gsm(CrcBase):
+    """CRC-12/GSM"""
+    _width = 12
+    _poly = 0xd31
+    _initvalue = 0x000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0xfff
+    _check_result = 0xb34
+    _residue = 0x178
+
+
+class Crc12Umts(CrcBase):
+    """CRC-12/UMTS"""
+    _width = 12
+    _poly = 0x80f
+    _initvalue = 0x000
+    _reflect_input = False
+    _reflect_output = True
+    _xor_output = 0x000
+    _check_result = 0xdaf
+    _residue = 0x000
+
+
+class Crc14Gsm(CrcBase):
+    """CRC-14/GSM"""
+    _width = 14
+    _poly = 0x202d
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x3fff
+    _check_result = 0x30ae
+    _residue = 0x031e
+
+
+class Crc15Can(CrcBase):
+    """CRC-15/CAN"""
+    _width = 15
+    _poly = 0x4599
+    _initvalue = 0x0000
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x059e
+    _residue = 0x0000
+
+
 class CrcArc(Crc16):
     """ARC"""
     _width = 16
@@ -1405,7 +1766,13 @@ class Crc82Darc(CrcBase):
 ALLCRCCLASSES = (
     Crc3Rohc, Crc4Itu, Crc5Epc, Crc5Itu, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6Itu, Crc7, Crc7Rohc,
     Crc8, Crc8Cdma2000, Crc8Darc, Crc8DvbS2, Crc8Ebu, Crc8ICode, Crc8Itu, Crc8Maxim, Crc8Rohc, Crc8Wcdma, Crc10,
-    Crc10Cdma2000, Crc11, Crc123Gpp, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327, Crc16, CrcArc,
+    Crc10Cdma2000, Crc11, Crc123Gpp, Crc12Cdma2000, Crc12Dect, Crc13Bbc, Crc14Darc, Crc15, Crc15Mpt1327,
+    Crc3Gsm, Crc4G704, Crc4Interlaken, Crc5EpcC1G2, Crc5G704,
+    Crc6G704, Crc6Gsm, Crc7Mmc, Crc7Umts, Crc8Autosar, Crc8Bluetooth,
+    Crc8GsmA, Crc8GsmB, Crc8I4321, Crc8Lte, Crc8MaximDow, Crc8MifareMad, Crc8Nrsc5,
+    Crc8Opensafety, Crc8SaeJ1850, Crc8Smbus, Crc8Tech3250, Crc10Atm, Crc10Gsm,
+    Crc11Flexray, Crc11Umts, Crc12Gsm, Crc12Umts, Crc14Gsm, Crc15Can,
+    Crc16, CrcArc,
     Crc16AugCcitt, Crc16Buypass, Crc16CcittFalse, Crc16Cdma2000, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp,
     Crc16En13757, Crc16Genibus, Crc16Maxim, Crcc16Mcrf4xx, Crc16Riello, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157,
     Crc16Usb, CrcA, Crc16Ccitt, CrcKermit, CrcModbus, CrcX25, CrcXmodem,
@@ -1415,5 +1782,5 @@ ALLCRCCLASSES = (
     Crc24FlexrayB, Crc24Ble, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips,
     Crc32, Crc32Bzip2, Crc32c, Crc32d, Crc32Mpeg2, Crc32Posix, Crc32q, CrcJamcrc, CrcXfer,
     Crc32CdRomEdc, Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc40Gsm,
-    Crc64, Crc64We, Crc64Xz, Crc64Ecma182, Crc64GoIso, Crc82Darc
+    Crc64, Crc64We, Crc64Xz, Crc64Ecma182, Crc64GoIso, Crc82Darc,
 )
