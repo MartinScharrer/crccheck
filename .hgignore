@@ -21,3 +21,4 @@ dist/
 .idea/gradle.xml
 .idea/libraries
 .idea/mongoSettings.xml
+create/crc.py
