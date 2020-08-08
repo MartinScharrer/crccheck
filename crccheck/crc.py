@@ -90,10 +90,7 @@ class CrcBase(CrccheckBase):
                self._initvalue == other._initvalue and \
                self._reflect_input == other._reflect_input and \
                self._reflect_output == other._reflect_output and \
-               self._xor_output == other._xor_output and \
-               self._check_result == other._check_result and \
-               self._check_data == other._check_data and \
-               self._residue == other._residue
+               self._xor_output == other._xor_output
 
 
 class Crc(CrcBase):
