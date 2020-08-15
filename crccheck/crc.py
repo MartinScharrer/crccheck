@@ -110,6 +110,8 @@ class Crc(CrcBase):
             check_result (int): The expected result for the check input "123456789" (= [0x31, 0x32, 0x33, 0x34,
                 0x35, 0x36, 0x37, 0x38, 0x39]). This value is used for the selftest() method to verify proper
                 operation.
+            residue (int): The residue expected after calculating the CRC over the original data followed by the
+                CRC of the original data. With initvalue=0 and xor_output=0 the residue calculates always to 0.
     """
     _width = 0
     _poly = 0x00
@@ -118,9 +120,10 @@ class Crc(CrcBase):
     _reflect_output = False
     _xor_output = 0x00
     _check_result = None
+    _residue = None
 
     def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
-                 check_result=0x00):
+                 check_result=0x00, residue=0x00):
         super(Crc, self).__init__(initvalue)
         self._initvalue = int(initvalue)
         self._width = int(width)
@@ -129,6 +132,7 @@ class Crc(CrcBase):
         self._reflect_output = bool(reflect_output)
         self._xor_output = int(xor_output)
         self._check_result = int(check_result)
+        self._residue = int(residue)
 
     def selftest(self, data=None, expectedresult=None, **kwargs):
         if data is None:
