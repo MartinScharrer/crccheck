@@ -99,6 +99,55 @@ class CrcBase(CrccheckBase):
                 self._xor_output, self._check_result, self._check_data, self._residue)
 
 
+def find(classes=None, width=None, poly=None, initvalue=None, reflect_input=None, reflect_output=None, xor_output=None,
+         check_result=None, residue=None):
+    """Find CRC classes which the matching properties.
+
+    Args:
+        classes (None or list): List of classes to search in. If None the list ALLCRCCLASSES will be used.
+        width (None or int): number of bits of the CRC classes to find
+        poly (None or int): polygon to find
+        initvalue (None or int): initvalue to find
+        reflect_input (None or bool): reflect_input to find
+        reflect_output (None or bool): reflect_output to find
+        xor_output (None or int): xor_output to find
+        check_result (None or int): check_result to find
+        residue (None or int): residue to find
+
+    Returns:
+        List of CRC classes with the selected properties.
+
+    Examples:
+        Find all CRC16 classes:
+            $ find(width=16)
+
+        Find all CRC32 classes with all-1 init value and XOR output:
+            $ find(width=32, initvalue=0xFFFF, xor_output=0xFFFF)
+    """
+    found = list()
+    if classes is None:
+        classes = ALLCRCCLASSES
+    for cls in classes:
+        if width is not None and width != cls._width:
+            continue
+        if poly is not None and poly != cls._poly:
+            continue
+        if initvalue is not None and initvalue != cls._initvalue:
+            continue
+        if reflect_input is not None and reflect_input != cls._reflect_input:
+            continue
+        if reflect_output is not None and reflect_output != cls._reflect_output:
+            continue
+        if xor_output is not None and xor_output != cls._xor_output:
+            continue
+        if check_result is not None and check_result != cls._check_result:
+            continue
+        if residue is not None and residue != cls._residue:
+            continue
+        found.append(cls)
+    return found
+
+
 class Crc(CrcBase):
     """ Creates a new general (user-defined) CRC calculator instance.
 

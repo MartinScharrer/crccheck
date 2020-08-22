@@ -54,7 +54,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'crccheck'
-copyright = u'2015, Martin Scharrer'
+copyright = u'2015-2020, Martin Scharrer'
 author = u'Martin Scharrer'
 
 # The version info for the project you're documenting, acts as replacement for
