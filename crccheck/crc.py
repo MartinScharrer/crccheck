@@ -93,10 +93,12 @@ class CrcBase(CrccheckBase):
                self._xor_output == other._xor_output
 
     def __repr__(self):
-        return ("Crc(width={:d}, poly=0x{:X}, initvalue=0x{:X}, reflect_input={!s:s}, reflect_output={!s:s}, " +
-                "xor_output={:X}, check_result=0x{:X}, check_data={!r}, residue=0x{:X})").format(
+        residue = hex(self._residue) if self._residue is not None else 'None'
+        check_result = hex(self._check_result) if self._check_result is not None else 'None'
+        return ("Crc(width={:d}, poly=0x{:x}, initvalue=0x{:X}, reflect_input={!s:s}, reflect_output={!s:s}, " +
+                "xor_output=0x{:x}, check_result={}, residue={})").format(
                 self._width, self._poly, self._initvalue, self._reflect_input, self._reflect_output,
-                self._xor_output, self._check_result, self._check_data, self._residue)
+                self._xor_output, check_result, residue)
 
 
 def find(classes=None, width=None, poly=None, initvalue=None, reflect_input=None, reflect_output=None, xor_output=None,
