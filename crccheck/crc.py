@@ -148,6 +148,47 @@ def find(classes=None, width=None, poly=None, initvalue=None, reflect_input=None
     return found
 
 
+def identify(data, crc, width=None, classes=None, one=True):
+    """
+    Identify the used CRC algorithm which was used to calculate the CRC from some data.
+
+    This function can be used to identify a suitable CRC class if the exact CRC algorithm/parameters
+    are not known, but a CRC value is known from some data. Note that this function can be quite
+    time consuming on large data, especially if the given width is not known.
+
+    Args:
+        data (bytes): Data to compare with the `crc`.
+        crc (int): Known CRC of the given `data`.
+        width (int or None): Known bit width of given `crc`.
+            Providing the width will speed up the identification of the CRC algorithm.
+        classes (iterable or None): Listing of classes to check. If None then ALLCRCCLASSES is used.
+        one (bool): If True then only the first found CRC class is retunred.
+            Otherwise a list of all suitable CRC classes.
+
+    Returns:
+        If `one` is True:
+            CRC class which instances produce the given CRC from the given data.
+            If no CRC class could be found `None` is returned.
+        If `one` is False:
+            List of CRC classes which instances produce the given CRC from the given data.
+            The list may be empty.
+    """
+    if classes is None:
+        classes = ALLCRCCLASSES
+    if width is not None:
+        classes = (cls for cls in classes if cls._width == width)
+
+    found = []
+    for cls in classes:
+        if cls().calc(data) == crc:
+            if one:
+                return cls
+            found.append(cls)
+    if one:
+        return None
+    return found
+
+
 class Crc(CrcBase):
     """ Creates a new general (user-defined) CRC calculator instance.
 
