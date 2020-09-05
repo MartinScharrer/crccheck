@@ -18,7 +18,7 @@ aliases = {
     'Crc12Dect': ('Crc12X',),
     'Crc12Umts': ('Crc123Gpp',),
     'Crc15Can': ('Crc15',),
-    'Crc16Arc': ('CrcArc', 'Crc16Lha', 'CrcIbm'),
+    'Crc16Arc': ('CrcArc', 'Crc16Lha', 'CrcIbm'),  # Crc16, but not used for backward compatibility
     'Crc16Genibus': ('Crc16Darc', 'Crc16Epc', 'CrcEpsC1g2', 'Crc16ICode'),
     'Crc16Ibm3740': ('Crc16Autosar', 'Crc16CcittFalse'),
     'Crc16IbmSdlc': ('Crc16IsoHdlc', 'Crc16IsoIec144433B', 'Crc16X25', 'CrcB', 'CrcX25'),
@@ -30,7 +30,7 @@ aliases = {
     'Crc16Profibus': ('Crc16Iec611582',),
     'Crc16SpiFujitsu': ('Crc16AugCcitt',),
     'Crc16Umts': ('Crc16Buypass', 'Crc16Verifone'),
-    'Crc16Xmodem': ('Crc16Acorn', 'Crc16Lte', 'Crc16V41Msb', 'CrcXmodem', 'CrcZmodem'),
+    'Crc16Xmodem': ('Crc16Acorn', 'Crc16Lte', 'Crc16V41Msb', 'CrcXmodem', 'CrcZmodem', 'Crc16'),  # Crc16 only for backward compatibility
     'Crc24Openpgp': ('Crc24OpenPgp', 'Crc24'),
     'Crc32Aixm': ('Crc32Q', 'Crc32q'),
     'Crc32Base91D': ('Crc32D', 'Crc32d'),
@@ -135,6 +135,8 @@ if __name__ == "__main__":
         with open('crc_head.py', 'r') as infh:
             outfh.write(infh.read())
 
+        outfh.write('\n')
+
         for crc in crcs:
             outfh.write(template.format(*crc))
 
@@ -159,4 +161,3 @@ if __name__ == "__main__":
 
         for line in lines:
             outfh.write(line)
-        outfh.write('\n')

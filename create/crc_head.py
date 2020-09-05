@@ -31,7 +31,7 @@ class CrcBase(CrccheckBase):
     _xor_output = 0x00
     _check_result = None
     _check_data = bytearray(b"123456789")
-    _residue = 0
+    _residue = None
 
     def process(self, data):
         """ Process given data.
@@ -90,10 +90,105 @@ class CrcBase(CrccheckBase):
                self._initvalue == other._initvalue and \
                self._reflect_input == other._reflect_input and \
                self._reflect_output == other._reflect_output and \
-               self._xor_output == other._xor_output and \
-               self._check_result == other._check_result and \
-               self._check_data == other._check_data and \
-               self._residue == other._residue
+               self._xor_output == other._xor_output
+
+    def __repr__(self):
+        residue = hex(self._residue) if self._residue is not None else 'None'
+        check_result = hex(self._check_result) if self._check_result is not None else 'None'
+        return ("Crc(width={:d}, poly=0x{:x}, initvalue=0x{:X}, reflect_input={!s:s}, reflect_output={!s:s}, " +
+                "xor_output=0x{:x}, check_result={}, residue={})").format(
+                self._width, self._poly, self._initvalue, self._reflect_input, self._reflect_output,
+                self._xor_output, check_result, residue)
+
+
+def find(classes=None, width=None, poly=None, initvalue=None, reflect_input=None, reflect_output=None, xor_output=None,
+         check_result=None, residue=None):
+    """Find CRC classes which the matching properties.
+
+    Args:
+        classes (None or list): List of classes to search in. If None the list ALLCRCCLASSES will be used.
+        width (None or int): number of bits of the CRC classes to find
+        poly (None or int): polygon to find
+        initvalue (None or int): initvalue to find
+        reflect_input (None or bool): reflect_input to find
+        reflect_output (None or bool): reflect_output to find
+        xor_output (None or int): xor_output to find
+        check_result (None or int): check_result to find
+        residue (None or int): residue to find
+
+    Returns:
+        List of CRC classes with the selected properties.
+
+    Examples:
+        Find all CRC16 classes:
+            $ find(width=16)
+
+        Find all CRC32 classes with all-1 init value and XOR output:
+            $ find(width=32, initvalue=0xFFFF, xor_output=0xFFFF)
+    """
+    found = list()
+    if classes is None:
+        classes = ALLCRCCLASSES
+    for cls in classes:
+        if width is not None and width != cls._width:
+            continue
+        if poly is not None and poly != cls._poly:
+            continue
+        if initvalue is not None and initvalue != cls._initvalue:
+            continue
+        if reflect_input is not None and reflect_input != cls._reflect_input:
+            continue
+        if reflect_output is not None and reflect_output != cls._reflect_output:
+            continue
+        if xor_output is not None and xor_output != cls._xor_output:
+            continue
+        if check_result is not None and check_result != cls._check_result:
+            continue
+        if residue is not None and residue != cls._residue:
+            continue
+        found.append(cls)
+    return found
+
+
+def identify(data, crc, width=None, classes=None, one=True):
+    """
+    Identify the used CRC algorithm which was used to calculate the CRC from some data.
+
+    This function can be used to identify a suitable CRC class if the exact CRC algorithm/parameters
+    are not known, but a CRC value is known from some data. Note that this function can be quite
+    time consuming on large data, especially if the given width is not known.
+
+    Args:
+        data (bytes): Data to compare with the `crc`.
+        crc (int): Known CRC of the given `data`.
+        width (int or None): Known bit width of given `crc`.
+            Providing the width will speed up the identification of the CRC algorithm.
+        classes (iterable or None): Listing of classes to check. If None then ALLCRCCLASSES is used.
+        one (bool): If True then only the first found CRC class is retunred.
+            Otherwise a list of all suitable CRC classes.
+
+    Returns:
+        If `one` is True:
+            CRC class which instances produce the given CRC from the given data.
+            If no CRC class could be found `None` is returned.
+        If `one` is False:
+            List of CRC classes which instances produce the given CRC from the given data.
+            The list may be empty.
+    """
+    if classes is None:
+        classes = ALLCRCCLASSES
+    if width is not None:
+        classes = (cls for cls in classes if cls._width == width)
+
+    found = []
+    for cls in classes:
+        if cls().calc(data) == crc:
+            if one:
+                return cls
+            found.append(cls)
+    if one:
+        return None
+    return found
 
 
 class Crc(CrcBase):
@@ -113,6 +208,8 @@ class Crc(CrcBase):
             check_result (int): The expected result for the check input "123456789" (= [0x31, 0x32, 0x33, 0x34,
                 0x35, 0x36, 0x37, 0x38, 0x39]). This value is used for the selftest() method to verify proper
                 operation.
+            residue (int): The residue expected after calculating the CRC over the original data followed by the
+                CRC of the original data. With initvalue=0 and xor_output=0 the residue calculates always to 0.
     """
     _width = 0
     _poly = 0x00
@@ -121,9 +218,10 @@ class Crc(CrcBase):
     _reflect_output = False
     _xor_output = 0x00
     _check_result = None
+    _residue = None
 
     def __init__(self, width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
-                 check_result=0x00):
+                 check_result=0x00, residue=0x00):
         super(Crc, self).__init__(initvalue)
         self._initvalue = int(initvalue)
         self._width = int(width)
@@ -132,6 +230,7 @@ class Crc(CrcBase):
         self._reflect_output = bool(reflect_output)
         self._xor_output = int(xor_output)
         self._check_result = int(check_result)
+        self._residue = int(residue)
 
     def selftest(self, data=None, expectedresult=None, **kwargs):
         if data is None:
@@ -146,7 +245,7 @@ class Crc(CrcBase):
 
 
 class Crc8Base(CrcBase):
-    """CRC-8 base class.
+    """CRC-8.
        Has optimised code for 8-bit CRCs and is used as base class for all other CRC with this width.
     """
     _width = 8
@@ -185,7 +284,7 @@ class Crc8Base(CrcBase):
 
 
 class Crc16Base(CrcBase):
-    """CRC-16 base class.
+    """CRC-16.
        Has optimised code for 16-bit CRCs and is used as base class for all other CRC with this width.
     """
     _width = 16
@@ -224,7 +323,7 @@ class Crc16Base(CrcBase):
 
 
 class Crc32Base(CrcBase):
-    """CRC-32 base class.
+    """CRC-32.
        Has optimised code for 32-bit CRCs and is used as base class for all other CRC with this width.
     """
     _width = 32
@@ -260,4 +359,3 @@ class Crc32Base(CrcBase):
             crc &= 0xFFFFFFFF
         self._value = crc
         return self
-
