@@ -1,5 +1,5 @@
 from crccheck.crc import ALLCRCCLASSES
-import crc as crcmodule
+import crccheck.crc as crcmodule
 from dl import aliases
 
 head = """\
