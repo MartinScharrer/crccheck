@@ -23,6 +23,7 @@ from crccheck.base import CrccheckBase, reflectbitorder, REFLECT_BIT_ORDER_TABLE
 
 class CrcBase(CrccheckBase):
     """Abstract base class for all Cyclic Redundancy Checks (CRC) checksums"""
+    _names = ()
     _width = 0
     _poly = 0x00
     _initvalue = 0x00
@@ -405,6 +406,7 @@ class Crc32Base(CrcBase):
 
 class Crc3Gsm(CrcBase):
     """CRC-3/GSM"""
+    _names = ('CRC-3/GSM',)
     _width = 3
     _poly = 0x3
     _initvalue = 0x0
@@ -417,6 +419,7 @@ class Crc3Gsm(CrcBase):
 
 class Crc3Rohc(CrcBase):
     """CRC-3/ROHC"""
+    _names = ('CRC-3/ROHC',)
     _width = 3
     _poly = 0x3
     _initvalue = 0x7
@@ -428,7 +431,11 @@ class Crc3Rohc(CrcBase):
 
 
 class Crc4G704(CrcBase):
-    """CRC-4/G-704"""
+    """CRC-4/G-704
+
+    Aliases: CRC-4/ITU
+    """
+    _names = ('CRC-4/G-704', 'CRC-4/ITU')
     _width = 4
     _poly = 0x3
     _initvalue = 0x0
@@ -444,6 +451,7 @@ Crc4Itu = Crc4G704
 
 class Crc4Interlaken(CrcBase):
     """CRC-4/INTERLAKEN"""
+    _names = ('CRC-4/INTERLAKEN',)
     _width = 4
     _poly = 0x3
     _initvalue = 0xf
@@ -455,7 +463,11 @@ class Crc4Interlaken(CrcBase):
 
 
 class Crc5EpcC1G2(CrcBase):
-    """CRC-5/EPC-C1G2"""
+    """CRC-5/EPC-C1G2
+
+    Aliases: CRC-5/EPC
+    """
+    _names = ('CRC-5/EPC-C1G2', 'CRC-5/EPC')
     _width = 5
     _poly = 0x09
     _initvalue = 0x09
@@ -470,7 +482,11 @@ Crc5Epc = Crc5EpcC1G2
 
 
 class Crc5G704(CrcBase):
-    """CRC-5/G-704"""
+    """CRC-5/G-704
+
+    Aliases: CRC-5/ITU
+    """
+    _names = ('CRC-5/G-704', 'CRC-5/ITU')
     _width = 5
     _poly = 0x15
     _initvalue = 0x00
@@ -486,6 +502,7 @@ Crc5Itu = Crc5G704
 
 class Crc5Usb(CrcBase):
     """CRC-5/USB"""
+    _names = ('CRC-5/USB',)
     _width = 5
     _poly = 0x05
     _initvalue = 0x1f
@@ -498,6 +515,7 @@ class Crc5Usb(CrcBase):
 
 class Crc6Cdma2000A(CrcBase):
     """CRC-6/CDMA2000-A"""
+    _names = ('CRC-6/CDMA2000-A',)
     _width = 6
     _poly = 0x27
     _initvalue = 0x3f
@@ -510,6 +528,7 @@ class Crc6Cdma2000A(CrcBase):
 
 class Crc6Cdma2000B(CrcBase):
     """CRC-6/CDMA2000-B"""
+    _names = ('CRC-6/CDMA2000-B',)
     _width = 6
     _poly = 0x07
     _initvalue = 0x3f
@@ -522,6 +541,7 @@ class Crc6Cdma2000B(CrcBase):
 
 class Crc6Darc(CrcBase):
     """CRC-6/DARC"""
+    _names = ('CRC-6/DARC',)
     _width = 6
     _poly = 0x19
     _initvalue = 0x00
@@ -533,7 +553,11 @@ class Crc6Darc(CrcBase):
 
 
 class Crc6G704(CrcBase):
-    """CRC-6/G-704"""
+    """CRC-6/G-704
+
+    Aliases: CRC-6/ITU
+    """
+    _names = ('CRC-6/G-704', 'CRC-6/ITU')
     _width = 6
     _poly = 0x03
     _initvalue = 0x00
@@ -549,6 +573,7 @@ Crc6Itu = Crc6G704
 
 class Crc6Gsm(CrcBase):
     """CRC-6/GSM"""
+    _names = ('CRC-6/GSM',)
     _width = 6
     _poly = 0x2f
     _initvalue = 0x00
@@ -560,7 +585,11 @@ class Crc6Gsm(CrcBase):
 
 
 class Crc7Mmc(CrcBase):
-    """CRC-7/MMC"""
+    """CRC-7/MMC
+
+    Aliases: CRC-7
+    """
+    _names = ('CRC-7/MMC', 'CRC-7')
     _width = 7
     _poly = 0x09
     _initvalue = 0x00
@@ -576,6 +605,7 @@ Crc7 = Crc7Mmc
 
 class Crc7Rohc(CrcBase):
     """CRC-7/ROHC"""
+    _names = ('CRC-7/ROHC',)
     _width = 7
     _poly = 0x4f
     _initvalue = 0x7f
@@ -588,6 +618,7 @@ class Crc7Rohc(CrcBase):
 
 class Crc7Umts(CrcBase):
     """CRC-7/UMTS"""
+    _names = ('CRC-7/UMTS',)
     _width = 7
     _poly = 0x45
     _initvalue = 0x00
@@ -600,6 +631,7 @@ class Crc7Umts(CrcBase):
 
 class Crc8Autosar(Crc8Base):
     """CRC-8/AUTOSAR"""
+    _names = ('CRC-8/AUTOSAR',)
     _width = 8
     _poly = 0x2f
     _initvalue = 0xff
@@ -612,6 +644,7 @@ class Crc8Autosar(Crc8Base):
 
 class Crc8Bluetooth(Crc8Base):
     """CRC-8/BLUETOOTH"""
+    _names = ('CRC-8/BLUETOOTH',)
     _width = 8
     _poly = 0xa7
     _initvalue = 0x00
@@ -624,6 +657,7 @@ class Crc8Bluetooth(Crc8Base):
 
 class Crc8Cdma2000(Crc8Base):
     """CRC-8/CDMA2000"""
+    _names = ('CRC-8/CDMA2000',)
     _width = 8
     _poly = 0x9b
     _initvalue = 0xff
@@ -636,6 +670,7 @@ class Crc8Cdma2000(Crc8Base):
 
 class Crc8Darc(Crc8Base):
     """CRC-8/DARC"""
+    _names = ('CRC-8/DARC',)
     _width = 8
     _poly = 0x39
     _initvalue = 0x00
@@ -648,6 +683,7 @@ class Crc8Darc(Crc8Base):
 
 class Crc8DvbS2(Crc8Base):
     """CRC-8/DVB-S2"""
+    _names = ('CRC-8/DVB-S2',)
     _width = 8
     _poly = 0xd5
     _initvalue = 0x00
@@ -660,6 +696,7 @@ class Crc8DvbS2(Crc8Base):
 
 class Crc8GsmA(Crc8Base):
     """CRC-8/GSM-A"""
+    _names = ('CRC-8/GSM-A',)
     _width = 8
     _poly = 0x1d
     _initvalue = 0x00
@@ -672,6 +709,7 @@ class Crc8GsmA(Crc8Base):
 
 class Crc8GsmB(Crc8Base):
     """CRC-8/GSM-B"""
+    _names = ('CRC-8/GSM-B',)
     _width = 8
     _poly = 0x49
     _initvalue = 0x00
@@ -683,7 +721,11 @@ class Crc8GsmB(Crc8Base):
 
 
 class Crc8I4321(Crc8Base):
-    """CRC-8/I-432-1"""
+    """CRC-8/I-432-1
+
+    Aliases: CRC-8/ITU
+    """
+    _names = ('CRC-8/I-432-1', 'CRC-8/ITU')
     _width = 8
     _poly = 0x07
     _initvalue = 0x00
@@ -699,6 +741,7 @@ Crc8Itu = Crc8I4321
 
 class Crc8ICode(Crc8Base):
     """CRC-8/I-CODE"""
+    _names = ('CRC-8/I-CODE',)
     _width = 8
     _poly = 0x1d
     _initvalue = 0xfd
@@ -711,6 +754,7 @@ class Crc8ICode(Crc8Base):
 
 class Crc8Lte(Crc8Base):
     """CRC-8/LTE"""
+    _names = ('CRC-8/LTE',)
     _width = 8
     _poly = 0x9b
     _initvalue = 0x00
@@ -722,7 +766,11 @@ class Crc8Lte(Crc8Base):
 
 
 class Crc8MaximDow(Crc8Base):
-    """CRC-8/MAXIM-DOW"""
+    """CRC-8/MAXIM-DOW
+
+    Aliases: CRC-8/MAXIM, DOW-CRC
+    """
+    _names = ('CRC-8/MAXIM-DOW', 'CRC-8/MAXIM', 'DOW-CRC')
     _width = 8
     _poly = 0x31
     _initvalue = 0x00
@@ -739,6 +787,7 @@ CrcDow = Crc8MaximDow
 
 class Crc8MifareMad(Crc8Base):
     """CRC-8/MIFARE-MAD"""
+    _names = ('CRC-8/MIFARE-MAD',)
     _width = 8
     _poly = 0x1d
     _initvalue = 0xc7
@@ -751,6 +800,7 @@ class Crc8MifareMad(Crc8Base):
 
 class Crc8Nrsc5(Crc8Base):
     """CRC-8/NRSC-5"""
+    _names = ('CRC-8/NRSC-5',)
     _width = 8
     _poly = 0x31
     _initvalue = 0xff
@@ -763,6 +813,7 @@ class Crc8Nrsc5(Crc8Base):
 
 class Crc8Opensafety(Crc8Base):
     """CRC-8/OPENSAFETY"""
+    _names = ('CRC-8/OPENSAFETY',)
     _width = 8
     _poly = 0x2f
     _initvalue = 0x00
@@ -775,6 +826,7 @@ class Crc8Opensafety(Crc8Base):
 
 class Crc8Rohc(Crc8Base):
     """CRC-8/ROHC"""
+    _names = ('CRC-8/ROHC',)
     _width = 8
     _poly = 0x07
     _initvalue = 0xff
@@ -787,6 +839,7 @@ class Crc8Rohc(Crc8Base):
 
 class Crc8SaeJ1850(Crc8Base):
     """CRC-8/SAE-J1850"""
+    _names = ('CRC-8/SAE-J1850',)
     _width = 8
     _poly = 0x1d
     _initvalue = 0xff
@@ -798,7 +851,11 @@ class Crc8SaeJ1850(Crc8Base):
 
 
 class Crc8Smbus(Crc8Base):
-    """CRC-8/SMBUS"""
+    """CRC-8/SMBUS
+
+    Aliases: CRC-8
+    """
+    _names = ('CRC-8/SMBUS', 'CRC-8')
     _width = 8
     _poly = 0x07
     _initvalue = 0x00
@@ -813,7 +870,11 @@ Crc8 = Crc8Smbus
 
 
 class Crc8Tech3250(Crc8Base):
-    """CRC-8/TECH-3250"""
+    """CRC-8/TECH-3250
+
+    Aliases: CRC-8/AES, CRC-8/EBU
+    """
+    _names = ('CRC-8/TECH-3250', 'CRC-8/AES', 'CRC-8/EBU')
     _width = 8
     _poly = 0x1d
     _initvalue = 0xff
@@ -830,6 +891,7 @@ Crc8Ebu = Crc8Tech3250
 
 class Crc8Wcdma(Crc8Base):
     """CRC-8/WCDMA"""
+    _names = ('CRC-8/WCDMA',)
     _width = 8
     _poly = 0x9b
     _initvalue = 0x00
@@ -841,7 +903,11 @@ class Crc8Wcdma(Crc8Base):
 
 
 class Crc10Atm(CrcBase):
-    """CRC-10/ATM"""
+    """CRC-10/ATM
+
+    Aliases: CRC-10, CRC-10/I-610
+    """
+    _names = ('CRC-10/ATM', 'CRC-10', 'CRC-10/I-610')
     _width = 10
     _poly = 0x233
     _initvalue = 0x000
@@ -858,6 +924,7 @@ Crc10I610 = Crc10Atm
 
 class Crc10Cdma2000(CrcBase):
     """CRC-10/CDMA2000"""
+    _names = ('CRC-10/CDMA2000',)
     _width = 10
     _poly = 0x3d9
     _initvalue = 0x3ff
@@ -870,6 +937,7 @@ class Crc10Cdma2000(CrcBase):
 
 class Crc10Gsm(CrcBase):
     """CRC-10/GSM"""
+    _names = ('CRC-10/GSM',)
     _width = 10
     _poly = 0x175
     _initvalue = 0x000
@@ -881,7 +949,11 @@ class Crc10Gsm(CrcBase):
 
 
 class Crc11Flexray(CrcBase):
-    """CRC-11/FLEXRAY"""
+    """CRC-11/FLEXRAY
+
+    Aliases: CRC-11
+    """
+    _names = ('CRC-11/FLEXRAY', 'CRC-11')
     _width = 11
     _poly = 0x385
     _initvalue = 0x01a
@@ -897,6 +969,7 @@ Crc11 = Crc11Flexray
 
 class Crc11Umts(CrcBase):
     """CRC-11/UMTS"""
+    _names = ('CRC-11/UMTS',)
     _width = 11
     _poly = 0x307
     _initvalue = 0x000
@@ -909,6 +982,7 @@ class Crc11Umts(CrcBase):
 
 class Crc12Cdma2000(CrcBase):
     """CRC-12/CDMA2000"""
+    _names = ('CRC-12/CDMA2000',)
     _width = 12
     _poly = 0xf13
     _initvalue = 0xfff
@@ -920,7 +994,11 @@ class Crc12Cdma2000(CrcBase):
 
 
 class Crc12Dect(CrcBase):
-    """CRC-12/DECT"""
+    """CRC-12/DECT
+
+    Aliases: CRC-12-X
+    """
+    _names = ('CRC-12/DECT', 'CRC-12-X')
     _width = 12
     _poly = 0x80f
     _initvalue = 0x000
@@ -936,6 +1014,7 @@ Crc12X = Crc12Dect
 
 class Crc12Gsm(CrcBase):
     """CRC-12/GSM"""
+    _names = ('CRC-12/GSM',)
     _width = 12
     _poly = 0xd31
     _initvalue = 0x000
@@ -947,7 +1026,11 @@ class Crc12Gsm(CrcBase):
 
 
 class Crc12Umts(CrcBase):
-    """CRC-12/UMTS"""
+    """CRC-12/UMTS
+
+    Aliases: CRC-12/3GPP
+    """
+    _names = ('CRC-12/UMTS', 'CRC-12/3GPP')
     _width = 12
     _poly = 0x80f
     _initvalue = 0x000
@@ -963,6 +1046,7 @@ Crc123Gpp = Crc12Umts
 
 class Crc13Bbc(CrcBase):
     """CRC-13/BBC"""
+    _names = ('CRC-13/BBC',)
     _width = 13
     _poly = 0x1cf5
     _initvalue = 0x0000
@@ -975,6 +1059,7 @@ class Crc13Bbc(CrcBase):
 
 class Crc14Darc(CrcBase):
     """CRC-14/DARC"""
+    _names = ('CRC-14/DARC',)
     _width = 14
     _poly = 0x0805
     _initvalue = 0x0000
@@ -987,6 +1072,7 @@ class Crc14Darc(CrcBase):
 
 class Crc14Gsm(CrcBase):
     """CRC-14/GSM"""
+    _names = ('CRC-14/GSM',)
     _width = 14
     _poly = 0x202d
     _initvalue = 0x0000
@@ -998,7 +1084,11 @@ class Crc14Gsm(CrcBase):
 
 
 class Crc15Can(CrcBase):
-    """CRC-15/CAN"""
+    """CRC-15/CAN
+
+    Aliases: CRC-15
+    """
+    _names = ('CRC-15/CAN', 'CRC-15')
     _width = 15
     _poly = 0x4599
     _initvalue = 0x0000
@@ -1014,6 +1104,7 @@ Crc15 = Crc15Can
 
 class Crc15Mpt1327(CrcBase):
     """CRC-15/MPT1327"""
+    _names = ('CRC-15/MPT1327',)
     _width = 15
     _poly = 0x6815
     _initvalue = 0x0000
@@ -1025,7 +1116,11 @@ class Crc15Mpt1327(CrcBase):
 
 
 class Crc16Arc(Crc16Base):
-    """CRC-16/ARC"""
+    """CRC-16/ARC
+
+    Aliases: ARC, CRC-16/LHA, CRC-IBM
+    """
+    _names = ('CRC-16/ARC', 'ARC', 'CRC-16/LHA', 'CRC-IBM')
     _width = 16
     _poly = 0x8005
     _initvalue = 0x0000
@@ -1043,6 +1138,7 @@ CrcIbm = Crc16Arc
 
 class Crc16Cdma2000(Crc16Base):
     """CRC-16/CDMA2000"""
+    _names = ('CRC-16/CDMA2000',)
     _width = 16
     _poly = 0xc867
     _initvalue = 0xffff
@@ -1055,6 +1151,7 @@ class Crc16Cdma2000(Crc16Base):
 
 class Crc16Cms(Crc16Base):
     """CRC-16/CMS"""
+    _names = ('CRC-16/CMS',)
     _width = 16
     _poly = 0x8005
     _initvalue = 0xffff
@@ -1067,6 +1164,7 @@ class Crc16Cms(Crc16Base):
 
 class Crc16Dds110(Crc16Base):
     """CRC-16/DDS-110"""
+    _names = ('CRC-16/DDS-110',)
     _width = 16
     _poly = 0x8005
     _initvalue = 0x800d
@@ -1078,7 +1176,11 @@ class Crc16Dds110(Crc16Base):
 
 
 class Crc16DectR(Crc16Base):
-    """CRC-16/DECT-R"""
+    """CRC-16/DECT-R
+
+    Aliases: R-CRC-16
+    """
+    _names = ('CRC-16/DECT-R', 'R-CRC-16')
     _width = 16
     _poly = 0x0589
     _initvalue = 0x0000
@@ -1089,8 +1191,15 @@ class Crc16DectR(Crc16Base):
     _residue = 0x0589
 
 
+Crc16R = Crc16DectR
+
+
 class Crc16DectX(Crc16Base):
-    """CRC-16/DECT-X"""
+    """CRC-16/DECT-X
+
+    Aliases: X-CRC-16
+    """
+    _names = ('CRC-16/DECT-X', 'X-CRC-16')
     _width = 16
     _poly = 0x0589
     _initvalue = 0x0000
@@ -1101,8 +1210,12 @@ class Crc16DectX(Crc16Base):
     _residue = 0x0000
 
 
+Crc16X = Crc16DectX
+
+
 class Crc16Dnp(Crc16Base):
     """CRC-16/DNP"""
+    _names = ('CRC-16/DNP',)
     _width = 16
     _poly = 0x3d65
     _initvalue = 0x0000
@@ -1115,6 +1228,7 @@ class Crc16Dnp(Crc16Base):
 
 class Crc16En13757(Crc16Base):
     """CRC-16/EN-13757"""
+    _names = ('CRC-16/EN-13757',)
     _width = 16
     _poly = 0x3d65
     _initvalue = 0x0000
@@ -1126,7 +1240,11 @@ class Crc16En13757(Crc16Base):
 
 
 class Crc16Genibus(Crc16Base):
-    """CRC-16/GENIBUS"""
+    """CRC-16/GENIBUS
+
+    Aliases: CRC-16/DARC, CRC-16/EPC, CRC-16/EPC-C1G2, CRC-16/I-CODE
+    """
+    _names = ('CRC-16/GENIBUS', 'CRC-16/DARC', 'CRC-16/EPC', 'CRC-16/EPC-C1G2', 'CRC-16/I-CODE')
     _width = 16
     _poly = 0x1021
     _initvalue = 0xffff
@@ -1139,12 +1257,13 @@ class Crc16Genibus(Crc16Base):
 
 Crc16Darc = Crc16Genibus
 Crc16Epc = Crc16Genibus
-CrcEpsC1g2 = Crc16Genibus
+Crc16EpcC1G2 = Crc16Genibus
 Crc16ICode = Crc16Genibus
 
 
 class Crc16Gsm(Crc16Base):
     """CRC-16/GSM"""
+    _names = ('CRC-16/GSM',)
     _width = 16
     _poly = 0x1021
     _initvalue = 0x0000
@@ -1156,7 +1275,11 @@ class Crc16Gsm(Crc16Base):
 
 
 class Crc16Ibm3740(Crc16Base):
-    """CRC-16/IBM-3740"""
+    """CRC-16/IBM-3740
+
+    Aliases: CRC-16/AUTOSAR, CRC-16/CCITT-FALSE
+    """
+    _names = ('CRC-16/IBM-3740', 'CRC-16/AUTOSAR', 'CRC-16/CCITT-FALSE')
     _width = 16
     _poly = 0x1021
     _initvalue = 0xffff
@@ -1172,7 +1295,11 @@ Crc16CcittFalse = Crc16Ibm3740
 
 
 class Crc16IbmSdlc(Crc16Base):
-    """CRC-16/IBM-SDLC"""
+    """CRC-16/IBM-SDLC
+
+    Aliases: CRC-16/ISO-HDLC, CRC-16/ISO-IEC-14443-3-B, CRC-16/X-25, CRC-B, X-25
+    """
+    _names = ('CRC-16/IBM-SDLC', 'CRC-16/ISO-HDLC', 'CRC-16/ISO-IEC-14443-3-B', 'CRC-16/X-25', 'CRC-B', 'X-25')
     _width = 16
     _poly = 0x1021
     _initvalue = 0xffff
@@ -1191,7 +1318,11 @@ CrcX25 = Crc16IbmSdlc
 
 
 class Crc16IsoIec144433A(Crc16Base):
-    """CRC-16/ISO-IEC-14443-3-A"""
+    """CRC-16/ISO-IEC-14443-3-A
+
+    Aliases: CRC-A
+    """
+    _names = ('CRC-16/ISO-IEC-14443-3-A', 'CRC-A')
     _width = 16
     _poly = 0x1021
     _initvalue = 0xc6c6
@@ -1206,7 +1337,11 @@ CrcA = Crc16IsoIec144433A
 
 
 class Crc16Kermit(Crc16Base):
-    """CRC-16/KERMIT"""
+    """CRC-16/KERMIT
+
+    Aliases: CRC-16/CCITT, CRC-16/CCITT-TRUE, CRC-16/V-41-LSB, CRC-CCITT, KERMIT
+    """
+    _names = ('CRC-16/KERMIT', 'CRC-16/CCITT', 'CRC-16/CCITT-TRUE', 'CRC-16/V-41-LSB', 'CRC-CCITT', 'KERMIT')
     _width = 16
     _poly = 0x1021
     _initvalue = 0x0000
@@ -1226,6 +1361,7 @@ CrcKermit = Crc16Kermit
 
 class Crc16Lj1200(Crc16Base):
     """CRC-16/LJ1200"""
+    _names = ('CRC-16/LJ1200',)
     _width = 16
     _poly = 0x6f63
     _initvalue = 0x0000
@@ -1237,7 +1373,11 @@ class Crc16Lj1200(Crc16Base):
 
 
 class Crc16MaximDow(Crc16Base):
-    """CRC-16/MAXIM-DOW"""
+    """CRC-16/MAXIM-DOW
+
+    Aliases: CRC-16/MAXIM
+    """
+    _names = ('CRC-16/MAXIM-DOW', 'CRC-16/MAXIM')
     _width = 16
     _poly = 0x8005
     _initvalue = 0x0000
@@ -1253,6 +1393,7 @@ Crc16Maxim = Crc16MaximDow
 
 class Crc16Mcrf4Xx(Crc16Base):
     """CRC-16/MCRF4XX"""
+    _names = ('CRC-16/MCRF4XX',)
     _width = 16
     _poly = 0x1021
     _initvalue = 0xffff
@@ -1262,13 +1403,16 @@ class Crc16Mcrf4Xx(Crc16Base):
     _check_result = 0x6f91
     _residue = 0x0000
 
-
-Crc16Mcrf4xx = Crc16Mcrf4Xx
+Crc16Mcrf4XX = Crc16Mcrf4Xx
 Crcc16Mcrf4xx = Crc16Mcrf4Xx
 
 
 class Crc16Modbus(Crc16Base):
-    """CRC-16/MODBUS"""
+    """CRC-16/MODBUS
+
+    Aliases: MODBUS
+    """
+    _names = ('CRC-16/MODBUS', 'MODBUS')
     _width = 16
     _poly = 0x8005
     _initvalue = 0xffff
@@ -1284,6 +1428,7 @@ CrcModbus = Crc16Modbus
 
 class Crc16Nrsc5(Crc16Base):
     """CRC-16/NRSC-5"""
+    _names = ('CRC-16/NRSC-5',)
     _width = 16
     _poly = 0x080b
     _initvalue = 0xffff
@@ -1296,6 +1441,7 @@ class Crc16Nrsc5(Crc16Base):
 
 class Crc16OpensafetyA(Crc16Base):
     """CRC-16/OPENSAFETY-A"""
+    _names = ('CRC-16/OPENSAFETY-A',)
     _width = 16
     _poly = 0x5935
     _initvalue = 0x0000
@@ -1308,6 +1454,7 @@ class Crc16OpensafetyA(Crc16Base):
 
 class Crc16OpensafetyB(Crc16Base):
     """CRC-16/OPENSAFETY-B"""
+    _names = ('CRC-16/OPENSAFETY-B',)
     _width = 16
     _poly = 0x755b
     _initvalue = 0x0000
@@ -1319,7 +1466,11 @@ class Crc16OpensafetyB(Crc16Base):
 
 
 class Crc16Profibus(Crc16Base):
-    """CRC-16/PROFIBUS"""
+    """CRC-16/PROFIBUS
+
+    Aliases: CRC-16/IEC-61158-2
+    """
+    _names = ('CRC-16/PROFIBUS', 'CRC-16/IEC-61158-2')
     _width = 16
     _poly = 0x1dcf
     _initvalue = 0xffff
@@ -1335,6 +1486,7 @@ Crc16Iec611582 = Crc16Profibus
 
 class Crc16Riello(Crc16Base):
     """CRC-16/RIELLO"""
+    _names = ('CRC-16/RIELLO',)
     _width = 16
     _poly = 0x1021
     _initvalue = 0xb2aa
@@ -1346,7 +1498,11 @@ class Crc16Riello(Crc16Base):
 
 
 class Crc16SpiFujitsu(Crc16Base):
-    """CRC-16/SPI-FUJITSU"""
+    """CRC-16/SPI-FUJITSU
+
+    Aliases: CRC-16/AUG-CCITT
+    """
+    _names = ('CRC-16/SPI-FUJITSU', 'CRC-16/AUG-CCITT')
     _width = 16
     _poly = 0x1021
     _initvalue = 0x1d0f
@@ -1362,6 +1518,7 @@ Crc16AugCcitt = Crc16SpiFujitsu
 
 class Crc16T10Dif(Crc16Base):
     """CRC-16/T10-DIF"""
+    _names = ('CRC-16/T10-DIF',)
     _width = 16
     _poly = 0x8bb7
     _initvalue = 0x0000
@@ -1374,6 +1531,7 @@ class Crc16T10Dif(Crc16Base):
 
 class Crc16Teledisk(Crc16Base):
     """CRC-16/TELEDISK"""
+    _names = ('CRC-16/TELEDISK',)
     _width = 16
     _poly = 0xa097
     _initvalue = 0x0000
@@ -1386,6 +1544,7 @@ class Crc16Teledisk(Crc16Base):
 
 class Crc16Tms37157(Crc16Base):
     """CRC-16/TMS37157"""
+    _names = ('CRC-16/TMS37157',)
     _width = 16
     _poly = 0x1021
     _initvalue = 0x89ec
@@ -1397,7 +1556,11 @@ class Crc16Tms37157(Crc16Base):
 
 
 class Crc16Umts(Crc16Base):
-    """CRC-16/UMTS"""
+    """CRC-16/UMTS
+
+    Aliases: CRC-16/BUYPASS, CRC-16/VERIFONE
+    """
+    _names = ('CRC-16/UMTS', 'CRC-16/BUYPASS', 'CRC-16/VERIFONE')
     _width = 16
     _poly = 0x8005
     _initvalue = 0x0000
@@ -1414,6 +1577,7 @@ Crc16Verifone = Crc16Umts
 
 class Crc16Usb(Crc16Base):
     """CRC-16/USB"""
+    _names = ('CRC-16/USB',)
     _width = 16
     _poly = 0x8005
     _initvalue = 0xffff
@@ -1425,7 +1589,11 @@ class Crc16Usb(Crc16Base):
 
 
 class Crc16Xmodem(Crc16Base):
-    """CRC-16/XMODEM"""
+    """CRC-16/XMODEM
+
+    Aliases: CRC-16/ACORN, CRC-16/LTE, CRC-16/V-41-MSB, XMODEM, ZMODEM
+    """
+    _names = ('CRC-16/XMODEM', 'CRC-16/ACORN', 'CRC-16/LTE', 'CRC-16/V-41-MSB', 'XMODEM', 'ZMODEM')
     _width = 16
     _poly = 0x1021
     _initvalue = 0x0000
@@ -1446,6 +1614,7 @@ Crc16 = Crc16Xmodem
 
 class Crc17CanFd(CrcBase):
     """CRC-17/CAN-FD"""
+    _names = ('CRC-17/CAN-FD',)
     _width = 17
     _poly = 0x1685b
     _initvalue = 0x00000
@@ -1458,6 +1627,7 @@ class Crc17CanFd(CrcBase):
 
 class Crc21CanFd(CrcBase):
     """CRC-21/CAN-FD"""
+    _names = ('CRC-21/CAN-FD',)
     _width = 21
     _poly = 0x102899
     _initvalue = 0x000000
@@ -1470,6 +1640,7 @@ class Crc21CanFd(CrcBase):
 
 class Crc24Ble(CrcBase):
     """CRC-24/BLE"""
+    _names = ('CRC-24/BLE',)
     _width = 24
     _poly = 0x00065b
     _initvalue = 0x555555
@@ -1482,6 +1653,7 @@ class Crc24Ble(CrcBase):
 
 class Crc24FlexrayA(CrcBase):
     """CRC-24/FLEXRAY-A"""
+    _names = ('CRC-24/FLEXRAY-A',)
     _width = 24
     _poly = 0x5d6dcb
     _initvalue = 0xfedcba
@@ -1494,6 +1666,7 @@ class Crc24FlexrayA(CrcBase):
 
 class Crc24FlexrayB(CrcBase):
     """CRC-24/FLEXRAY-B"""
+    _names = ('CRC-24/FLEXRAY-B',)
     _width = 24
     _poly = 0x5d6dcb
     _initvalue = 0xabcdef
@@ -1506,6 +1679,7 @@ class Crc24FlexrayB(CrcBase):
 
 class Crc24Interlaken(CrcBase):
     """CRC-24/INTERLAKEN"""
+    _names = ('CRC-24/INTERLAKEN',)
     _width = 24
     _poly = 0x328b63
     _initvalue = 0xffffff
@@ -1518,6 +1692,7 @@ class Crc24Interlaken(CrcBase):
 
 class Crc24LteA(CrcBase):
     """CRC-24/LTE-A"""
+    _names = ('CRC-24/LTE-A',)
     _width = 24
     _poly = 0x864cfb
     _initvalue = 0x000000
@@ -1530,6 +1705,7 @@ class Crc24LteA(CrcBase):
 
 class Crc24LteB(CrcBase):
     """CRC-24/LTE-B"""
+    _names = ('CRC-24/LTE-B',)
     _width = 24
     _poly = 0x800063
     _initvalue = 0x000000
@@ -1541,7 +1717,11 @@ class Crc24LteB(CrcBase):
 
 
 class Crc24Openpgp(CrcBase):
-    """CRC-24/OPENPGP"""
+    """CRC-24/OPENPGP
+
+    Aliases: CRC-24
+    """
+    _names = ('CRC-24/OPENPGP', 'CRC-24')
     _width = 24
     _poly = 0x864cfb
     _initvalue = 0xb704ce
@@ -1552,12 +1732,13 @@ class Crc24Openpgp(CrcBase):
     _residue = 0x000000
 
 
-Crc24OpenPgp = Crc24Openpgp
 Crc24 = Crc24Openpgp
+Crc24OpenPgp = Crc24Openpgp
 
 
 class Crc24Os9(CrcBase):
     """CRC-24/OS-9"""
+    _names = ('CRC-24/OS-9',)
     _width = 24
     _poly = 0x800063
     _initvalue = 0xffffff
@@ -1570,6 +1751,7 @@ class Crc24Os9(CrcBase):
 
 class Crc30Cdma(CrcBase):
     """CRC-30/CDMA"""
+    _names = ('CRC-30/CDMA',)
     _width = 30
     _poly = 0x2030b9c7
     _initvalue = 0x3fffffff
@@ -1582,6 +1764,7 @@ class Crc30Cdma(CrcBase):
 
 class Crc31Philips(CrcBase):
     """CRC-31/PHILIPS"""
+    _names = ('CRC-31/PHILIPS',)
     _width = 31
     _poly = 0x04c11db7
     _initvalue = 0x7fffffff
@@ -1593,7 +1776,11 @@ class Crc31Philips(CrcBase):
 
 
 class Crc32Aixm(Crc32Base):
-    """CRC-32/AIXM"""
+    """CRC-32/AIXM
+
+    Aliases: CRC-32Q
+    """
+    _names = ('CRC-32/AIXM', 'CRC-32Q')
     _width = 32
     _poly = 0x814141ab
     _initvalue = 0x00000000
@@ -1610,6 +1797,7 @@ Crc32q = Crc32Aixm
 
 class Crc32Autosar(Crc32Base):
     """CRC-32/AUTOSAR"""
+    _names = ('CRC-32/AUTOSAR',)
     _width = 32
     _poly = 0xf4acfb13
     _initvalue = 0xffffffff
@@ -1621,7 +1809,11 @@ class Crc32Autosar(Crc32Base):
 
 
 class Crc32Base91D(Crc32Base):
-    """CRC-32/BASE91-D"""
+    """CRC-32/BASE91-D
+
+    Aliases: CRC-32D
+    """
+    _names = ('CRC-32/BASE91-D', 'CRC-32D')
     _width = 32
     _poly = 0xa833982b
     _initvalue = 0xffffffff
@@ -1637,7 +1829,11 @@ Crc32d = Crc32Base91D
 
 
 class Crc32Bzip2(Crc32Base):
-    """CRC-32/BZIP2"""
+    """CRC-32/BZIP2
+
+    Aliases: CRC-32/AAL5, CRC-32/DECT-B, B-CRC-32
+    """
+    _names = ('CRC-32/BZIP2', 'CRC-32/AAL5', 'CRC-32/DECT-B', 'B-CRC-32')
     _width = 32
     _poly = 0x04c11db7
     _initvalue = 0xffffffff
@@ -1655,6 +1851,7 @@ Crc32B = Crc32Bzip2
 
 class Crc32CdRomEdc(Crc32Base):
     """CRC-32/CD-ROM-EDC"""
+    _names = ('CRC-32/CD-ROM-EDC',)
     _width = 32
     _poly = 0x8001801b
     _initvalue = 0x00000000
@@ -1666,7 +1863,11 @@ class Crc32CdRomEdc(Crc32Base):
 
 
 class Crc32Cksum(Crc32Base):
-    """CRC-32/CKSUM"""
+    """CRC-32/CKSUM
+
+    Aliases: CKSUM, CRC-32/POSIX
+    """
+    _names = ('CRC-32/CKSUM', 'CKSUM', 'CRC-32/POSIX')
     _width = 32
     _poly = 0x04c11db7
     _initvalue = 0x00000000
@@ -1682,7 +1883,11 @@ Crc32Posix = Crc32Cksum
 
 
 class Crc32Iscsi(Crc32Base):
-    """CRC-32/ISCSI"""
+    """CRC-32/ISCSI
+
+    Aliases: CRC-32/BASE91-C, CRC-32/CASTAGNOLI, CRC-32/INTERLAKEN, CRC-32C
+    """
+    _names = ('CRC-32/ISCSI', 'CRC-32/BASE91-C', 'CRC-32/CASTAGNOLI', 'CRC-32/INTERLAKEN', 'CRC-32C')
     _width = 32
     _poly = 0x1edc6f41
     _initvalue = 0xffffffff
@@ -1701,7 +1906,11 @@ Crc32c = Crc32Iscsi
 
 
 class Crc32IsoHdlc(Crc32Base):
-    """CRC-32/ISO-HDLC"""
+    """CRC-32/ISO-HDLC
+
+    Aliases: CRC-32, CRC-32/ADCCP, CRC-32/V-42, CRC-32/XZ, PKZIP
+    """
+    _names = ('CRC-32/ISO-HDLC', 'CRC-32', 'CRC-32/ADCCP', 'CRC-32/V-42', 'CRC-32/XZ', 'PKZIP')
     _width = 32
     _poly = 0x04c11db7
     _initvalue = 0xffffffff
@@ -1712,15 +1921,19 @@ class Crc32IsoHdlc(Crc32Base):
     _residue = 0xdebb20e3
 
 
+Crc32 = Crc32IsoHdlc
 Crc32Adccp = Crc32IsoHdlc
 Crc32V42 = Crc32IsoHdlc
 Crc32Xz = Crc32IsoHdlc
 CrcPkzip = Crc32IsoHdlc
-Crc32 = Crc32IsoHdlc
 
 
 class Crc32Jamcrc(Crc32Base):
-    """CRC-32/JAMCRC"""
+    """CRC-32/JAMCRC
+
+    Aliases: JAMCRC
+    """
+    _names = ('CRC-32/JAMCRC', 'JAMCRC')
     _width = 32
     _poly = 0x04c11db7
     _initvalue = 0xffffffff
@@ -1736,6 +1949,7 @@ CrcJamcrc = Crc32Jamcrc
 
 class Crc32Mpeg2(Crc32Base):
     """CRC-32/MPEG-2"""
+    _names = ('CRC-32/MPEG-2',)
     _width = 32
     _poly = 0x04c11db7
     _initvalue = 0xffffffff
@@ -1747,7 +1961,11 @@ class Crc32Mpeg2(Crc32Base):
 
 
 class Crc32Xfer(Crc32Base):
-    """CRC-32/XFER"""
+    """CRC-32/XFER
+
+    Aliases: XFER
+    """
+    _names = ('CRC-32/XFER', 'XFER')
     _width = 32
     _poly = 0x000000af
     _initvalue = 0x00000000
@@ -1763,6 +1981,7 @@ CrcXfer = Crc32Xfer
 
 class Crc40Gsm(CrcBase):
     """CRC-40/GSM"""
+    _names = ('CRC-40/GSM',)
     _width = 40
     _poly = 0x0004820009
     _initvalue = 0x0000000000
@@ -1774,7 +1993,11 @@ class Crc40Gsm(CrcBase):
 
 
 class Crc64Ecma182(CrcBase):
-    """CRC-64/ECMA-182"""
+    """CRC-64/ECMA-182
+
+    Aliases: CRC-64
+    """
+    _names = ('CRC-64/ECMA-182', 'CRC-64')
     _width = 64
     _poly = 0x42f0e1eba9ea3693
     _initvalue = 0x0000000000000000
@@ -1790,6 +2013,7 @@ Crc64 = Crc64Ecma182
 
 class Crc64GoIso(CrcBase):
     """CRC-64/GO-ISO"""
+    _names = ('CRC-64/GO-ISO',)
     _width = 64
     _poly = 0x000000000000001b
     _initvalue = 0xffffffffffffffff
@@ -1802,6 +2026,7 @@ class Crc64GoIso(CrcBase):
 
 class Crc64We(CrcBase):
     """CRC-64/WE"""
+    _names = ('CRC-64/WE',)
     _width = 64
     _poly = 0x42f0e1eba9ea3693
     _initvalue = 0xffffffffffffffff
@@ -1813,7 +2038,11 @@ class Crc64We(CrcBase):
 
 
 class Crc64Xz(CrcBase):
-    """CRC-64/XZ"""
+    """CRC-64/XZ
+
+    Aliases: CRC-64/GO-ECMA
+    """
+    _names = ('CRC-64/XZ', 'CRC-64/GO-ECMA')
     _width = 64
     _poly = 0x42f0e1eba9ea3693
     _initvalue = 0xffffffffffffffff
@@ -1824,11 +2053,12 @@ class Crc64Xz(CrcBase):
     _residue = 0x49958c9abd7d353f
 
 
-CrcGoEcma = Crc64Xz
+Crc64GoEcma = Crc64Xz
 
 
 class Crc82Darc(CrcBase):
     """CRC-82/DARC"""
+    _names = ('CRC-82/DARC',)
     _width = 82
     _poly = 0x0308c0111011401440411
     _initvalue = 0x000000000000000000000
@@ -1862,17 +2092,17 @@ ALLCRCCLASSES_ALIASES = (
     Crc8Tech3250, Crc8Aes, Crc8Ebu, Crc8Wcdma, Crc10Atm, Crc10, Crc10I610, Crc10Cdma2000, Crc10Gsm, Crc11Flexray,
     Crc11, Crc11Umts, Crc12Cdma2000, Crc12Dect, Crc12X, Crc12Gsm, Crc12Umts, Crc123Gpp, Crc13Bbc, Crc14Darc, Crc14Gsm,
     Crc15Can, Crc15, Crc15Mpt1327, Crc16Arc, CrcArc, Crc16Lha, CrcIbm, Crc16Cdma2000, Crc16Cms, Crc16Dds110,
-    Crc16DectR, Crc16DectX, Crc16Dnp, Crc16En13757, Crc16Genibus, Crc16Darc, Crc16Epc, CrcEpsC1g2, Crc16ICode,
-    Crc16Gsm, Crc16Ibm3740, Crc16Autosar, Crc16CcittFalse, Crc16IbmSdlc, Crc16IsoHdlc, Crc16IsoIec144433B, Crc16X25,
-    CrcB, CrcX25, Crc16IsoIec144433A, CrcA, Crc16Kermit, Crc16Ccitt, Crc16CcittTrue, Crc16V41Lsb, CrcCcitt, CrcKermit,
-    Crc16Lj1200, Crc16MaximDow, Crc16Maxim, Crc16Mcrf4Xx, Crc16Mcrf4xx, Crcc16Mcrf4xx, Crc16Modbus, CrcModbus,
-    Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus, Crc16Iec611582, Crc16Riello, Crc16SpiFujitsu,
-    Crc16AugCcitt, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts, Crc16Buypass, Crc16Verifone, Crc16Usb,
-    Crc16Xmodem, Crc16Acorn, Crc16Lte, Crc16V41Msb, CrcXmodem, CrcZmodem, Crc16, Crc17CanFd, Crc21CanFd, Crc24Ble,
-    Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24Openpgp, Crc24OpenPgp, Crc24, Crc24Os9,
-    Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Q, Crc32q, Crc32Autosar, Crc32Base91D, Crc32D, Crc32d, Crc32Bzip2,
-    Crc32Aal5, Crc32DectB, Crc32B, Crc32CdRomEdc, Crc32Cksum, CrcCksum, Crc32Posix, Crc32Iscsi, Crc32Base91C,
-    Crc32Castagnoli, Crc32Interlaken, Crc32C, Crc32c, Crc32IsoHdlc, Crc32Adccp, Crc32V42, Crc32Xz, CrcPkzip, Crc32,
-    Crc32Jamcrc, CrcJamcrc, Crc32Mpeg2, Crc32Xfer, CrcXfer, Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso, Crc64We,
-    Crc64Xz, CrcGoEcma, Crc82Darc
+    Crc16DectR, Crc16R, Crc16DectX, Crc16X, Crc16Dnp, Crc16En13757, Crc16Genibus, Crc16Darc, Crc16Epc, Crc16EpcC1G2,
+    Crc16ICode, Crc16Gsm, Crc16Ibm3740, Crc16Autosar, Crc16CcittFalse, Crc16IbmSdlc, Crc16IsoHdlc, Crc16IsoIec144433B,
+    Crc16X25, CrcB, CrcX25, Crc16IsoIec144433A, CrcA, Crc16Kermit, Crc16Ccitt, Crc16CcittTrue, Crc16V41Lsb, CrcCcitt,
+    CrcKermit, Crc16Lj1200, Crc16MaximDow, Crc16Maxim, Crc16Mcrf4Xx, Crc16Mcrf4XX, Crcc16Mcrf4xx, Crc16Modbus,
+    CrcModbus, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus, Crc16Iec611582, Crc16Riello,
+    Crc16SpiFujitsu, Crc16AugCcitt, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts, Crc16Buypass, Crc16Verifone,
+    Crc16Usb, Crc16Xmodem, Crc16Acorn, Crc16Lte, Crc16V41Msb, CrcXmodem, CrcZmodem, Crc16, Crc17CanFd, Crc21CanFd,
+    Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24Openpgp, Crc24, Crc24OpenPgp,
+    Crc24Os9, Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Q, Crc32q, Crc32Autosar, Crc32Base91D, Crc32D, Crc32d,
+    Crc32Bzip2, Crc32Aal5, Crc32DectB, Crc32B, Crc32CdRomEdc, Crc32Cksum, CrcCksum, Crc32Posix, Crc32Iscsi,
+    Crc32Base91C, Crc32Castagnoli, Crc32Interlaken, Crc32C, Crc32c, Crc32IsoHdlc, Crc32, Crc32Adccp, Crc32V42, Crc32Xz,
+    CrcPkzip, Crc32Jamcrc, CrcJamcrc, Crc32Mpeg2, Crc32Xfer, CrcXfer, Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso,
+    Crc64We, Crc64Xz, Crc64GoEcma, Crc82Darc
 )
