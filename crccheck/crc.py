@@ -229,16 +229,58 @@ class Crc(CrcBase):
         self._reflect_input = bool(reflect_input)
         self._reflect_output = bool(reflect_output)
         self._xor_output = int(xor_output)
-        self._check_result = int(check_result)
-        self._residue = int(residue)
+        self._check_result = int(check_result) if check_result is not None else None
+        self._residue = int(residue) if residue is not None else None
+
+    def calc(self, data, initvalue=None, **kwargs):
+        """ Fully calculate CRC/checksum over given data.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+
+            Return:
+                int: final value
+        """
+        self.reset()
+        self.process(data)
+        return self.final()
+
+    def calchex(self, data, initvalue=None, byteorder='big', **kwargs):
+        """Fully calculate checksum over given data. Return result as hex string.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+                byteorder ('big' or 'little'): order (endianness) of returned bytes.
+
+            Return:
+                str: final value as hex string without leading '0x'.
+        """
+        self.reset()
+        self.process(data)
+        return self.finalhex()
+
+    def calcbytes(self, data, initvalue=None, byteorder='big', **kwargs):
+        """Fully calculate checksum over given data. Return result as bytearray.
+
+            Args:
+                data (bytes, bytearray or list of ints [0-255]): input data to process.
+                initvalue (int): Initial value. If None then the default value for the class is used.
+                byteorder ('big' or 'little'): order (endianness) of returned bytes.
+
+            Return:
+                bytes: final value as bytes
+        """
+        self.reset()
+        self.process(data)
+        return self.finalbytes(byteorder)
 
     def selftest(self, data=None, expectedresult=None, **kwargs):
         if data is None:
             data = self._check_data
             expectedresult = self._check_result
-        self.reset()
-        self.process(data, **kwargs)
-        result = self.final()
+        result = self.calc(data)
         if result != expectedresult:
             raise CrccheckError("{:s}: expected {:s}, got {:s}".format(
                 self.__class__.__name__, hex(expectedresult), hex(result)))
