@@ -1,6 +1,6 @@
 from crccheck.crc import ALLCRCCLASSES
 import crccheck.crc as crcmodule
-from dl import aliases
+from dl import aliases, getclassname
 
 head = """\
 Supported CRCs
@@ -61,6 +61,7 @@ for row in table:
 #
 # print("".join(template.format(c=c) for c in ALLCRCCLASSES))
 
+
 print("""
 
 Aliases
@@ -70,11 +71,10 @@ As some CRCs are also known under different names aliases for the CRC classes ar
 
 """)
 
-
-al = sorted(((clsname, getattr(crcmodule, clsname)) for clsname in aliases.keys()), key=lambda x: x[1]._width)
-table = [('Class', 'Alias Classes')]
-table.extend((a[0], ', '.join(aliases[a[0]])) for a in al)
-lengths = list(max(len(row[col]) for row in table) for col in range(2))
+al = sorted(((name, getclassname(name), getattr(crcmodule, getclassname(name))) for name in aliases.keys()), key=lambda x: x[2]._width)
+table = [('CRC', 'Class', 'Alias', 'Alias Classes')]
+table.extend((a[0], a[1], ', '.join(aliases[a[0]]), ', '.join(getclassname(name) for name in aliases[a[0]])) for a in al)
+lengths = list(max(len(row[col]) for row in table) for col in range(4))
 
 print('+', end='')
 print('+'.join('-' * (lengths[n] + 2) for n in range(len(table[0]))), end='')
@@ -88,10 +88,12 @@ print('+', end='')
 print('+'.join('=' * (lengths[n] + 2) for n in range(len(table[0]))), end='')
 print('+')
 
-for a in al:
-    name = a[0]
-    sal = ', '.join(aliases[name])
-    print('| {: <{}s} | {: <{}s} |'.format(name, lengths[0], sal, lengths[1]))
+
+for row in table[1:]:
+    print('| {: <{}s} | {: <{}s} | {: <{}s} | {: <{}s} |'.format(row[0], lengths[0],
+                                                                 row[1], lengths[1],
+                                                                 row[2], lengths[2],
+                                                                 row[3], lengths[3]))
     print('+', end='')
-    print('+'.join('-' * (lengths[n] + 2) for n in range(2)), end='')
+    print('+'.join('-' * (lengths[n] + 2) for n in range(4)), end='')
     print('+')
