@@ -21,8 +21,8 @@ import sys
 from nose.plugins.skip import SkipTest
 from nose.tools import raises
 from crccheck.base import CrccheckError
-from crccheck.crc import ALLCRCCLASSES, Crc32, Crc
-
+from crccheck.crc import ALLCRCCLASSES, Crc32, Crc, find, identify
+import crccheck
 
 def test_allcrc():
     """Test if expected 'check' result is calulated with standard test vector."""
@@ -87,3 +87,20 @@ def test_general_crc():
 def test_general_crc_fail():
     crc = Crc(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, ~0x340BC6D9)
     crc.selftest()
+
+
+def test_backwards_compatible():
+    """Crc8Base was called Crc8, etc. Must still be equal CRCs"""
+    assert crccheck.crc.Crc8() == crccheck.crc.Crc8Base()
+    assert crccheck.crc.Crc16() == crccheck.crc.Crc16Base()
+    assert crccheck.crc.Crc32() == crccheck.crc.Crc32Base()
+
+
+def test_find32():
+    for cls in find(width=32):
+        assert cls._width == 32
+
+
+def test_find_unknown():
+    assert len(find(width=12345)) == 0
+
