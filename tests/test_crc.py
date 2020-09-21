@@ -21,8 +21,10 @@ import sys
 from nose.plugins.skip import SkipTest
 from nose.tools import raises
 from crccheck.base import CrccheckError
-from crccheck.crc import ALLCRCCLASSES, Crc32, Crc, find, identify
+from crccheck.crc import ALLCRCCLASSES, ALLCRCCLASSES_ALIASES, Crc32, Crc, find, identify
 import crccheck
+import random
+
 
 def test_allcrc():
     """Test if expected 'check' result is calulated with standard test vector."""
@@ -104,3 +106,131 @@ def test_find32():
 def test_find_unknown():
     assert len(find(width=12345)) == 0
 
+
+def test_find_all():
+    assert find() == list(ALLCRCCLASSES)
+
+
+def test_find_some():
+    assert find(ALLCRCCLASSES[1:3]) == list(ALLCRCCLASSES[1:3])
+
+
+def test_find_width():
+    assert find(width=32) == list(cls for cls in ALLCRCCLASSES if cls._width == 32)
+
+
+def test_find_poly():
+    assert find(poly=0x04C11DB7) == list(cls for cls in ALLCRCCLASSES if cls._poly == 0x04C11DB7)
+
+
+def test_find_initvalue():
+    assert find(initvalue=0) == list(cls for cls in ALLCRCCLASSES if cls._initvalue == 0)
+
+
+def test_find_reflect_input():
+    assert find(reflect_input=True) == list(cls for cls in ALLCRCCLASSES if cls._reflect_input)
+
+
+def test_find_reflect_output():
+    assert find(reflect_output=False) == list(cls for cls in ALLCRCCLASSES if not cls._reflect_output)
+
+
+def test_find_xor_output():
+    assert find(xor_output=0) == list(cls for cls in ALLCRCCLASSES if cls._xor_output == 0)
+
+
+def test_find_check_result():
+    assert find(check_result=6) == list(cls for cls in ALLCRCCLASSES if cls._check_result == 6)
+
+
+def test_find_residue():
+    assert find(residue=0) == list(cls for cls in ALLCRCCLASSES if cls._residue == 0)
+
+
+def test_find_mixed():
+    assert find(ALLCRCCLASSES[0:20], width=8, residue=0, reflect_input=False, reflect_output=False) \
+           == list(cls for cls in ALLCRCCLASSES[0:20] if cls._width == 8 and cls._residue == 0
+                   and not cls._reflect_input and not cls._reflect_output)
+
+
+def test_identify_1():
+    data = bytes(random.randrange(256) for _ in range(10))
+    cls = crccheck.crc.Crc64GoIso
+    assert identify(data, cls.calc(data))() == cls()
+
+
+def test_identify_2():
+    data = bytes(random.randrange(256) for _ in range(10))
+    classes = [crccheck.crc.Crc64GoIso, crccheck.crc.Crc8, crccheck.crc.Crc32IsoHdlc]
+    cls = crccheck.crc.Crc32IsoHdlc
+    assert identify(data, cls.calc(data), classes=classes)() == cls()
+
+
+def test_identify_width():
+    data = bytes(random.randrange(256) for _ in range(10))
+    allcrc32 = [c for c in ALLCRCCLASSES if c._width == 32]
+    cls = random.choice(allcrc32)
+    assert identify(data, cls.calc(data), 32)() == cls()
+    assert identify(data, cls.calc(data), 32, allcrc32)() == cls()
+
+
+def test_identify_width_list():
+    data = bytes(random.randrange(256) for _ in range(10))
+    allcrc32 = [c for c in ALLCRCCLASSES if c._width == 32]
+    cls = random.choice(allcrc32)
+    result = identify(data, cls.calc(data), 32, one=False)
+    assert len(result) >= 1 and result[0]() == cls()
+    result = identify(data, cls.calc(data), 32, allcrc32, one=False)
+    assert len(result) >= 1 and result[0]() == cls()
+
+
+def test_identify_notexisting():
+    assert identify(b'Test', 0) is None
+    assert identify(b'Test', 0, 234) is None
+    assert identify(b'Test', 0, classes=[]) is None
+    assert identify(b'Test', 0, 235, classes=[]) is None
+    assert identify(b'Test', 0, one=False) == []
+    assert identify(b'Test', 0, 234, one=False) == []
+    assert identify(b'Test', 0, classes=[], one=False) == []
+    assert identify(b'Test', 0, 235, classes=[], one=False) == []
+
+
+def test_repr():
+    """Test if __repr__ does not cause errors"""
+    c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
+             xor_output=0x00, check_result=None, residue=None)
+    r = repr(c)
+    c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
+             xor_output=0x00, check_result=None, residue=0x00)
+    r = repr(c)
+    c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
+             xor_output=0x00, check_result=0x00, residue=None)
+    r = repr(c)
+    c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
+             xor_output=0x00, check_result=0x00, residue=0x00)
+    r = repr(c)
+
+
+def test_selftest_data():
+    c = Crc(21, 0xDEAD)
+    c.selftest(b'Test', 0x40be8)
+
+
+def test_crc_calc():
+    assert Crc(21, 0xDEAD).calc(b'Test') == 265192
+
+
+def test_crc_calchex():
+    assert Crc(21, 0xDEAD).calchex(b'Test') == '040be8'
+
+
+def test_crc_calcbytes_big():
+    assert Crc(21, 0xDEAD).calcbytes(b'Test', byteorder='big') == b'\x04\x0b\xe8'
+
+
+def test_crc_calcbytes_little():
+    assert Crc(21, 0xDEAD).calcbytes(b'Test', byteorder='little') == b'\xe8\x0b\x04'
+
+
+def test_aliases():
+    assert set(ALLCRCCLASSES).issubset(ALLCRCCLASSES_ALIASES)
