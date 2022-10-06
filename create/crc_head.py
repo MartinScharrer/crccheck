@@ -2,7 +2,7 @@
 
   License::
 
-    Copyright (C) 2015-2020 by Martin Scharrer <martin@scharrer-online.de>
+    Copyright (C) 2015-2022 by Martin Scharrer <martin.scharrer@web.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -260,7 +260,7 @@ class Crc(CrcBase):
         """
         self.reset()
         self.process(data)
-        return self.finalhex()
+        return self.finalhex(byteorder)
 
     def calcbytes(self, data, initvalue=None, byteorder='big', **kwargs):
         """Fully calculate checksum over given data. Return result as bytearray.

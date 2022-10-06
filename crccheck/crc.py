@@ -2,7 +2,7 @@
 
   License::
 
-    Copyright (C) 2015-2021 by Martin Scharrer <martin@scharrer-online.de>
+    Copyright (C) 2015-2022 by Martin Scharrer <martin.scharrer@web.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -720,6 +720,19 @@ class Crc8GsmB(Crc8Base):
     _residue = 0x53
 
 
+class Crc8Hitag(Crc8Base):
+    """CRC-8/HITAG"""
+    _names = ('CRC-8/HITAG',)
+    _width = 8
+    _poly = 0x1d
+    _initvalue = 0xff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x00
+    _check_result = 0xb4
+    _residue = 0x00
+
+
 class Crc8I4321(Crc8Base):
     """CRC-8/I-432-1
 
@@ -1372,6 +1385,19 @@ class Crc16Lj1200(Crc16Base):
     _residue = 0x0000
 
 
+class Crc16M17(Crc16Base):
+    """CRC-16/M17"""
+    _names = ('CRC-16/M17',)
+    _width = 16
+    _poly = 0x5935
+    _initvalue = 0xffff
+    _reflect_input = False
+    _reflect_output = False
+    _xor_output = 0x0000
+    _check_result = 0x772b
+    _residue = 0x0000
+
+
 class Crc16MaximDow(Crc16Base):
     """CRC-16/MAXIM-DOW
 
@@ -1947,6 +1973,19 @@ class Crc32Jamcrc(Crc32Base):
 CrcJamcrc = Crc32Jamcrc
 
 
+class Crc32Mef(Crc32Base):
+    """CRC-32/MEF"""
+    _names = ('CRC-32/MEF',)
+    _width = 32
+    _poly = 0x741b8cd7
+    _initvalue = 0xffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x00000000
+    _check_result = 0xd2c22f51
+    _residue = 0x00000000
+
+
 class Crc32Mpeg2(Crc32Base):
     """CRC-32/MPEG-2"""
     _names = ('CRC-32/MPEG-2',)
@@ -2024,6 +2063,32 @@ class Crc64GoIso(CrcBase):
     _residue = 0x5300000000000000
 
 
+class Crc64Ms(CrcBase):
+    """CRC-64/MS"""
+    _names = ('CRC-64/MS',)
+    _width = 64
+    _poly = 0x259c84cba6426349
+    _initvalue = 0xffffffffffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0000000000000000
+    _check_result = 0x75d4b74f024eceea
+    _residue = 0x0000000000000000
+
+
+class Crc64Redis(CrcBase):
+    """CRC-64/REDIS"""
+    _names = ('CRC-64/REDIS',)
+    _width = 64
+    _poly = 0xad93d23594c935a9
+    _initvalue = 0x0000000000000000
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0x0000000000000000
+    _check_result = 0xe9c6d914c4b8d9ca
+    _residue = 0x0000000000000000
+
+
 class Crc64We(CrcBase):
     """CRC-64/WE"""
     _names = ('CRC-64/WE',)
@@ -2072,37 +2137,38 @@ class Crc82Darc(CrcBase):
 ALLCRCCLASSES = (
     Crc3Gsm, Crc3Rohc, Crc4G704, Crc4Interlaken, Crc5EpcC1G2, Crc5G704, Crc5Usb, Crc6Cdma2000A, Crc6Cdma2000B,
     Crc6Darc, Crc6G704, Crc6Gsm, Crc7Mmc, Crc7Rohc, Crc7Umts, Crc8Autosar, Crc8Bluetooth, Crc8Cdma2000, Crc8Darc,
-    Crc8DvbS2, Crc8GsmA, Crc8GsmB, Crc8I4321, Crc8ICode, Crc8Lte, Crc8MaximDow, Crc8MifareMad, Crc8Nrsc5,
+    Crc8DvbS2, Crc8GsmA, Crc8GsmB, Crc8Hitag, Crc8I4321, Crc8ICode, Crc8Lte, Crc8MaximDow, Crc8MifareMad, Crc8Nrsc5,
     Crc8Opensafety, Crc8Rohc, Crc8SaeJ1850, Crc8Smbus, Crc8Tech3250, Crc8Wcdma, Crc10Atm, Crc10Cdma2000, Crc10Gsm,
     Crc11Flexray, Crc11Umts, Crc12Cdma2000, Crc12Dect, Crc12Gsm, Crc12Umts, Crc13Bbc, Crc14Darc, Crc14Gsm, Crc15Can,
     Crc15Mpt1327, Crc16Arc, Crc16Cdma2000, Crc16Cms, Crc16Dds110, Crc16DectR, Crc16DectX, Crc16Dnp, Crc16En13757,
-    Crc16Genibus, Crc16Gsm, Crc16Ibm3740, Crc16IbmSdlc, Crc16IsoIec144433A, Crc16Kermit, Crc16Lj1200, Crc16MaximDow,
-    Crc16Mcrf4Xx, Crc16Modbus, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus, Crc16Riello,
-    Crc16SpiFujitsu, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts, Crc16Usb, Crc16Xmodem, Crc17CanFd,
-    Crc21CanFd, Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24Openpgp, Crc24Os9,
-    Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc32Bzip2, Crc32CdRomEdc, Crc32Cksum, Crc32Iscsi,
-    Crc32IsoHdlc, Crc32Jamcrc, Crc32Mpeg2, Crc32Xfer, Crc40Gsm, Crc64Ecma182, Crc64GoIso, Crc64We, Crc64Xz, Crc82Darc
+    Crc16Genibus, Crc16Gsm, Crc16Ibm3740, Crc16IbmSdlc, Crc16IsoIec144433A, Crc16Kermit, Crc16Lj1200, Crc16M17,
+    Crc16MaximDow, Crc16Mcrf4Xx, Crc16Modbus, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus,
+    Crc16Riello, Crc16SpiFujitsu, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts, Crc16Usb, Crc16Xmodem,
+    Crc17CanFd, Crc21CanFd, Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB,
+    Crc24Openpgp, Crc24Os9, Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc32Bzip2, Crc32CdRomEdc,
+    Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Jamcrc, Crc32Mef, Crc32Mpeg2, Crc32Xfer, Crc40Gsm, Crc64Ecma182,
+    Crc64GoIso, Crc64Ms, Crc64Redis, Crc64We, Crc64Xz, Crc82Darc
 )
 
 ALLCRCCLASSES_ALIASES = (
     Crc3Gsm, Crc3Rohc, Crc4G704, Crc4Itu, Crc4Interlaken, Crc5EpcC1G2, Crc5Epc, Crc5G704, Crc5Itu, Crc5Usb,
     Crc6Cdma2000A, Crc6Cdma2000B, Crc6Darc, Crc6G704, Crc6Itu, Crc6Gsm, Crc7Mmc, Crc7, Crc7Rohc, Crc7Umts, Crc8Autosar,
-    Crc8Bluetooth, Crc8Cdma2000, Crc8Darc, Crc8DvbS2, Crc8GsmA, Crc8GsmB, Crc8I4321, Crc8Itu, Crc8ICode, Crc8Lte,
-    Crc8MaximDow, Crc8Maxim, CrcDow, Crc8MifareMad, Crc8Nrsc5, Crc8Opensafety, Crc8Rohc, Crc8SaeJ1850, Crc8Smbus, Crc8,
-    Crc8Tech3250, Crc8Aes, Crc8Ebu, Crc8Wcdma, Crc10Atm, Crc10, Crc10I610, Crc10Cdma2000, Crc10Gsm, Crc11Flexray,
-    Crc11, Crc11Umts, Crc12Cdma2000, Crc12Dect, Crc12X, Crc12Gsm, Crc12Umts, Crc123Gpp, Crc13Bbc, Crc14Darc, Crc14Gsm,
-    Crc15Can, Crc15, Crc15Mpt1327, Crc16Arc, CrcArc, Crc16Lha, CrcIbm, Crc16Cdma2000, Crc16Cms, Crc16Dds110,
-    Crc16DectR, Crc16R, Crc16DectX, Crc16X, Crc16Dnp, Crc16En13757, Crc16Genibus, Crc16Darc, Crc16Epc, Crc16EpcC1G2,
-    Crc16ICode, Crc16Gsm, Crc16Ibm3740, Crc16Autosar, Crc16CcittFalse, Crc16IbmSdlc, Crc16IsoHdlc, Crc16IsoIec144433B,
-    Crc16X25, CrcB, CrcX25, Crc16IsoIec144433A, CrcA, Crc16Kermit, Crc16Ccitt, Crc16CcittTrue, Crc16V41Lsb, CrcCcitt,
-    CrcKermit, Crc16Lj1200, Crc16MaximDow, Crc16Maxim, Crc16Mcrf4Xx, Crc16Mcrf4XX, Crcc16Mcrf4xx, Crc16Modbus,
-    CrcModbus, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus, Crc16Iec611582, Crc16Riello,
-    Crc16SpiFujitsu, Crc16AugCcitt, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts, Crc16Buypass, Crc16Verifone,
-    Crc16Usb, Crc16Xmodem, Crc16Acorn, Crc16Lte, Crc16V41Msb, CrcXmodem, CrcZmodem, Crc16, Crc17CanFd, Crc21CanFd,
-    Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB, Crc24Openpgp, Crc24, Crc24OpenPgp,
-    Crc24Os9, Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Q, Crc32q, Crc32Autosar, Crc32Base91D, Crc32D, Crc32d,
-    Crc32Bzip2, Crc32Aal5, Crc32DectB, Crc32B, Crc32CdRomEdc, Crc32Cksum, CrcCksum, Crc32Posix, Crc32Iscsi,
-    Crc32Base91C, Crc32Castagnoli, Crc32Interlaken, Crc32C, Crc32c, Crc32IsoHdlc, Crc32, Crc32Adccp, Crc32V42, Crc32Xz,
-    CrcPkzip, Crc32Jamcrc, CrcJamcrc, Crc32Mpeg2, Crc32Xfer, CrcXfer, Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso,
-    Crc64We, Crc64Xz, Crc64GoEcma, Crc82Darc
+    Crc8Bluetooth, Crc8Cdma2000, Crc8Darc, Crc8DvbS2, Crc8GsmA, Crc8GsmB, Crc8Hitag, Crc8I4321, Crc8Itu, Crc8ICode,
+    Crc8Lte, Crc8MaximDow, Crc8Maxim, CrcDow, Crc8MifareMad, Crc8Nrsc5, Crc8Opensafety, Crc8Rohc, Crc8SaeJ1850,
+    Crc8Smbus, Crc8, Crc8Tech3250, Crc8Aes, Crc8Ebu, Crc8Wcdma, Crc10Atm, Crc10, Crc10I610, Crc10Cdma2000, Crc10Gsm,
+    Crc11Flexray, Crc11, Crc11Umts, Crc12Cdma2000, Crc12Dect, Crc12X, Crc12Gsm, Crc12Umts, Crc123Gpp, Crc13Bbc,
+    Crc14Darc, Crc14Gsm, Crc15Can, Crc15, Crc15Mpt1327, Crc16Arc, CrcArc, Crc16Lha, CrcIbm, Crc16Cdma2000, Crc16Cms,
+    Crc16Dds110, Crc16DectR, Crc16R, Crc16DectX, Crc16X, Crc16Dnp, Crc16En13757, Crc16Genibus, Crc16Darc, Crc16Epc,
+    Crc16EpcC1G2, Crc16ICode, Crc16Gsm, Crc16Ibm3740, Crc16Autosar, Crc16CcittFalse, Crc16IbmSdlc, Crc16IsoHdlc,
+    Crc16IsoIec144433B, Crc16X25, CrcB, CrcX25, Crc16IsoIec144433A, CrcA, Crc16Kermit, Crc16Ccitt, Crc16CcittTrue,
+    Crc16V41Lsb, CrcCcitt, CrcKermit, Crc16Lj1200, Crc16M17, Crc16MaximDow, Crc16Maxim, Crc16Mcrf4Xx, Crc16Mcrf4XX,
+    Crcc16Mcrf4xx, Crc16Modbus, CrcModbus, Crc16Nrsc5, Crc16OpensafetyA, Crc16OpensafetyB, Crc16Profibus,
+    Crc16Iec611582, Crc16Riello, Crc16SpiFujitsu, Crc16AugCcitt, Crc16T10Dif, Crc16Teledisk, Crc16Tms37157, Crc16Umts,
+    Crc16Buypass, Crc16Verifone, Crc16Usb, Crc16Xmodem, Crc16Acorn, Crc16Lte, Crc16V41Msb, CrcXmodem, CrcZmodem, Crc16,
+    Crc17CanFd, Crc21CanFd, Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB,
+    Crc24Openpgp, Crc24, Crc24OpenPgp, Crc24Os9, Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Q, Crc32q, Crc32Autosar,
+    Crc32Base91D, Crc32D, Crc32d, Crc32Bzip2, Crc32Aal5, Crc32DectB, Crc32B, Crc32CdRomEdc, Crc32Cksum, CrcCksum,
+    Crc32Posix, Crc32Iscsi, Crc32Base91C, Crc32Castagnoli, Crc32Interlaken, Crc32C, Crc32c, Crc32IsoHdlc, Crc32,
+    Crc32Adccp, Crc32V42, Crc32Xz, CrcPkzip, Crc32Jamcrc, CrcJamcrc, Crc32Mef, Crc32Mpeg2, Crc32Xfer, CrcXfer,
+    Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso, Crc64Ms, Crc64Redis, Crc64We, Crc64Xz, Crc64GoEcma, Crc82Darc
 )
