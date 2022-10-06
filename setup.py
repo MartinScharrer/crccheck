@@ -19,9 +19,8 @@ setup(
     author_email='martin@scharrer-online.de',
     license='GPL v3+',
     packages=['crccheck', 'tests'],
-    version='1.1.1',
-    url='https://sourceforge.net/projects/crccheck/',
-    download_url='https://sourceforge.net/projects/crccheck/files/',
+    version='1.2.0',
+    url='https://github.com/MartinScharrer/crccheck',
     install_requires=[],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
