@@ -23,8 +23,6 @@ setup(
     url='https://sourceforge.net/projects/crccheck/',
     download_url='https://sourceforge.net/projects/crccheck/files/',
     install_requires=[],
-    tests_require=['nose', ],
-    test_suite='nose.collector',
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
