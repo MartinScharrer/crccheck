@@ -4,3 +4,4 @@
 /dist
 *.pyc
 /crccheck.egg-info
+docs/build
