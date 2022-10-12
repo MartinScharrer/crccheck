@@ -28,7 +28,9 @@ exclude_lines =
     six
 
 omit =
-    tests/benchmark.py
+    tests/__init__.py
+    tests/*
+
 
 ignore_errors = True
 

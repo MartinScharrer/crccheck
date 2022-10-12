@@ -5,9 +5,9 @@ all: test
 
 test:
 	@echo ""; echo "Running tests:"
-	@python -m coverage run -m unittest discover
-	@python -m coverage report --omit="*/test*"
-	@python -m coverage html --omit="*/test*"
+	@python -m coverage run --branch -m unittest discover
+	@python -m coverage report
+	@python -m coverage html
     
 dist: sdist bdist_wheel
 
