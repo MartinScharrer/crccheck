@@ -137,8 +137,9 @@ class CrccheckBase(object):
         """
         asbytes = self.finalbytes(byteorder)
         try:
+            # bytearray.hex() is new in Python 3.5
             return asbytes.hex()
-        except AttributeError:
+        except AttributeError:  # pragma: no cover
             return "".join(["{:02x}".format(b) for b in asbytes])
 
     def finalbytes(self, byteorder='big'):
@@ -151,8 +152,9 @@ class CrccheckBase(object):
         bytelength = int(math.ceil(self._width / 8.0))
         asint = self.final()
         try:
+            # int.to_bytes() is new in Python 3.2
             return asint.to_bytes(bytelength, byteorder)
-        except AttributeError:
+        except AttributeError:  # pragma: no cover
             asbytes = bytearray(bytelength)
             for i in range(0, bytelength):
                 asbytes[i] = asint & 0xFF

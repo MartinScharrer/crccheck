@@ -34,17 +34,9 @@ class TestCrc(unittest.TestCase):
 
     def test_allcrcfail(self):
         """Test if 'check' result is not reached with different input."""
-        def fail(cls):
-            try:
-                cls.selftest(bytearray(b"wrongtestinput"), cls._check_result)
-            except CrccheckError:
-                # This is the correct response
-                pass
-            else:
-                raise Exception("Selftest passed with incorrect input!")
         for crcclass in ALLCRCCLASSES:
-            with self.subTest(crcclass=crcclass):
-                fail(crcclass)
+            with self.subTest(crcclass=crcclass), self.assertRaises(CrccheckError):
+                crcclass.selftest(bytearray(b"wrongtestinput"), crcclass._check_result)
 
     def test_generator(self):
         Crc32.calc((n for n in range(0, 255)))
@@ -59,17 +51,17 @@ class TestCrc(unittest.TestCase):
         Crc32.calc(bytearray.fromhex("12345678909876543210"))
 
     def test_bytes(self):
-        if sys.version_info < (3, 3, 0):
+        if sys.version_info < (3, 3, 0): # pragma: no cover
             raise self.skipTest("")
         Crc32.calc(bytes.fromhex("12345678909876543210"))
 
     def test_string1(self):
-        if sys.version_info < (3, 3, 0):
+        if sys.version_info < (3, 3, 0): # pragma: no cover
             raise self.skipTest("")
         Crc32.calc(b"Teststring")
 
     def test_string2(self):
-        if sys.version_info < (3, 3, 0):
+        if sys.version_info < (3, 3, 0): # pragma: no cover
             raise self.skipTest("")
         Crc32.calc("Teststring".encode(), )
 

@@ -50,7 +50,7 @@ class TestBase(unittest.TestCase):
 
     def test_finalbytes_big(self):
         """.finalbytes() should match .final()"""
-        if sys.version_info < (3, 3, 0):
+        if sys.version_info < (3, 3, 0): # pragma: no cover
             raise self.skipTest("")
         for CrcClass in ALLCRCCLASSES:
             for n in range(0, 16):
@@ -61,7 +61,7 @@ class TestBase(unittest.TestCase):
 
     def test_finalbytes_little(self):
         """.finalbytes() should match .final()"""
-        if sys.version_info < (3, 3, 0):
+        if sys.version_info < (3, 3, 0): # pragma: no cover
             raise self.skipTest("")
         for CrcClass in ALLCRCCLASSES:
             for n in range(0, 16):

@@ -1,5 +1,6 @@
 """ Classes to calculate CRCs (Cyclic Redundancy Check).
 
+
   License::
 
     Copyright (C) 2015-2022 by Martin Scharrer <martin.scharrer@web.de>
