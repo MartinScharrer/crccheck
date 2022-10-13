@@ -3,7 +3,8 @@
 
   License::
 
-    License: MIT <https://opensource.org/licenses/MIT>
+    MIT License
+
     Copyright (c) 2015-2022 by Martin Scharrer <martin.scharrer@web.de>
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software
