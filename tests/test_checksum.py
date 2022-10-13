@@ -18,33 +18,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-import unittest
 import sys
-import random
+from tests import TestCase, randbytes
+
 from crccheck import checksum
-from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32, Checksum, ChecksumXor
 from crccheck.base import CrccheckError
+from crccheck.checksum import ALLCHECKSUMCLASSES, Checksum32, Checksum, ChecksumXor
 
-def randombytes(length):
-    return [random.randint(0, 255) for n in range(0, length)]
 
-class TestChecksum(unittest.TestCase):
+class TestChecksum(TestCase):
 
     def test_allchecksums_bigendian(self):
-        def selftest_bigendian(cls):
-            return cls.selftest(byteorder='big')
-
         for checksumclass in ALLCHECKSUMCLASSES:
             with self.subTest(checksumclass=checksumclass):
-                selftest_bigendian(checksumclass)
+                checksumclass.selftest(byteorder='big')
 
     def test_allchecksums_littleendian(self):
-        def selftest_littleendian(cls):
-            return cls.selftest(byteorder='little')
-
         for checksumclass in ALLCHECKSUMCLASSES:
             with self.subTest(checksumclass=checksumclass):
-                selftest_littleendian(checksumclass)
+                checksumclass.selftest(byteorder='little')
 
     # noinspection PyProtectedMember
     def test_allchecksums_fail(self):
@@ -94,10 +86,10 @@ class TestChecksum(unittest.TestCase):
                 Checksum(n)
 
     def test_general_checksum_ident(self):
-        data = randombytes(1024)
-        assert checksum.Checksum32.calc(data) == checksum.Checksum(32).process(data).final()
-        assert checksum.Checksum16.calc(data) == checksum.Checksum(16).process(data).final()
-        assert checksum.Checksum8.calc(data) == checksum.Checksum(8).process(data).final()
+        data = randbytes(1024)
+        self.assertEqual(checksum.Checksum32.calc(data), checksum.Checksum(32).process(data).final())
+        self.assertEqual(checksum.Checksum16.calc(data), checksum.Checksum(16).process(data).final())
+        self.assertEqual(checksum.Checksum8.calc(data), checksum.Checksum(8).process(data).final())
 
     def test_general_checksumxor_valid_width(self):
         """ Checksum()
@@ -114,7 +106,7 @@ class TestChecksum(unittest.TestCase):
                 ChecksumXor(n)
 
     def test_general_checksumxor_ident(self):
-        data = randombytes(1024)
+        data = randbytes(1024)
         self.assertEqual(checksum.ChecksumXor32.calc(data), checksum.ChecksumXor(32).process(data).final())
         self.assertEqual(checksum.ChecksumXor16.calc(data), checksum.ChecksumXor(16).process(data).final())
         self.assertEqual(checksum.ChecksumXor8.calc(data), checksum.ChecksumXor(8).process(data).final())

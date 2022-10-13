@@ -99,8 +99,8 @@ class CrcBase(CrccheckBase):
         check_result = hex(self._check_result) if self._check_result is not None else 'None'
         return ("Crc(width={:d}, poly=0x{:x}, initvalue=0x{:X}, reflect_input={!s:s}, reflect_output={!s:s}, " +
                 "xor_output=0x{:x}, check_result={}, residue={})").format(
-                self._width, self._poly, self._initvalue, self._reflect_input, self._reflect_output,
-                self._xor_output, check_result, residue)
+            self._width, self._poly, self._initvalue, self._reflect_input, self._reflect_output,
+            self._xor_output, check_result, residue)
 
 
 def find(classes=None, width=None, poly=None, initvalue=None, reflect_input=None, reflect_output=None, xor_output=None,
@@ -1429,6 +1429,7 @@ class Crc16Mcrf4Xx(Crc16Base):
     _xor_output = 0x0000
     _check_result = 0x6f91
     _residue = 0x0000
+
 
 Crc16Mcrf4XX = Crc16Mcrf4Xx
 Crcc16Mcrf4xx = Crc16Mcrf4Xx

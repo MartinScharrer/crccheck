@@ -63,7 +63,7 @@ def reflectbitorder(width, value):
             width (int): bitwidth
             value (int): value to reflect
     """
-    binstr = ("0"*width + bin(value)[2:])[-width:]
+    binstr = ("0" * width + bin(value)[2:])[-width:]
     return int(binstr[::-1], 2)
 
 

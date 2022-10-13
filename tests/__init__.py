@@ -18,3 +18,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
+from unittest import TestCase
+import random
+
+try:
+    from random import randbytes
+except ImportError:
+    def randbytes(length):
+        return [random.randint(0, 255) for _ in range(0, length)]

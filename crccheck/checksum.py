@@ -235,4 +235,3 @@ ALLCHECKSUMCLASSES = (
     Checksum8, Checksum16, Checksum32,
     ChecksumXor8, ChecksumXor16, ChecksumXor32,
 )
-
