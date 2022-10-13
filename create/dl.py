@@ -196,6 +196,8 @@ if __name__ == "__main__":
                     outfh.write('{} = {}\n'.format(clsalias, clsname))
                     crcallaliases.append(clsalias)
             if name in extra_class_aliases:
+                if name not in aliases:
+                    outfh.write('\n')
                 for clsalias in extra_class_aliases.get(name, ()):
                     outfh.write('{} = {}\n'.format(clsalias, clsname))
                     crcallaliases.append(clsalias)
