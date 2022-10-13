@@ -38,6 +38,7 @@ def read(fname):
 setup(
     name='crccheck',
     description='Calculation library for CRCs and checksums',
+    long_description_content_type='text/x-rst',
     long_description=read("README.rst"),
     author='Martin Scharrer',
     author_email='martin.scharrer@web.de',
