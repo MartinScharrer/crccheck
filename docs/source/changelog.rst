@@ -2,6 +2,12 @@
 Changelog
 =========
 
+v1.3.0 - 2022-10-13
+===================
+ * Updated unit tests to use correct asserts.
+ * Some code quality adjustments.
+ * Switched license from GPLv3 to MIT.
+
 v1.2.0 - 2022-10-06
 ===================
  * Updated with newest CRC from catalogue.
