@@ -133,7 +133,8 @@ class CrccheckBase(object):
         return self._value
 
     def finalhex(self, byteorder='big'):
-        """Return final checksum value as hexadecimal string (without leading "0x"). The hex value is zero padded to bitwidth/8.
+        """Return final checksum value as hexadecimal string (without leading "0x").
+           The hex value is zero padded to bitwidth/8.
            The internal state is not modified by this so further data can be processed afterwards.
 
            Return:

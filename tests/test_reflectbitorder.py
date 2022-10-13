@@ -59,6 +59,7 @@ class TestReflectBitOrder(TestCase):
         import random
         random.seed()
         for width in range(1, 125):
+            # noinspection PyUnusedLocal
             randombitstr = "".join([str(random.randint(0, 1)) for m in range(0, width)])
             value = int(randombitstr, 2)
             expectedresult = int("".join(reversed(randombitstr)), 2)

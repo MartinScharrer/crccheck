@@ -90,6 +90,7 @@ class CrcBase(CrccheckBase):
         return crc
 
     def __eq__(self, other):
+        # noinspection PyProtectedMember
         return self._width == other._width and \
                self._poly == other._poly and \
                self._initvalue == other._initvalue and \

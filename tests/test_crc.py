@@ -175,15 +175,19 @@ class TestCrc(TestCase):
         """Test if __repr__ does not cause errors"""
         c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
                 xor_output=0x00, check_result=None, residue=None)
+        # noinspection PyUnusedLocal
         r = repr(c)
         c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
                 xor_output=0x00, check_result=None, residue=0x00)
+        # noinspection PyUnusedLocal
         r = repr(c)
         c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
                 xor_output=0x00, check_result=0x00, residue=None)
+        # noinspection PyUnusedLocal
         r = repr(c)
         c = Crc(16, 0xDEAD, initvalue=0x00, reflect_input=False, reflect_output=False,
                 xor_output=0x00, check_result=0x00, residue=0x00)
+        # noinspection PyUnusedLocal
         r = repr(c)
 
     def test_selftest_data(self):
