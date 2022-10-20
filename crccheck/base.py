@@ -85,7 +85,6 @@ class CrccheckBase(object):
     _initvalue = 0x00
     _check_result = None
     _check_data = None
-    _file_chunksize = 512
     _width = 0
 
     def __init__(self, initvalue=None):
@@ -193,7 +192,7 @@ class CrccheckBase(object):
 
     def value(self):
         """Returns current intermediate value.
-           Note that in general final() must be used to get the a final value.
+           Note that in general final() must be used to get the final value.
 
            Return:
                int: current value
