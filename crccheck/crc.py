@@ -38,6 +38,31 @@ class CrcBase(CrccheckBase):
     _check_data = bytearray(b"123456789")
     _residue = None
 
+    @classmethod
+    def poly(cls):
+        """Getter for polynominal value."""
+        return cls._poly
+
+    @classmethod
+    def reflect_input(cls):
+        """Getter for reflect_input."""
+        return cls._reflect_input
+
+    @classmethod
+    def reflect_output(cls):
+        """Getter for reflect_output."""
+        return cls._reflect_output
+
+    @classmethod
+    def xor_output(cls):
+        """Getter for xor_output value."""
+        return cls._xor_output
+
+    @classmethod
+    def residue(cls):
+        """Getter for residue value."""
+        return cls._residue
+
     def process(self, data):
         """ Process given data.
 
@@ -91,12 +116,12 @@ class CrcBase(CrccheckBase):
 
     def __eq__(self, other):
         # noinspection PyProtectedMember
-        return self._width == other._width and \
-               self._poly == other._poly and \
-               self._initvalue == other._initvalue and \
-               self._reflect_input == other._reflect_input and \
-               self._reflect_output == other._reflect_output and \
-               self._xor_output == other._xor_output
+        return self._width == other.width() and \
+               self._poly == other.poly() and \
+               self._initvalue == other.initvalue() and \
+               self._reflect_input == other.reflect_input() and \
+               self._reflect_output == other.reflect_output() and \
+               self._xor_output == other.xor_output()
 
     def __repr__(self):
         residue = hex(self._residue) if self._residue is not None else 'None'

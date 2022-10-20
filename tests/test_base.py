@@ -26,7 +26,8 @@ import random
 import sys
 
 from crccheck.base import CrccheckBase
-from crccheck.crc import ALLCRCCLASSES
+from crccheck.checksum import ALLCHECKSUMCLASSES
+from crccheck.crc import ALLCRCCLASSES, ALLCRCCLASSES_ALIASES
 from tests import TestCase, randbytes
 
 
@@ -147,3 +148,15 @@ class TestBase(TestCase):
                     crc = CrcClass()
                     crc.process(data)
                     self.assertSequenceEqual(CrcClass.calcbytes(data, byteorder='little'), crc.finalbytes('little'))
+
+    def test_getter(self):
+        """Test if all getter return the underlying value correctly."""
+        for cls in ALLCRCCLASSES_ALIASES + ALLCHECKSUMCLASSES:
+            for attr in ("initvalue", "check_result", "check_data", "width"):
+                for clsorinst in (cls, cls()):
+                    # x.foo() should return x._foo
+                    with self.subTest(clsorinst=clsorinst, attr=attr):
+                        self.assertEqual(getattr(clsorinst, attr)(), getattr(clsorinst, "_" + attr))
+                    # Except x.bytewidth() as it returns a value based on x._width
+                    with self.subTest(clsorinst=clsorinst, attr='bytewidth'):
+                        self.assertGreaterEqual(clsorinst.bytewidth() * 8, getattr(clsorinst, "_width"))

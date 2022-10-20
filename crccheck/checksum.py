@@ -41,6 +41,25 @@ class ChecksumBase(CrccheckBase):
         super(ChecksumBase, self).__init__(initvalue)
         self._byteorder = byteorder
 
+    @classmethod
+    def mask(cls):
+        """Getter for mask."""
+        return cls._mask
+
+    @classmethod
+    def check_result(cls, byteorder='big'):
+        """
+        Getter for check_result.
+        Args:
+            byteorder: Either 'big' (default) or 'little'.
+                       Should only be used as a keyword argument for upwards compatiblity.
+        """
+        if byteorder == 'big':
+            return cls._check_result
+        else:
+            return cls._check_result_littleendian
+
+
     def process(self, data):
         """ Process given data.
 

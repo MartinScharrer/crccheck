@@ -114,3 +114,14 @@ class TestChecksum(TestCase):
         self.assertEqual(checksum.ChecksumXor32.calc(data), checksum.ChecksumXor(32).process(data).final())
         self.assertEqual(checksum.ChecksumXor16.calc(data), checksum.ChecksumXor(16).process(data).final())
         self.assertEqual(checksum.ChecksumXor8.calc(data), checksum.ChecksumXor(8).process(data).final())
+
+    def test_getter(self):
+        """Test if all getter return the underlying value correctly."""
+        for cls in ALLCHECKSUMCLASSES:
+            for clsorinst in (cls, cls()):
+                with self.subTest(clsorinst=clsorinst, attr='mask'):
+                    self.assertEqual(clsorinst.mask(), clsorinst._mask)
+                with self.subTest(clsorinst=clsorinst, attr='check_result'):
+                    self.assertEqual(clsorinst.check_result(), clsorinst._check_result)
+                    self.assertEqual(clsorinst.check_result(byteorder='big'), clsorinst._check_result)
+                    self.assertEqual(clsorinst.check_result(byteorder='little'), clsorinst._check_result_littleendian)

@@ -208,3 +208,12 @@ class TestCrc(TestCase):
 
     def test_aliases(self):
         self.assertTrue(set(ALLCRCCLASSES).issubset(ALLCRCCLASSES_ALIASES))
+
+    def test_getter(self):
+        """Test if all getter return the underlying value correctly."""
+        for cls in ALLCRCCLASSES:
+            for attr in ("poly", "reflect_input", "reflect_output", "xor_output", "residue"):
+                for clsorinst in (cls, cls()):
+                    with self.subTest(clsorinst=clsorinst, attr=attr):
+                        # x.foo() should return x._foo
+                        self.assertEqual(getattr(clsorinst, attr)(), getattr(clsorinst, "_" + attr))

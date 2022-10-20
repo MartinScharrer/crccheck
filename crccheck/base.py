@@ -94,6 +94,29 @@ class CrccheckBase(object):
         else:
             self._value = initvalue
 
+    @classmethod
+    def initvalue(cls):
+        """Getter for initvalue."""
+        return cls._initvalue
+
+    @classmethod
+    def check_result(cls):
+        """Getter for check_result."""
+        return cls._check_result
+
+    @classmethod
+    def check_data(cls):
+        """Getter for check_data."""
+        return cls._check_data
+
+    @classmethod
+    def width(cls):
+        return cls._width
+
+    @classmethod
+    def bytewidth(cls):
+        return (cls._width + 7 ) // 8
+
     def reset(self, value=None):
         """ Reset instance.
 
