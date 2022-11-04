@@ -28,7 +28,7 @@ import sys
 import crccheck
 from crccheck.base import CrccheckError
 from crccheck.crc import ALLCRCCLASSES, ALLCRCCLASSES_ALIASES, \
-    Crc32, Crc, find, identify, \
+    Crc32, Crc, crccls, find, identify, \
     Crc8Base, Crc16Base, Crc32Base
 from tests import TestCase
 
@@ -83,6 +83,15 @@ class TestCrc(TestCase):
     def test_general_crc_fail(self):
         with self.assertRaises(CrccheckError):
             crc = Crc(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, ~0x340BC6D9)
+            crc.selftest()
+
+    def test_general_crccls(self):
+        crc = crccls(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, 0x340BC6D9)
+        crc.selftest()
+
+    def test_general_crccls_fail(self):
+        with self.assertRaises(CrccheckError):
+            crc = crccls(32, 0x4C11DB7, 0xFFFFFFFF, True, True, 0x00000000, ~0x340BC6D9)
             crc.selftest()
 
     def test_backwards_compatible(self):

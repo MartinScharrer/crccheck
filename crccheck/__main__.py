@@ -42,8 +42,30 @@ def usage():
     print(usage.__doc__)
 
 
+def getgenericcrccls(clsstr: str):
+    clsstr = clsstr.strip()
+    if not clsstr.startswith('Crc(') or not clsstr.endswith(')'):
+        raise ValueError('Invalid generic CRC specification!')
+    clsstr = clsstr[4:-1]
+    allargs = [arg.strip() for arg in clsstr.split(',')]
+    kwargs = dict()
+    args = list()
+    for arg in allargs:
+        if '=' in arg:
+            k, v = arg.split('=', 1)
+            kwargs[k.rstrip()] = v.lstrip()
+        else:
+            args.append(arg)
+    try:
+        return crc.crccls(*args, **kwargs)
+    except (AttributeError, ValueError):
+        raise ValueError("Invalid generic CRC specification!")
+
+
 def getcls(clsname):
     """Get CRC/checksum class by name."""
+    if clsname.startswith('Crc('):
+        return getgenericcrccls(clsname)
     for mod in (crc, checksum):
         try:
             cls = getattr(mod, clsname)

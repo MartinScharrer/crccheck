@@ -434,6 +434,41 @@ class Crc32Base(CrcBase):
         return self
 
 
+def _inthex(value):
+    try:
+        return int(value, 0)
+    except TypeError:
+        return int(value)
+
+
+def crccls(width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
+           check_result=0x00, residue=0x00, clsname=None, name=None, basecls=None):
+    if clsname is None:
+        clsname = 'CrcGeneric'
+    if name is None:
+        name = clsname
+
+    if basecls is not None:
+        if not issubclass(basecls, CrcBase):
+            raise ValueError('basecls invalid')
+        elif basecls.width() != width:
+            raise ValueError('basecls has unsuitable width')
+    else:
+        basecls = {32: Crc32Base, 16: Crc16Base, 8: Crc8Base}.get(width, CrcBase)
+
+    return type(str(clsname), (basecls, ), dict(
+        _names = (str(name),),
+        _width = _inthex(width),
+        _poly = _inthex(poly),
+        _initvalue = _inthex(initvalue),
+        _reflect_input = bool(reflect_input),
+        _reflect_output = bool(reflect_output),
+        _xor_output = _inthex(xor_output),
+        _check_result = _inthex(check_result),
+        _residue = _inthex(residue),
+    ))
+
+
 # # # CRC CLASSES # # #
 
 
