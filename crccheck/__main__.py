@@ -105,11 +105,13 @@ def main(args):
             if isbinaryoutput:
                 sys.stdout.buffer.write(result)
             else:
-                print(str(result), end='')
+                print(str(result))
         else:
             mode = 'wb' if isbinaryoutput else 'w'
             with open(outfilename, mode) as fh:
                 fh.write(result)
+                if not isbinaryoutput:
+                    fh.write('\n')
 
     except IndexError:
         print("Invalid number of arguments.")
