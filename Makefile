@@ -50,7 +50,7 @@ doc:
 
 update:
 	@test -z "$$(git status --porcelain crccheck/crc.py)" || (echo "crccheck/crc.py has uncommitted changes. Aborting!" && exit 1)
-	@cd create/; python dl.py > ../crccheck/crc.py
+	@cd create/; python dl.py ../crccheck/crc.py
 	@test -z "$$(git status --porcelain crccheck/crc.py)" || echo "crccheck/crc.py has been updated."
 
 

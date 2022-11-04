@@ -151,6 +151,15 @@ if __name__ == "__main__":
 
     crcs = list()
 
+    with open('../crccheck/crc.py', 'r') as infh:
+        crchead = infh.readlines()
+
+    try:
+        marker = "# # # CRC CLASSES # # #\n"
+        crchead = crchead[:crchead.index(marker)+1]
+    except ValueError:
+        pass
+
     for url in urls:
         response = urllib.request.urlopen(url)
         data = response.read().decode('utf-8')
@@ -167,9 +176,7 @@ if __name__ == "__main__":
     with OutFile(sys.argv, 1) as outfh:
         crcallaliases = []
 
-        with open('crc_head.py', 'r') as infh:
-            outfh.write(infh.read())
-
+        outfh.writelines(crchead)
         outfh.write('\n')
 
         for crc in crcs:

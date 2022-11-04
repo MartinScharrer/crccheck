@@ -434,6 +434,9 @@ class Crc32Base(CrcBase):
         return self
 
 
+# # # CRC CLASSES # # #
+
+
 class Crc3Gsm(CrcBase):
     """CRC-3/GSM"""
     _names = ('CRC-3/GSM',)
