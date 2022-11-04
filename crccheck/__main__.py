@@ -72,7 +72,7 @@ def main(args):
         resultformat = args.pop(0) if args else '-'
         if not (len(resultformat) == 2 and resultformat[0] == '-'):
             infilename = resultformat
-            resultformat = '-H'
+            resultformat = 'H'
         else:
             infilename = args.pop(0) if args else '-'
             resultformat = resultformat[1]
