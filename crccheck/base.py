@@ -263,3 +263,9 @@ class CrccheckBase(object):
         result = cls.calc(data, **kwargs)
         if result != expectedresult:
             raise CrccheckError("{:s}: expected {:s}, got {:s}".format(cls.__name__, hex(expectedresult), hex(result)))
+
+    def copy(self):
+        """Creates a copy of the Crc/Checksum instance. This can be used to efficiently compute the CRC/checksum of data
+           sharing common initial part."""
+        import copy
+        return copy.deepcopy(self)
