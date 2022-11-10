@@ -87,7 +87,7 @@ class CrccheckBase(object):
     _check_data = None
     _width = 0
 
-    def __init__(self, initvalue=None):
+    def __init__(self, initvalue=None, **kwargs):
         if initvalue is None:
             self._value = self._initvalue
         else:
@@ -114,7 +114,7 @@ class CrccheckBase(object):
 
     @classmethod
     def bytewidth(cls):
-        return (cls._width + 7 ) // 8
+        return (cls._width + 7) // 8
 
     def reset(self, value=None):
         """ Reset instance.

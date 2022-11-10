@@ -59,7 +59,6 @@ class ChecksumBase(CrccheckBase):
         else:
             return cls._check_result_littleendian
 
-
     def process(self, data):
         """ Process given data.
 

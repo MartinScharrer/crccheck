@@ -477,7 +477,7 @@ def crccls(width=None, poly=None, initvalue=None, reflect_input=None, reflect_ou
     if residue is not None:
         attr['_residue'] = _inthex(residue)
 
-    return type(str(clsname), (basecls, ), attr)
+    return type(str(clsname), (basecls,), attr)
 
 
 # # # CRC CLASSES # # #

@@ -22,6 +22,7 @@
 
 """
 import sys
+
 from crccheck import crc, checksum, base
 
 
@@ -79,7 +80,7 @@ def getcls(clsname):
     raise ValueError("Unknown class name!")
 
 
-def calcfh(crcinst, fh, blocksize=16*1024*1024):
+def calcfh(crcinst, fh, blocksize=16 * 1024 * 1024):
     while True:
         data = fh.read(blocksize)
         if not data:
