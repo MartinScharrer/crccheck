@@ -441,8 +441,8 @@ def _inthex(value):
         return int(value)
 
 
-def crccls(width, poly, initvalue=0x00, reflect_input=False, reflect_output=False, xor_output=0x00,
-           check_result=0x00, residue=0x00, clsname=None, name=None, basecls=None):
+def crccls(width=None, poly=None, initvalue=None, reflect_input=None, reflect_output=None, xor_output=None,
+           check_result=None, residue=None, clsname=None, name=None, basecls=None):
     if clsname is None:
         clsname = 'CrcGeneric'
     if name is None:
@@ -451,22 +451,33 @@ def crccls(width, poly, initvalue=0x00, reflect_input=False, reflect_output=Fals
     if basecls is not None:
         if not issubclass(basecls, CrcBase):
             raise ValueError('basecls invalid')
-        elif basecls.width() != width:
+        elif width is not None and basecls.width() != width:
             raise ValueError('basecls has unsuitable width')
-    else:
+    elif width is not None:
         basecls = {32: Crc32Base, 16: Crc16Base, 8: Crc8Base}.get(width, CrcBase)
+    else:
+        raise ValueError('Either width or basecls must be given')
 
-    return type(str(clsname), (basecls, ), dict(
-        _names = (str(name),),
-        _width = _inthex(width),
-        _poly = _inthex(poly),
-        _initvalue = _inthex(initvalue),
-        _reflect_input = bool(reflect_input),
-        _reflect_output = bool(reflect_output),
-        _xor_output = _inthex(xor_output),
-        _check_result = _inthex(check_result),
-        _residue = _inthex(residue),
-    ))
+    # Set given attributes only, rest is taken from base class
+    attr = {'_names': (str(name),)}
+    if width is not None:
+        attr['_width'] = _inthex(width)
+    if poly is not None:
+        attr['_poly'] = _inthex(poly)
+    if initvalue is not None:
+        attr['_initvalue'] = _inthex(initvalue)
+    if reflect_input is not None:
+        attr['_reflect_input'] = bool(reflect_input)
+    if reflect_output is not None:
+        attr['_reflect_output'] = bool(reflect_output)
+    if xor_output is not None:
+        attr['_xor_output'] = _inthex(xor_output)
+    if check_result is not None:
+        attr['_check_result'] = _inthex(check_result)
+    if residue is not None:
+        attr['_residue'] = _inthex(residue)
+
+    return type(str(clsname), (basecls, ), attr)
 
 
 # # # CRC CLASSES # # #
