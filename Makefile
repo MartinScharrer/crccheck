@@ -33,8 +33,8 @@ test:
 
 coverage: test
 
-dist:
-	@python setup.py test sdist bdist_wheel
+dist: test
+	@python -m build
 
 
 clean:
