@@ -35,5 +35,7 @@ dependencies = []
 Homepage = "https://github.com/MartinScharrer/crccheck"
 
 [tool.setuptools]
-packages = ["crccheck"]
 include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["crccheck", "crccheck.*"]
