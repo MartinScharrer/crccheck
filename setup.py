@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """ Setup file for crccheck package.
 
   License::
@@ -23,48 +23,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 """
-import os
+from setuptools import setup
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
-
-setup(
-    name='crccheck',
-    description='Calculation library for CRCs and checksums',
-    long_description_content_type='text/x-rst',
-    long_description=read("README.rst"),
-    author='Martin Scharrer',
-    author_email='martin.scharrer@web.de',
-    license='MIT',
-    license_files=['LICENSE.txt'],
-    packages=['crccheck'],
-    test_suite='tests',
-    version='1.3.0',
-    url='https://github.com/MartinScharrer/crccheck',
-    install_requires=[],
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: MIT License",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Information Technology",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Topic :: Scientific/Engineering",
-        "Topic :: Software Development :: Embedded Systems",
-        "Topic :: Utilities",
-    ],
-)
+if __name__ == "__main__":
+    setup()
