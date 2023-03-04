@@ -1,12 +1,11 @@
 # for the license of this file see LICENSE.txt
 
 [build-system]
-requires = ["setuptools>=61.2"]
+requires = ["setuptools>=61.2", "setuptools_scm[toml]>=7"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "crccheck"
-version = "1.3.0"
 authors = [{name = "Martin Scharrer", email = "martin.scharrer@web.de"}]
 license = {text = "MIT"}
 description = "Calculation library for CRCs and checksums"
@@ -30,6 +29,7 @@ classifiers = [
     "Topic :: Utilities",
 ]
 dependencies = []
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/MartinScharrer/crccheck"
@@ -39,3 +39,5 @@ include-package-data = false
 
 [tool.setuptools.packages.find]
 include = ["crccheck", "crccheck.*"]
+
+[tool.setuptools_scm]
