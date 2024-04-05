@@ -187,16 +187,16 @@ def identify(data, crc, width=None, classes=None, one=True):
 
     This function can be used to identify a suitable CRC class if the exact CRC algorithm/parameters
     are not known, but a CRC value is known from some data. Note that this function can be quite
-    time consuming on large data, especially if the given width is not known.
+    time-consuming on large data, especially if the given width is not known.
 
     Args:
         data (bytes): Data to compare with the `crc`.
         crc (int): Known CRC of the given `data`.
-        width (int or None): Known bit width of given `crc`.
+        width (int or None): Known bit-width of given `crc`.
             Providing the width will speed up the identification of the CRC algorithm.
         classes (iterable or None): Listing of classes to check. If None then ALLCRCCLASSES is used.
-        one (bool): If True then only the first found CRC class is retunred.
-            Otherwise a list of all suitable CRC classes.
+        one (bool): If True then only the first found CRC class is returned,
+            otherwise a list of all suitable CRC classes.
 
     Returns:
         If `one` is True:
@@ -226,7 +226,7 @@ class Crc(CrcBase):
     """ Creates a new general (user-defined) CRC calculator instance.
 
         Arguments:
-            width (int): bit width of CRC.
+            width (int): bit-width of CRC.
             poly (int): polynomial of CRC with the top bit omitted.
             initvalue (int): initial value of internal running CRC value. Usually either 0 or (1<<width)-1,
                 i.e. "all-1s".
