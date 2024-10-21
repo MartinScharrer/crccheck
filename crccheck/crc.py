@@ -74,7 +74,7 @@ class CrcBase(CrccheckBase):
         """
         crc = self._value
         highbit = 1 << (self._width - 1)
-        mask = ((highbit - 1) << 1) | 0x1  # done this way to avoid overrun for 64-bit values
+        mask = (1 << self._width) - 1
         poly = self._poly
         shift = self._width - 8
         diff8 = -shift
