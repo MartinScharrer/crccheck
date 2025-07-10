@@ -2156,6 +2156,19 @@ class Crc64Ms(CrcBase):
     _residue = 0x0000000000000000
 
 
+class Crc64Nvme(CrcBase):
+    """CRC-64/NVME"""
+    _names = ('CRC-64/NVME',)
+    _width = 64
+    _poly = 0xad93d23594c93659
+    _initvalue = 0xffffffffffffffff
+    _reflect_input = True
+    _reflect_output = True
+    _xor_output = 0xffffffffffffffff
+    _check_result = 0xae8b14860a799888
+    _residue = 0xf310303b2b6f6e42
+
+
 class Crc64Redis(CrcBase):
     """CRC-64/REDIS"""
     _names = ('CRC-64/REDIS',)
@@ -2227,7 +2240,7 @@ ALLCRCCLASSES = (
     Crc17CanFd, Crc21CanFd, Crc24Ble, Crc24FlexrayA, Crc24FlexrayB, Crc24Interlaken, Crc24LteA, Crc24LteB,
     Crc24Openpgp, Crc24Os9, Crc30Cdma, Crc31Philips, Crc32Aixm, Crc32Autosar, Crc32Base91D, Crc32Bzip2, Crc32CdRomEdc,
     Crc32Cksum, Crc32Iscsi, Crc32IsoHdlc, Crc32Jamcrc, Crc32Mef, Crc32Mpeg2, Crc32Xfer, Crc40Gsm, Crc64Ecma182,
-    Crc64GoIso, Crc64Ms, Crc64Redis, Crc64We, Crc64Xz, Crc82Darc
+    Crc64GoIso, Crc64Ms, Crc64Nvme, Crc64Redis, Crc64We, Crc64Xz, Crc82Darc
 )
 
 ALLCRCCLASSES_ALIASES = (
@@ -2250,5 +2263,5 @@ ALLCRCCLASSES_ALIASES = (
     Crc32Base91D, Crc32D, Crc32d, Crc32Bzip2, Crc32Aal5, Crc32DectB, Crc32B, Crc32CdRomEdc, Crc32Cksum, CrcCksum,
     Crc32Posix, Crc32Iscsi, Crc32Base91C, Crc32Castagnoli, Crc32Interlaken, Crc32C, Crc32c, Crc32IsoHdlc, Crc32,
     Crc32Adccp, Crc32V42, Crc32Xz, CrcPkzip, Crc32Jamcrc, CrcJamcrc, Crc32Mef, Crc32Mpeg2, Crc32Xfer, CrcXfer,
-    Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso, Crc64Ms, Crc64Redis, Crc64We, Crc64Xz, Crc64GoEcma, Crc82Darc
+    Crc40Gsm, Crc64Ecma182, Crc64, Crc64GoIso, Crc64Ms, Crc64Nvme, Crc64Redis, Crc64We, Crc64Xz, Crc64GoEcma, Crc82Darc
 )

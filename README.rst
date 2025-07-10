@@ -19,7 +19,7 @@ The ``crccheck.crc`` module implements all CRCs listed in the
     CRC-24/FLEXRAY-A, CRC-24/FLEXRAY-B, CRC-24/INTERLAKEN, CRC-24/LTE-A, CRC-24/LTE-B, CRC-24/OPENPGP, CRC-24/OS-9,
     CRC-30/CDMA, CRC-31/PHILIPS, CRC-32/AIXM, CRC-32/AUTOSAR, CRC-32/BASE91-D, CRC-32/BZIP2, CRC-32/CD-ROM-EDC,
     CRC-32/CKSUM, CRC-32/ISCSI, CRC-32/ISO-HDLC, CRC-32/JAMCRC, CRC-32/MEF, CRC-32/MPEG-2, CRC-32/XFER, CRC-40/GSM,
-    CRC-64/ECMA-182, CRC-64/GO-ISO, CRC-64/MS, CRC-64/REDIS, CRC-64/WE, CRC-64/XZ, CRC-82/DARC
+    CRC-64/ECMA-182, CRC-64/GO-ISO, CRC-64/MS, CRC-64/NVME, CRC-64/REDIS, CRC-64/WE, CRC-64/XZ, CRC-82/DARC
 
 For the class names simply remove all dashes and slashes from the above names and apply CamelCase, e.g.
 "CRC-32/MPEG-2" is implemented by ``Crc32Mpeg2``. Other CRC can be calculated by using the general class
