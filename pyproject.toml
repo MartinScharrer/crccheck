@@ -16,14 +16,13 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: Information Technology",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 2.7",
-    "Programming Language :: Python :: 3.3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Embedded Systems",
     "Topic :: Utilities",
@@ -36,8 +35,11 @@ Homepage = "https://github.com/MartinScharrer/crccheck"
 
 [tool.setuptools]
 include-package-data = false
+license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
 include = ["crccheck", "crccheck.*"]
 
 [tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "node-and-date"
